@@ -125,7 +125,7 @@ const handleChange1 = (event: any) => {
     e.preventDefault();
     setIsLoading(true);
     setError(null);
-    console.log(headers)
+    
     try {
       
     
@@ -133,7 +133,7 @@ const handleChange1 = (event: any) => {
       , {
         method: 'POST',
         headers: headers,
-        mode:'cors',
+        mode:'no-cors',
         redirect:'follow',
         body: JSON.stringify({
         
