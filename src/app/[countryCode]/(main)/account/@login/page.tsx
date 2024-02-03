@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   description: "Sign in to your Medusa Store account.",
 }
 
-export default function Login() {
-  return <LoginTemplate />
+export default function Login({ searchParams }: { searchParams: any }) {
+
+  return <LoginTemplate token={searchParams.token} />
 }
