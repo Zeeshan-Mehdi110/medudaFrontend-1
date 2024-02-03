@@ -37,7 +37,7 @@ const ResetPassword = ({ setCurrentView }: Props) => {
     };
 
     return (
-        <div className='flex flex-col gap-6 w-3/4 '>
+        <div className='w-full flex flex-col gap-8 justify-center lg:mr-60 '>
             <h1 className='text-center font-semibold text-xl'>Reset Password</h1>
             <h3 className='text-lg'>Enter your email to receive a password reset link if you have an existing account.</h3>
             <Input
