@@ -36,7 +36,7 @@ export default function ChangePassword({ setCurrentView, token }: Props) {
     }
 
 
-    fetch(`https://pixelsjourney/store/customers/password-reset`, {
+    fetch(`https://medudabackend-production.up.railway.app/store/customers/password-reset`, {
       method: "POST",
       credentials: "include",
       headers: {

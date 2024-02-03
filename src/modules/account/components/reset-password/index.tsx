@@ -13,7 +13,7 @@ const ResetPassword = ({ setCurrentView }: Props) => {
     const [error, setError] = useState(false);
 
     const handleResetPassword = () => {
-        fetch(`https://pixelsjourney/store/customers/password-token`, {
+        fetch(`https://medudabackend-production.up.railway.app/store/customers/password-token`, {
           method: "POST",
           credentials: "include",
           headers: {
