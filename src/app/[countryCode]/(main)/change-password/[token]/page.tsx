@@ -29,7 +29,7 @@ export default function ChangePassword() {
     }
 
 
-    fetch(`http://https://medudabackend-production.up.railway.app/store/customers/password-reset`, {
+    fetch(`https://medudabackend-production.up.railway.app/store/customers/password-reset`, {
       method: "POST",
       credentials: "include",
       headers: {
