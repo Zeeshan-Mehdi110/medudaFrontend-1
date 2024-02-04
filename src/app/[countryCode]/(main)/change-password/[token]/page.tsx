@@ -2,21 +2,16 @@
 import { Metadata } from "next"
 import { useRouter } from 'next/navigation';
 import LoginTemplate from "@modules/account/templates/login-template"
-import React, { useEffect, useState } from 'react';
-import { LOGIN_VIEW } from "@modules/account/templates/login-template"
+import React, { useState } from 'react';
+import UnderlineLink from "@modules/common/components/interactive-link"
 import Input from "@modules/common/components/input"
+import { useParams } from "next/navigation";
 
-type Props = {
-  token?:string,
-  setCurrentView: (view: LOGIN_VIEW) => void
-}
 
-export default function ChangePassword({ setCurrentView, token }: Props) {
+export default function ChangePassword() {
   
-  useEffect(() => {
-    setCurrentView(LOGIN_VIEW.CHOOSE_NEW_PASSWORD)
-  },[])
-  const router = useRouter();
+  const params = useParams();
+  const token = params.token;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -24,8 +19,6 @@ export default function ChangePassword({ setCurrentView, token }: Props) {
   const [isErr, setIsErr] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-
-    
 
     event.preventDefault();
 
@@ -36,7 +29,7 @@ export default function ChangePassword({ setCurrentView, token }: Props) {
     }
 
 
-    fetch(`https://medudabackend-production.up.railway.app/store/customers/password-reset`, {
+    fetch(`http://https://medudabackend-production.up.railway.app/store/customers/password-reset`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -66,8 +59,10 @@ export default function ChangePassword({ setCurrentView, token }: Props) {
   };
 
   return (
+    <>
     <div className="w-full flex justify-center lg:mr-60">
-    <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-3 mt-4 mb-6">
+      <h1 className="text-xl font-semibold mt-9">Choose New Password</h1>
       <label htmlFor="email">Email:</label>
       <Input
        id="email"
@@ -113,7 +108,25 @@ export default function ChangePassword({ setCurrentView, token }: Props) {
         <button disabled={isSuccess} onClick={() => setMessage('')} type="submit" className='bg-black text-white w-full mt-6 pt-3 pb-3 rounded-md'>Reset Password</button>
       )}
     </form>
+ 
     </div>
+    <section className="w-full flex justify-center">
+    <div className="flex w-2/4  flex-col small:flex-row items-end justify-between small:border-t border-gray-200 py-12 gap-8">
+          <div>
+            <h3 className="text-xl-semi mb-4">Got questions?</h3>
+            <span className="txt-medium">
+              You can find frequently asked questions and answers on our
+              customer service page.
+            </span>
+          </div>
+          <div>
+            <UnderlineLink href="/customer-service">
+              Customer Service
+            </UnderlineLink>
+          </div>
+        </div>
+        </section>
+    </>
   );
 }
 
