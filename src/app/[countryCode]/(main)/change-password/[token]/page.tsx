@@ -100,7 +100,7 @@ export default function ChangePassword() {
         required
       />
        {message && (
-  <p className={isErr ? "text-red-500" : "text-green-500"}>{message}</p>
+  <p className={isErr ? "text-red-500" : "text-green-500"} style={{maxWidth:'300px'}}>{message}</p>
 )}
       {isSuccess ? (
         <a className="bg-black text-white w-full mt-6 pt-3 pb-3 rounded-md text-center" href='/account'>Go to Homepage</a>
