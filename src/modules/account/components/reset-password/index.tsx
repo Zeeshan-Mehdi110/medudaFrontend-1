@@ -50,8 +50,8 @@ const ResetPassword = ({ setCurrentView }: Props) => {
                 autoComplete="email"
                 required
             />
-            {isSent && !error && <p className='h-14 text-center mt-6 bg-green-200 items-center justify-center flex rounded-lg'>Check your email for the reset link.</p>}
-            {!isSent && error && <p className='h-14 text-center mt-6 bg-red-200 items-center justify-center flex rounded-lg'>There was an error, try again later or contact us.</p>}
+            {isSent && !error && <p className='h-14 text-center mt-6 pr-2 pl-2 bg-green-200 items-center justify-center flex rounded-lg'>Check your email for the reset link.</p>}
+            {!isSent && error && <p className='h-14 text-center mt-6 pr-2 pl-2 bg-red-200 items-center justify-center flex rounded-lg'>There was an error, try again later or contact us.</p>}
           
             <button disabled={isSent && !error} className='bg-black text-white w-full mt-6 pt-3 pb-3 rounded-md' onClick={handleResetPassword}>Reset Password</button>
            
