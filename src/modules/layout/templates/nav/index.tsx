@@ -28,8 +28,7 @@ export default async function Nav() {
               Medusa Store
             </LocalizedClientLink>
           </div>
-
-          <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-end">
+          <div className="flex items-center gap-4 sm:gap-x-6 h-full flex-1 basis-0 justify-end pl-1 sm:pl-0">
             <div className="hidden small:flex items-center gap-x-6 h-full">
               {process.env.FEATURE_SEARCH_ENABLED && (
                 <LocalizedClientLink
