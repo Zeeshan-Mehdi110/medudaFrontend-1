@@ -8,10 +8,14 @@ export function SubmitButton({
   children,
   variant = "primary",
   className,
+  onClick,
+  disabled // Added onClick prop here
 }: {
-  children: React.ReactNode
-  variant?: "primary" | "secondary" | "transparent" | "danger" | null
-  className?: string
+  children: React.ReactNode;
+  variant?: "primary" | "secondary" | "transparent" | "danger" | null;
+  className?: string;
+  onClick?: () => void;
+  disabled?: boolean // Define onClick as an optional prop that is a function returning void
 }) {
   const { pending } = useFormStatus()
 
@@ -22,6 +26,8 @@ export function SubmitButton({
       type="submit"
       isLoading={pending}
       variant={variant}
+      onClick={onClick} 
+      disabled={disabled}// Pass onClick prop to Button component
     >
       {children}
     </Button>

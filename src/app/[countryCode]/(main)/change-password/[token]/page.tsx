@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import UnderlineLink from "@modules/common/components/interactive-link"
 import Input from "@modules/common/components/input"
 import { useParams } from "next/navigation";
+import { SubmitButton } from "@modules/checkout/components/submit-button";
 
 
 export default function ChangePassword() {
@@ -105,7 +106,7 @@ export default function ChangePassword() {
       {isSuccess ? (
         <a className="bg-black text-white w-full mt-6 pt-3 pb-3 rounded-md text-center" href='/account'>Go to Homepage</a>
       ) : (
-        <button disabled={isSuccess} onClick={() => setMessage('')} type="submit" className='bg-black text-white w-full mt-6 pt-3 pb-3 rounded-md'>Reset Password</button>
+        <SubmitButton onClick={() => setMessage('')} disabled={isSuccess} className="w-full mt-6">Reset Password</SubmitButton>
       )}
     </form>
  
