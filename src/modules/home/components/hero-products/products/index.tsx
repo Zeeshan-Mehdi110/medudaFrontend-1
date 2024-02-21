@@ -1,5 +1,5 @@
 "use client";
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { A11y, Autoplay, Navigation, Pagination, Scrollbar } from 'swiper/modules'; // Fix: Import Autoplay from 'swiper' instead of { Autoplay }
 import 'swiper/css'; // Import Swiper styles
@@ -21,7 +21,7 @@ interface Product {
   }
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
-    <div className="product-card rounded-lg max-h-[200px] max-w-[200px] mr-2 flex flex-col bg-white shadow-lg overflow-hidden">
+    <div className="product-card rounded-lg max-h-[200px] max-w-48 mr-2 flex flex-col bg-white shadow-lg overflow-hidden">
     {/* Fixed height for the image container */}
     <div className="h-2/3 overflow-hidden">
       <img src={product.thumbnail} className="w-full h-full object-cover" alt={product.title} />
@@ -44,6 +44,28 @@ interface ProductSliderProps {
 const ProductSlider: React.FC<ProductSliderProps> = ({ products }) => {
 
 
+  const [swiperDirection, setSwiperDirection] = useState<'horizontal' | 'vertical'>('vertical');
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 767) {
+        setSwiperDirection('horizontal');
+      } else {
+        setSwiperDirection('vertical');
+      }
+    };
+
+    // Set initial direction based on the current window size
+    handleResize();
+
+    // Add event listener
+    window.addEventListener('resize', handleResize);
+
+    // Clean up event listener
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+
 
   return ( 
     <>
@@ -59,13 +81,8 @@ const ProductSlider: React.FC<ProductSliderProps> = ({ products }) => {
         reverseDirection:true // Continue autoplay after user interactions
       }}
       loop={true} // Enable looping for infinite scroll effect
-      direction='vertical'
-      breakpoints={{
-        // When window width is <= 767px, change to horizontal
-        767: {
-          direction: 'horizontal',
-        },
-      }} // Change to 'horizontal' if you want a horizontal slider
+      direction={swiperDirection}
+      // Change to 'horizontal' if you want a horizontal slider
     >
         {products.map((product) => (
             //eslint-disable-next-line
