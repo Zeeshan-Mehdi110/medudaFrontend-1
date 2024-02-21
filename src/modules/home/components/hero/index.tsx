@@ -15,16 +15,16 @@ const Hero = () => {
             <Heading level="h2" className="text-3xl leading-10 text-ui-fg-subtle font-normal">
             Where Every Pixel Tells a Story
             </Heading>
-            <a className="mt-4" href="https://github.com/medusajs/nextjs-starter-medusa" target="_blank" rel="noopener noreferrer">
+            {/* <a className="mt-4" href="https://github.com/medusajs/nextjs-starter-medusa" target="_blank" rel="noopener noreferrer">
               <Button variant="secondary">
                 View on GitHub
                 <Github />
               </Button>
-            </a>
+            </a> */}
           </span>
         </div>
       </div>
-      <div className="w-min pl-4 h-full mr-5 flex flex-col float-right gap-2 shadow-xl rounded-lg">
+      <div className="w-full sm:w-min pl-4 h-full mr-5 flex flex-col float-right gap-2 shadow-xl rounded-lg">
           <HeroProducts />
         </div>
     </div>
