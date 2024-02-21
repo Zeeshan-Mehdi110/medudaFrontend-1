@@ -8,7 +8,7 @@ const Hero = () => {
       <div className="h-full w-full border-b border-ui-border-base relative bg-ui-bg-subtle flex justify-center rounded-lg shadow-xl" >
       <img src={couple.src} alt="Background" className="absolute w-full h-full z-0 rounded-lg object-cover" /> 
         <div className="relative w-3/4 inset-0 z-10 flex flex-col justify-center items-center text-center small:p-32 gap-6">
-          <span className="pr-20 sm:pr-0 z-10 relative">
+          <span className="z-10 relative">
             <Heading level="h1" className="text-3xl leading-10 text-ui-fg-base font-normal">
               Pixels Journey
             </Heading>
