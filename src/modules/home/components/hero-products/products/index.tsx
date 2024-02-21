@@ -59,7 +59,7 @@ const ProductSlider: React.FC<ProductSliderProps> = ({ products }) => {
         reverseDirection:true // Continue autoplay after user interactions
       }}
       loop={true} // Enable looping for infinite scroll effect
-      direction={window.innerWidth <= 767 ? 'horizontal' : 'vertical'} // Change to 'horizontal' if you want a horizontal slider
+      direction='vertical'
       breakpoints={{
         // When window width is <= 767px, change to horizontal
         767: {
