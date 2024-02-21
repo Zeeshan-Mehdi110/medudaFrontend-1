@@ -82,6 +82,13 @@ const ProductSlider: React.FC<ProductSliderProps> = ({ products }) => {
       }}
       loop={true} // Enable looping for infinite scroll effect
       direction={swiperDirection}
+      breakpoints={{
+        // When window width is <= 767px
+        767: {
+          slidesPerView: 2,
+          spaceBetween: 10,
+        },
+      }}
       // Change to 'horizontal' if you want a horizontal slider
     >
         {products.map((product) => (
