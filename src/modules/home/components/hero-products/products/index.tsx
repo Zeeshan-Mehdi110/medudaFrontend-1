@@ -72,7 +72,8 @@ const ProductSlider: React.FC<ProductSliderProps> = ({ products }) => {
     <div className='w-full top-2 relative mb-4 flex justify-between items-center'><img src={fire.src} style={{width:'22px'}}/><h2 className="dark:text-white absolute left-6 whitespace-nowrap  dark:bg-transparent text-lg text-center font-bold">The Hottest</h2></div>   
     <Swiper
        modules={[Navigation, Autoplay,Pagination, Scrollbar, A11y]}
-      slidesPerView={3}
+       slidesPerView={'auto'}
+      centeredSlides={true}
       spaceBetween={15}
       autoplay={{
         delay: 2200, // Delay in milliseconds between slides auto change, adjust as needed
