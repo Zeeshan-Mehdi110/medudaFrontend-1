@@ -28,7 +28,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     </div>
     {/* Title and subtitle with padding for spacing */}
     <div className="flex-1 px-2 pb-4 pt-2">
-      <button className="text-sm font-semibold truncate">{product.title}</button>
+      <button className="text-sm font-semibold">{product.title}</button>
       <p className="text-xs truncate">{product.subtitle}</p>
     </div>
   </div>
