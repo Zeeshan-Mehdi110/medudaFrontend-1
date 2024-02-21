@@ -73,7 +73,7 @@ const ProductSlider: React.FC<ProductSliderProps> = ({ products }) => {
     <Swiper
        modules={[Navigation, Autoplay,Pagination, Scrollbar, A11y]}
        slidesPerView={'auto'}
-      centeredSlides={true}
+      // centeredSlides={true}
       spaceBetween={15}
       autoplay={{
         delay: 2200, // Delay in milliseconds between slides auto change, adjust as needed
