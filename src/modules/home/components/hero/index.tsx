@@ -6,7 +6,7 @@ const Hero = () => {
   return (
     <div className="flex flex-col md:flex-row justify-center h-[75vh] gap-4 pr-4 pl-8 mt-4">
       <div className="h-full w-full border-b border-ui-border-base relative bg-ui-bg-subtle flex justify-center rounded-lg shadow-xl" >
-      <img src={couple.src} alt="Background" className="absolute w-full h-full z-0 rounded-lg object-cover" /> 
+      <img src={couple.src} alt="Background" className="absolute w-full h-full z-0 rounded-lg object-fit" /> 
         <div className="relative w-3/4 inset-0 z-10 flex flex-col justify-center items-center text-center small:p-32 gap-6">
           <span className="z-10 relative">
             <Heading level="h1" className="text-3xl leading-10 text-ui-fg-base font-normal">
