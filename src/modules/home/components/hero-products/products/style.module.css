@@ -1,5 +1,7 @@
 .swiperSlide {
     height: 200px !important;
     min-width: 100px !important;
+    width: fit-content !important;
+    max-width: 150px !important;
   }
  
