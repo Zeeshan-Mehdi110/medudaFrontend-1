@@ -73,6 +73,7 @@ const ProductSlider: React.FC<ProductSliderProps> = ({ products }) => {
     <Swiper
        modules={[Navigation, Autoplay,Pagination, Scrollbar, A11y]}
        slidesPerView={'auto'}
+       autoHeight={true}
       // centeredSlides={true}
       spaceBetween={15}
       autoplay={{
