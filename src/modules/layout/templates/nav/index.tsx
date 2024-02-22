@@ -25,7 +25,7 @@ export default async function Nav() {
               href="/"
               className="txt-compact-xlarge-plus hover:text-ui-fg-base uppercase"
             >
-              Medusa Store
+              Pixels Journey
             </LocalizedClientLink>
           </div>
           <div className="flex items-center gap-4 sm:gap-x-6 h-full flex-1 basis-0 justify-end pl-1 sm:pl-0">
