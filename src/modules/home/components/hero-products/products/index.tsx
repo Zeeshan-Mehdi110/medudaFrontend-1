@@ -45,13 +45,15 @@ const ProductSlider: React.FC<ProductSliderProps> = ({ products }) => {
 
 
   const [swiperDirection, setSwiperDirection] = useState<'horizontal' | 'vertical'>('vertical');
-
+  const [swiperHeight, setSwiperHeight] = useState('auto');
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth <= 767) {
         setSwiperDirection('horizontal');
+        setSwiperHeight('auto');
       } else {
         setSwiperDirection('vertical');
+        setSwiperHeight('100%');
       }
     };
 
@@ -73,7 +75,7 @@ const ProductSlider: React.FC<ProductSliderProps> = ({ products }) => {
     <Swiper
        modules={[Navigation, Autoplay,Pagination, Scrollbar, A11y]}
        slidesPerView={'auto'}
-       autoHeight={true}
+       style={{height: swiperHeight}}
       spaceBetween={15}
       autoplay={{
         delay: 2200, // Delay in milliseconds between slides auto change, adjust as needed
