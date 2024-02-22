@@ -24,7 +24,7 @@ const Hero = () => {
           </span> */}
         </div>
       </div>
-      <div className="w-full sm:w-min pl-4 h-full mr-5 flex flex-col float-right gap-2 shadow-xl rounded-lg">
+      <div className="w-full sm:w-min pl-4 h-full mr-5 flex overflow-hidden flex-col float-right gap-2 shadow-xl rounded-lg">
           <HeroProducts />
         </div>
     </div>
