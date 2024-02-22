@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { A11y, Autoplay, Navigation, Pagination, Scrollbar } from 'swiper/modules'; // Fix: Import Autoplay from 'swiper' instead of { Autoplay }
 import 'swiper/css'; // Import Swiper styles
 import style from './style.module.css';
-import fire from '../../../../../../public/fire-icon.gif'; // Fix: Use default import syntax for 'fire.gif'
+import fire from '../../../../../../public/redDot.gif'; // Fix: Use default import syntax for 'fire.gif'
 import LocalizedClientLink from '@modules/common/components/localized-client-link';
 
 // Assuming the rest of your Product and ProductCardProps interfaces remain unchanged

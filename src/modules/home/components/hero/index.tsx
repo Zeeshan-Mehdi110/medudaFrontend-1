@@ -1,7 +1,7 @@
 import { Github } from "@medusajs/icons";
 import { Button, Heading } from "@medusajs/ui";
 import HeroProducts from "../hero-products";
-import heroBanner from "../../../../../public/Pixels Journey.png.png";
+import heroBanner from "../../../../../public/PixelsJourney.png.png";
 const Hero = () => {
   return (
     <div className="flex flex-col md:flex-row justify-center h-[75vh] gap-4 pr-2 pl-2 mt-4">
