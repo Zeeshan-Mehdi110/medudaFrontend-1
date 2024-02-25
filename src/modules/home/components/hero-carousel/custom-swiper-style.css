@@ -1,0 +1,10 @@
+.swiper-button-next::after, .swiper-button-prev::after {
+    font-size: 20px; /* Make the arrow icons smaller */
+    color: white; /* Change the arrow icon color to white */
+}
+
+@media (min-width: 768px) {
+  .swiper-button-next::after, .swiper-button-prev::after {
+    font-size: 30px; /* Make the arrow icons larger on larger screens */
+  }
+}

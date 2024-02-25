@@ -13,7 +13,7 @@ import "swiper/css/pagination" // Pagination module
 import heroBanner from "../../../../../public/PixelsJourney.png"
 import heroBanner2 from "../../../../../public/PixelsJourneyCopy.png"
 import heroBanner3 from "../../../../../public/PixelsJourneyCopy2.png"
-
+import './custom-swiper-style.css';
 const MySwiperComponent = () => {
   return (
     <Swiper
@@ -30,6 +30,7 @@ const MySwiperComponent = () => {
         reverseDirection: true,
       }}
       loop={true}
+      
     >
       <SwiperSlide>
         {" "}
