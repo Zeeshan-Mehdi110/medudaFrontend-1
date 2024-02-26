@@ -2,7 +2,10 @@
     font-size: 20px; /* Make the arrow icons smaller */
     color: white; /* Change the arrow icon color to white */
 }
-
+.swiper-pagination-bullet {
+  background-color: #ffffff; /* White dots */
+  outline: 1px solid #000000; /* Black border around the dots */
+}
 @media (min-width: 768px) {
   .swiper-button-next::after, .swiper-button-prev::after {
     font-size: 30px; /* Make the arrow icons larger on larger screens */
