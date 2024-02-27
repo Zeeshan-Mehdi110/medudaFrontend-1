@@ -21,7 +21,7 @@ const Review = ({
     cart.payment_session
 
   return (
-    <div className="bg-white">
+    <div className="bg-white dark:text-white dark:bg-black">
       <div className="flex flex-row items-center justify-between mb-6">
         <Heading
           level="h2"

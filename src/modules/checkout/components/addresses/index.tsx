@@ -50,8 +50,8 @@ const Addresses = ({
   const [message, formAction] = useFormState(setAddresses, null)
 
   return (
-    <div className="bg-white">
-      <div className="flex flex-row items-center justify-between mb-6">
+    <div className="bg-white dark:text-white dark:bg-black">
+      <div className="flex flex-row items-center justify-between mb-6 ">
         <Heading
           level="h2"
           className="flex flex-row text-3xl-regular gap-x-2 items-baseline"

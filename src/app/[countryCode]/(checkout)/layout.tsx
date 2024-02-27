@@ -8,8 +8,8 @@ export default function CheckoutLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="w-full bg-white relative small:min-h-screen">
-      <div className="h-16 bg-white border-b ">
+    <div className="w-full bg-white dark:text-white dark:bg-black relative small:min-h-screen ">
+      <div className="h-16 bg-white dark:text-white dark:bg-black border-b ">
         <nav className="flex h-full items-center content-container justify-between">
           <LocalizedClientLink
             href="/cart"
@@ -27,7 +27,7 @@ export default function CheckoutLayout({
             href="/"
             className="txt-compact-xlarge-plus text-ui-fg-subtle hover:text-ui-fg-base uppercase"
           >
-           Pixels Journey
+            Medusa Store
           </LocalizedClientLink>
           <div className="flex-1 basis-0" />
         </nav>
