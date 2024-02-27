@@ -125,7 +125,14 @@ export default function ProductActions({
       <div className="flex flex-col gap-y-2" ref={actionsRef}>
         <div>
           {product.variants.length > 1 && (
-            <div className="flex flex-col gap-y-4">
+            <div className="flex flex-col gap-y-4 dark:text-white">
+                 {product.variants.map(function (productVar, index) {
+                return (
+                  variant?.id === productVar.id && (productVar.length && productVar.width) && <div key={index}>{`${productVar.length ?? 0}cm x ${
+                    productVar.width ?? 0
+                  }cm`}</div>
+                )
+              })}
               {(product.options || []).map((option) => {
                 return (
                   <div key={option.id}>
@@ -149,7 +156,7 @@ export default function ProductActions({
           onClick={handleAddToCart}
           disabled={!inStock || !variant}
           variant="primary"
-          className="w-full h-10"
+          className="w-full h-10 dark:text-white"
           isLoading={isAdding}
         >
           {!variant
