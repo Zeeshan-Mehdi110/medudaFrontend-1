@@ -47,6 +47,7 @@ const ImageOrPlaceholder = ({
   image,
   size,
 }: Pick<ThumbnailProps, "size"> & { image?: string }) => {
+  const isPriority = image?.includes('pixelsjourney');
   return image ? (
     <Image
       src={image}
@@ -56,6 +57,7 @@ const ImageOrPlaceholder = ({
       quality={50}
       sizes="(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 992px) 480px, 800px"
       fill
+      {...(isPriority ? { priority: true } : {})}
     />
   ) : (
     <div className="w-full h-full absolute inset-0 flex items-center justify-center">
