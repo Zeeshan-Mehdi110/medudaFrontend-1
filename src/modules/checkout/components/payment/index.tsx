@@ -133,7 +133,7 @@ const handleChange1 = (event: any) => {
       , {
         method: 'POST',
         headers: headers,
-        mode:'no-cors',
+        mode:'cors',
         redirect:'follow',
         body: JSON.stringify({
         
