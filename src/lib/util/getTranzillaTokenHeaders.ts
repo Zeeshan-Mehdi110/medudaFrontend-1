@@ -11,7 +11,7 @@ function makeid(length: number) {
   return result
 }
 
-var time = Math.round((new Date()).getTime() / 1000);
+var time = Math.floor(Date.now() / 1000);
 var nonce =
   "949ea362891adfe9085057c4560ef1142cbe9893817343b9bad71407e977a7d4ab67ad075d5d71b3"
 var key =
