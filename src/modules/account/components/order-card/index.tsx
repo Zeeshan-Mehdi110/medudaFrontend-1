@@ -5,7 +5,7 @@ import { useMemo } from "react"
 import Thumbnail from "@modules/products/components/thumbnail"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import { formatAmount } from "@lib/util/prices"
-
+import { useTranslation } from "react-i18next"
 type OrderCardProps = {
   order: Omit<Order, "beforeInsert">
 }
@@ -20,7 +20,7 @@ const OrderCard = ({ order }: OrderCardProps) => {
   const numberOfProducts = useMemo(() => {
     return order.items.length
   }, [order])
-
+const { t } = useTranslation();
   return (
     <div className="bg-white flex flex-col">
       <div className="uppercase text-large-semi mb-1">#{order.display_id}</div>
@@ -36,7 +36,7 @@ const OrderCard = ({ order }: OrderCardProps) => {
           })}
         </span>
         <span className="pl-2">{`${numberOfLines} ${
-          numberOfLines > 1 ? "items" : "item"
+          numberOfLines > 1 ? t("items") : t("item")
         }`}</span>
       </div>
       <div className="grid grid-cols-2 small:grid-cols-4 gap-4 my-4">
@@ -57,13 +57,13 @@ const OrderCard = ({ order }: OrderCardProps) => {
             <span className="text-small-regular text-ui-fg-base">
               + {numberOfLines - 4}
             </span>
-            <span className="text-small-regular text-ui-fg-base">more</span>
+            <span className="text-small-regular text-ui-fg-base">{t("more")}</span>
           </div>
         )}
       </div>
       <div className="flex justify-end">
         <LocalizedClientLink href={`/account/orders/details/${order.id}`}>
-          <Button variant="secondary">See details</Button>
+          <Button variant="secondary">{t("see-details")}</Button>
         </LocalizedClientLink>
       </div>
     </div>

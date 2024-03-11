@@ -4,6 +4,8 @@ import NativeSelect, {
   NativeSelectProps,
 } from "@modules/common/components/native-select"
 import { Region } from "@medusajs/medusa"
+import { useTranslation } from "react-i18next"
+
 
 const CountrySelect = forwardRef<
   HTMLSelectElement,
@@ -17,7 +19,7 @@ const CountrySelect = forwardRef<
     ref,
     () => innerRef.current
   )
-
+  const {t} = useTranslation()
   const countryOptions = useMemo(() => {
     if (!region) {
       return []
@@ -32,7 +34,7 @@ const CountrySelect = forwardRef<
   return (
     <NativeSelect
       ref={innerRef}
-      placeholder={placeholder}
+      placeholder={t("country")}
       defaultValue={defaultValue}
       {...props}
     >

@@ -5,6 +5,7 @@ import Input from "@modules/common/components/input"
 import { logCustomerIn } from "@modules/account/actions"
 import ErrorMessage from "@modules/checkout/components/error-message"
 import { SubmitButton } from "@modules/checkout/components/submit-button"
+import { useTranslation } from "react-i18next"
 
 type Props = {
   setCurrentView: (view: LOGIN_VIEW) => void
@@ -12,25 +13,26 @@ type Props = {
 
 const Login = ({ setCurrentView }: Props) => {
   const [message, formAction] = useFormState(logCustomerIn, null)
+const {t} = useTranslation()
 
   return (
     <div className="max-w-sm w-full flex flex-col items-center">
-      <h1 className="text-large-semi uppercase mb-6">Welcome back</h1>
+      <h1 className="text-large-semi uppercase mb-6">{t("profile:title")}</h1>
       <p className="text-center text-base-regular text-ui-fg-base mb-8">
-        Sign in to access an enhanced shopping experience.
+      {t("profile:subtitle")}
       </p>
       <form className="w-full" action={formAction}>
         <div className="flex flex-col w-full gap-y-2">
           <Input
-            label="Email"
+            label={t("email")}
             name="email"
             type="email"
-            title="Enter a valid email address."
+            title={t("enter-a-valid-email-address")}
             autoComplete="email"
             required
           />
           <Input
-            label="Password"
+            label={t("password")}
             name="password"
             type="password"
             autoComplete="current-password"
@@ -38,9 +40,9 @@ const Login = ({ setCurrentView }: Props) => {
           />
         </div>
         <ErrorMessage error={message} />
-        <SubmitButton className="w-full mt-6">Sign in</SubmitButton>
+        <SubmitButton className="w-full mt-6">{t("sign-in")}</SubmitButton>
       </form>
-      <span className="text-center w-full text-lg mt-4">Or</span>
+      <span className="text-center w-full text-lg mt-4">{t("or")}</span>
       <a
         type="button"
         href="https://backend.pixelsjourney.com/store/auth/google"
@@ -61,25 +63,25 @@ const Login = ({ setCurrentView }: Props) => {
             d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"
           ></path>
         </svg>
-        Sign in with Google
+        {t("sign-in-with-google")}
       </a>
       <span className="text-center text-ui-fg-base text-small-regular mt-6">
-        Forgot your password?{" "}
+       {t("password_forgot")}{" "}
         <button
           onClick={() => setCurrentView(LOGIN_VIEW.RESET_PASSWORD)}
           className="underline"
         >
-          Reset password
+          {t("password_reset")}
         </button>
         .
       </span>
       <span className="text-center text-ui-fg-base text-small-regular mt-6">
-        Not a member?{" "}
+        {t("new-member")}{" "}
         <button
           onClick={() => setCurrentView(LOGIN_VIEW.REGISTER)}
           className="underline"
         >
-          Join us
+          {t("join-us")}
         </button>
         .
       </span>

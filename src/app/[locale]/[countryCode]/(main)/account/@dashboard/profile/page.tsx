@@ -5,8 +5,8 @@ import ProfileBillingAddress from "@modules/account/components/profile-billing-a
 import ProfileEmail from "@modules/account/components/profile-email"
 import ProfileName from "@modules/account/components/profile-name"
 import ProfilePassword from "@modules/account/components/profile-password"
-
-import { getCustomer, listRegions } from "@lib/data"
+import initTranslations from "app/i18n"
+import { getCustomer, getLang, listRegions } from "@lib/data"
 import { notFound } from "next/navigation"
 
 export const metadata: Metadata = {
@@ -17,7 +17,8 @@ export const metadata: Metadata = {
 export default async function Profile() {
   const customer = await getCustomer()
   const regions = await listRegions()
-
+  const locale = getLang()
+  const { t } = await initTranslations(locale, ["common"])
   if (!customer || !regions) {
     notFound()
   }
@@ -25,12 +26,8 @@ export default async function Profile() {
   return (
     <div className="w-full">
       <div className="mb-8 flex flex-col gap-y-4">
-        <h1 className="text-2xl-semi">Profile</h1>
-        <p className="text-base-regular">
-          View and update your profile information, including your name, email,
-          and phone number. You can also update your billing address, or change
-          your password.
-        </p>
+        <h1 className="text-2xl-semi"> {t("profile")}</h1>
+        <p className="text-base-regular">{t("update-profile-info")}</p>
       </div>
       <div className="flex flex-col gap-y-8 w-full">
         <ProfileName customer={customer} />

@@ -12,11 +12,11 @@ import Input from "@modules/common/components/input"
 import Modal from "@modules/common/components/modal"
 import { SubmitButton } from "@modules/checkout/components/submit-button"
 import { addCustomerShippingAddress } from "@modules/account/actions"
-
+import{ useTranslation } from "react-i18next"
 const AddAddress = ({ region }: { region: Region }) => {
   const [successState, setSuccessState] = useState(false)
   const { state, open, close: closeModal } = useToggleState(false)
-
+const { t } = useTranslation();
   const [formState, formAction] = useFormState(addCustomerShippingAddress, {
     success: false,
     error: null,
@@ -46,63 +46,63 @@ const AddAddress = ({ region }: { region: Region }) => {
         className="border border-ui-border-base rounded-rounded p-5 min-h-[220px] h-full w-full flex flex-col justify-between"
         onClick={open}
       >
-        <span className="text-base-semi">New address</span>
+        <span className="text-base-semi">{t("new-address")}</span>
         <Plus />
       </button>
 
       <Modal isOpen={state} close={close}>
         <Modal.Title>
-          <Heading className="mb-2">Add address</Heading>
+          <Heading className="mb-2">{t("add-address")}</Heading>
         </Modal.Title>
         <form action={formAction}>
           <Modal.Body>
             <div className="flex flex-col gap-y-2">
               <div className="grid grid-cols-2 gap-x-2">
                 <Input
-                  label="First name"
+                  label={t("first-name")}
                   name="first_name"
                   required
                   autoComplete="given-name"
                 />
                 <Input
-                  label="Last name"
+                  label={t("last-name")}
                   name="last_name"
                   required
                   autoComplete="family-name"
                 />
               </div>
               <Input
-                label="Company"
+                label={t("company")}
                 name="company"
                 autoComplete="organization"
               />
               <Input
-                label="Address"
+                label={t("address")}
                 name="address_1"
                 required
                 autoComplete="address-line1"
               />
               <Input
-                label="Apartment, suite, etc."
+                label={t("apartment-suite-etc")}
                 name="address_2"
                 autoComplete="address-line2"
               />
               <div className="grid grid-cols-[144px_1fr] gap-x-2">
                 <Input
-                  label="Postal code"
+                  label={t("postal")}
                   name="postal_code"
                   required
                   autoComplete="postal-code"
                 />
                 <Input
-                  label="City"
+                  label={t("city")}
                   name="city"
                   required
                   autoComplete="locality"
                 />
               </div>
               <Input
-                label="Province / State"
+                label={t("state/province")}
                 name="province"
                 autoComplete="address-level1"
               />
@@ -112,7 +112,7 @@ const AddAddress = ({ region }: { region: Region }) => {
                 required
                 autoComplete="country"
               />
-              <Input label="Phone" name="phone" autoComplete="phone" />
+              <Input label={t("phone")} name="phone" autoComplete="phone" />
             </div>
             {formState.error && (
               <div className="text-rose-500 text-small-regular py-2">
@@ -128,9 +128,9 @@ const AddAddress = ({ region }: { region: Region }) => {
                 onClick={close}
                 className="h-10"
               >
-                Cancel
+                {t("cancel")}
               </Button>
-              <SubmitButton>Save</SubmitButton>
+              <SubmitButton>{t("save")}</SubmitButton>
             </div>
           </Modal.Footer>
         </form>

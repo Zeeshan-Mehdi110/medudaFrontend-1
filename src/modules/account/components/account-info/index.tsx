@@ -1,7 +1,7 @@
 import { Disclosure } from "@headlessui/react"
 import { Badge, Button, clx } from "@medusajs/ui"
 import { useEffect } from "react"
-
+import { useTranslation } from "react-i18next"
 import useToggleState from "@lib/hooks/use-toggle-state"
 import { useFormStatus } from "react-dom"
 
@@ -25,7 +25,7 @@ const AccountInfo = ({
   children,
 }: AccountInfoProps) => {
   const { state, close, toggle } = useToggleState()
-
+const {t} = useTranslation()
   const { pending } = useFormStatus()
 
   const handleToggle = () => {
@@ -59,7 +59,7 @@ const AccountInfo = ({
             onClick={handleToggle}
             type={state ? "reset" : "button"}
           >
-            {state ? "Cancel" : "Edit"}
+            {state ? t("cancel") : t("edit")}
           </Button>
         </div>
       </div>
@@ -77,7 +77,7 @@ const AccountInfo = ({
           )}
         >
           <Badge className="p-2 my-4" color="green">
-            <span>{label} updated succesfully</span>
+            <span>{label} {t("updated-successfully")}</span>
           </Badge>
         </Disclosure.Panel>
       </Disclosure>
@@ -95,7 +95,7 @@ const AccountInfo = ({
           )}
         >
           <Badge className="p-2 my-4" color="red">
-            <span>{errorMessage}</span>
+            <span>{t("error-message")}</span>
           </Badge>
         </Disclosure.Panel>
       </Disclosure>
@@ -119,7 +119,7 @@ const AccountInfo = ({
                 className="w-full small:max-w-[140px]"
                 type="submit"
               >
-                Save changes
+               {t("save-changes")}
               </Button>
             </div>
           </div>

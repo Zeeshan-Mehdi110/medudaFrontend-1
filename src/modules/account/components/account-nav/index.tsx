@@ -11,7 +11,7 @@ import User from "@modules/common/icons/user"
 import MapPin from "@modules/common/icons/map-pin"
 import Package from "@modules/common/icons/package"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
-
+import{ useTranslation } from "react-i18next"
 const AccountNav = ({
   customer,
 }: {
@@ -19,7 +19,7 @@ const AccountNav = ({
 }) => {
   const route = usePathname()
   const { countryCode } = useParams()
-
+const { t } = useTranslation()
   const handleLogout = async () => {
     await signOut()
   }
@@ -34,13 +34,13 @@ const AccountNav = ({
           >
             <>
               <ChevronDown className="transform rotate-90" />
-              <span>Account</span>
+              <span>{t("account")}</span>
             </>
           </LocalizedClientLink>
         ) : (
           <>
             <div className="text-xl-semi mb-4 px-8">
-              Hello {customer?.first_name}
+            {t("hello")} {customer?.first_name}
             </div>
             <div className="text-base-regular">
               <ul>
@@ -52,7 +52,7 @@ const AccountNav = ({
                     <>
                       <div className="flex items-center gap-x-2">
                         <User size={20} />
-                        <span>Profile</span>
+                        <span>{t("profile")}</span>
                       </div>
                       <ChevronDown className="transform -rotate-90" />
                     </>
@@ -66,7 +66,7 @@ const AccountNav = ({
                     <>
                       <div className="flex items-center gap-x-2">
                         <MapPin size={20} />
-                        <span>Addresses</span>
+                        <span>{t("addresses")}</span>
                       </div>
                       <ChevronDown className="transform -rotate-90" />
                     </>
@@ -79,7 +79,7 @@ const AccountNav = ({
                   >
                     <div className="flex items-center gap-x-2">
                       <Package size={20} />
-                      <span>Orders</span>
+                      <span>{t("orders")}</span>
                     </div>
                     <ChevronDown className="transform -rotate-90" />
                   </LocalizedClientLink>
@@ -92,7 +92,7 @@ const AccountNav = ({
                   >
                     <div className="flex items-center gap-x-2">
                       <ArrowRightOnRectangle />
-                      <span>Log out</span>
+                      <span>{t("logout")}</span>
                     </div>
                     <ChevronDown className="transform -rotate-90" />
                   </button>
@@ -105,33 +105,33 @@ const AccountNav = ({
       <div className="hidden small:block">
         <div>
           <div className="pb-4">
-            <h3 className="text-base-semi">Account</h3>
+            <h3 className="text-base-semi">{t("account")}</h3>
           </div>
           <div className="text-base-regular">
             <ul className="flex mb-0 justify-start items-start flex-col gap-y-4">
               <li>
                 <AccountNavLink href="/account" route={route!}>
-                  Overview
+                {t("overview")}
                 </AccountNavLink>
               </li>
               <li>
                 <AccountNavLink href="/account/profile" route={route!}>
-                  Profile
+                {t("profile")}
                 </AccountNavLink>
               </li>
               <li>
                 <AccountNavLink href="/account/addresses" route={route!}>
-                  Addresses
+                {t("addresses")}
                 </AccountNavLink>
               </li>
               <li>
                 <AccountNavLink href="/account/orders" route={route!}>
-                  Orders
+                {t("orders")}
                 </AccountNavLink>
               </li>
               <li className="text-grey-700">
                 <button type="button" onClick={handleLogout}>
-                  Log out
+                {t("logout")}
                 </button>
               </li>
             </ul>

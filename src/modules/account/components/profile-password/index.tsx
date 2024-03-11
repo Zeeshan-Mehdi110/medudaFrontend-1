@@ -8,7 +8,7 @@ import Input from "@modules/common/components/input"
 import AccountInfo from "../account-info"
 import { updateCustomerPassword } from "@modules/account/actions"
 import { useFormState } from "react-dom"
-
+import{ useTranslation } from "react-i18next"
 type MyInformationProps = {
   customer: Omit<Customer, "password_hash">
 }
@@ -21,7 +21,7 @@ const ProfileName: React.FC<MyInformationProps> = ({ customer }) => {
     success: false,
     error: false,
   })
-
+  const { t } = useTranslation()
   const clearState = () => {
     setSuccessState(false)
   }
@@ -33,9 +33,9 @@ const ProfileName: React.FC<MyInformationProps> = ({ customer }) => {
   return (
     <form action={formAction} onReset={() => clearState()} className="w-full">
       <AccountInfo
-        label="Password"
+       label={t("password")}
         currentInfo={
-          <span>The password is not shown for security reasons</span>
+          <span>{t("password-not-shown")}</span>
         }
         isSuccess={successState}
         isError={!!state.error}
@@ -44,19 +44,19 @@ const ProfileName: React.FC<MyInformationProps> = ({ customer }) => {
       >
         <div className="grid grid-cols-2 gap-4">
           <Input
-            label="Old password"
+            label={t("password_old")}
             name="old_password"
             required
             type="password"
           />
           <Input
-            label="New password"
+             label={t("password_new")}
             type="password"
             name="new_password"
             required
           />
           <Input
-            label="Confirm password"
+             label={t("password_confirm")}
             type="password"
             name="confirm_password"
             required

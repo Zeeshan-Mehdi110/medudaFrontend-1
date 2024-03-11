@@ -50,6 +50,14 @@ const getMedusaHeaders = (tags: string[] = []) => {
   return headers
 }
 
+
+export const getLang = () => {
+  
+  const token = cookies().get("lang")?.value
+  return token
+}
+
+
 // Cart actions
 export async function createCart(data = {}) {
   const headers = getMedusaHeaders(["cart"])
@@ -245,6 +253,7 @@ export async function getToken(credentials: StorePostAuthReq) {
       },
     })
     .then(({ access_token }) => {
+      console.log("access_token", access_token);
       access_token && cookies().set("_medusa_jwt", access_token)
       return access_token
     })

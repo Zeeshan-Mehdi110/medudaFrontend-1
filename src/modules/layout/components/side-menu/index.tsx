@@ -5,9 +5,16 @@ import { ArrowRightMini, XMark } from "@medusajs/icons"
 import { Region } from "@medusajs/medusa"
 import { Text, clx, useToggleState } from "@medusajs/ui"
 import { Fragment } from "react"
-
+import { useTranslation } from "react-i18next"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CountrySelect from "../country-select"
+
+
+
+const SideMenu = ({ regions}: { regions: Region[] | null }) => {
+  const toggleState = useToggleState()
+const { t } = useTranslation()
+
 
 const SideMenuItems = {
   Home: "/",
@@ -17,8 +24,6 @@ const SideMenuItems = {
   Cart: "/cart",
 }
 
-const SideMenu = ({ regions }: { regions: Region[] | null }) => {
-  const toggleState = useToggleState()
 
   return (
     <div className="h-full">
@@ -28,7 +33,7 @@ const SideMenu = ({ regions }: { regions: Region[] | null }) => {
             <>
               <div className="relative flex h-full">
                 <Popover.Button className="relative h-full flex items-center transition-all ease-out duration-200 focus:outline-none hover:text-ui-fg-base">
-                  Menu
+                  {t("menu")}
                 </Popover.Button>
               </div>
 
@@ -58,7 +63,7 @@ const SideMenu = ({ regions }: { regions: Region[] | null }) => {
                               className="text-3xl leading-10 hover:text-ui-fg-disabled"
                               onClick={close}
                             >
-                              {name}
+                              {t(name.toLowerCase())}
                             </LocalizedClientLink>
                           </li>
                         )
@@ -84,8 +89,7 @@ const SideMenu = ({ regions }: { regions: Region[] | null }) => {
                         />
                       </div>
                       <Text className="flex justify-between txt-compact-small">
-                        © {new Date().getFullYear()} Medusa Store. All rights
-                        reserved.
+                        © {new Date().getFullYear()} {t("copyright")}
                       </Text>
                     </div>
                   </div>

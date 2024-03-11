@@ -1,7 +1,15 @@
+
+"use client"
 import React, { useState } from 'react';
+import { useFormState } from "react-dom"
+
 import { LOGIN_VIEW } from "@modules/account/templates/login-template"
 import Input from "@modules/common/components/input"
-import { SubmitButton } from '@modules/checkout/components/submit-button';
+import { logCustomerIn } from "@modules/account/actions"
+import ErrorMessage from "@modules/checkout/components/error-message"
+import { SubmitButton } from "@modules/checkout/components/submit-button"
+import Medusa from "@medusajs/medusa-js"
+import { useTranslation } from "react-i18next"
 type Props = {
   setCurrentView: (view: LOGIN_VIEW) => void
 }
@@ -12,7 +20,7 @@ const ResetPassword = ({ setCurrentView }: Props) => {
     const [email, setEmail] = useState('');
     const [isSent, setIsSent] = useState(false);
     const [error, setError] = useState(false);
-
+    const { t } = useTranslation()
     const handleResetPassword = () => {
         fetch(`https://medudabackend-production.up.railway.app/store/customers/password-token`, {
           method: "POST",
@@ -28,7 +36,7 @@ const ResetPassword = ({ setCurrentView }: Props) => {
             setIsSent(true);
             setError(false);
           } else {
-            throw new Error('Failed to send reset email');
+            throw new Error(t("failed-to-send-reset-email"));
           }
         })
         .catch(() => {
@@ -38,24 +46,24 @@ const ResetPassword = ({ setCurrentView }: Props) => {
     };
 
     return (
-        <div className='w-full flex flex-col gap-8 justify-center lg:mr-60 '>
-            <h1 className='text-center font-semibold text-xl'>Reset Password</h1>
-            <h3 className='text-lg'>Enter your email to receive a password reset link if you have an existing account.</h3>
+        <div className='flex flex-col gap-6 w-3/4 '>
+            <h1 className='text-center font-semibold text-xl'>{t("password_reset")}</h1>
+            <h3 className='text-lg'>{t("enter-email-for-password-reset")}</h3>
             <Input
-                label="Email"
+                label={t("email")}
                 name="email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                title="Enter a valid email address."
+                title={t("enter-a-valid-email-address")}
                 autoComplete="email"
                 required
             />
-            {isSent && !error && <p className='h-14 text-center mt-6 pr-2 pl-2 bg-green-200 items-center justify-center flex rounded-lg'>Check your email for the reset link.</p>}
-            {!isSent && error && <p className='h-14 text-center mt-6 pr-2 pl-2 bg-red-200 items-center justify-center flex rounded-lg'>There was an error, try again later or contact us.</p>}
+            {isSent && !error && <p className='h-14 text-center mt-6 bg-green-200 items-center justify-center flex rounded-lg'> {t("check-email-reset-link")}</p>}
+            {!isSent && error && <p className='h-14 text-center mt-6 bg-red-200 items-center justify-center flex rounded-lg'> {t("error-try-again-contact")}</p>}
           
-         
-            <SubmitButton onClick={handleResetPassword} disabled={isSent && !error} className="w-full mt-6">Reset Password</SubmitButton>
+            <button disabled={isSent && !error} className='bg-black text-white w-full mt-6 pt-3 pb-3 rounded-md' onClick={handleResetPassword}>{t("password_reset")}</button>
+           
          
         </div>
     );

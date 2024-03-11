@@ -1,6 +1,11 @@
-import { Region } from "@medusajs/medusa"
-import { NextRequest, NextResponse } from "next/server"
 
+import { Region } from "@medusajs/medusa"
+import { set } from "lodash";
+import { NextRequest, NextResponse } from "next/server"
+import {i18nRouter} from 'next-i18n-router';
+import i18nConfig from '../i18nConfig';
+import createMiddleware from 'next-intl/middleware';
+import { is } from "cypress/types/bluebird";
 const BACKEND_URL = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL
 const DEFAULT_REGION = process.env.NEXT_PUBLIC_DEFAULT_REGION || "us"
 
@@ -9,6 +14,16 @@ const DEFAULT_REGION = process.env.NEXT_PUBLIC_DEFAULT_REGION || "us"
  * @param request
  * @param response
  */
+
+const locales = ['en', 'he', 'ru'];
+
+ const nextIntl =  createMiddleware({
+  locales: locales,
+
+  defaultLocale: 'en'
+});
+
+
 async function getCountryCode(
   request: NextRequest,
   regionMap: Map<string, Region>
@@ -75,19 +90,23 @@ async function listCountries() {
  * Middleware to handle region selection and onboarding status.
  */
 export async function middleware(request: NextRequest) {
+
+  var t = nextIntl(request);
   const searchParams = request.nextUrl.searchParams
   const isOnboarding = searchParams.get("onboarding") === "true"
   const onboardingCookie = request.cookies.get("_medusa_onboarding")
-
   const regionMap = await listCountries()
-
-  const countryCode = regionMap && (await getCountryCode(request, regionMap))
-
+  let s = request.cookies.get("NEXT_LOCALE")?.value ?? "he";
+  s = locales.includes(s) ? s : "he";
+  let countryCode = regionMap && (await getCountryCode(request, regionMap))
+  const isDiffCountryCode = request.nextUrl.pathname.split("/")[2]?.toLowerCase();
+  countryCode = isDiffCountryCode && regionMap?.has(isDiffCountryCode) && isDiffCountryCode !== countryCode ? isDiffCountryCode : countryCode;
   const urlHasCountryCode =
-    countryCode && request.nextUrl.pathname.split("/")[1].includes(countryCode)
+    countryCode && request.nextUrl.pathname.split("/")[2]?.includes(countryCode)
 
   // check if one of the country codes is in the url
   if (urlHasCountryCode && (!isOnboarding || onboardingCookie)) {
+
     return NextResponse.next()
   }
 
@@ -95,13 +114,22 @@ export async function middleware(request: NextRequest) {
 
   // If no country code is set, we redirect to the relevant region.
   if (!urlHasCountryCode && countryCode) {
+    const pathSegments = request.nextUrl.pathname.split('/');
+    pathSegments.splice(0, 2);
+    const newPathname = '/' + pathSegments.join('/');
     const redirectPath =
-      request.nextUrl.pathname === "/" ? "" : request.nextUrl.pathname
+    newPathname === "/" ? "" : newPathname
+ 
+  
 
-    response = NextResponse.redirect(
-      `${request.nextUrl.origin}/${countryCode}${redirectPath}`,
+    response = redirectPath === "" ?  NextResponse.redirect(
+      `${request.nextUrl.origin}/${s}/${countryCode}`,
+      307
+    ) : NextResponse.redirect(
+      `${request.nextUrl.origin}/${s}/${countryCode}/${redirectPath}`,
       307
     )
+
   }
 
   // Set a cookie to indicate that we're onboarding. This is used to show the onboarding flow.
@@ -109,9 +137,17 @@ export async function middleware(request: NextRequest) {
     response.cookies.set("_medusa_onboarding", "true", { maxAge: 60 * 60 * 24 })
   }
 
-  return response
+  return response;
 }
 
 export const config = {
-  matcher: ["/((?!api|_next/static|favicon.ico).*)"],
+   matcher: [
+    // Exclude specific paths
+    "/((?!api|_next/static|favicon.ico).*)",
+    // Include root and paths starting with specific locales
+    "/",
+    "/(en|he|ru)/:path*"
+  ],
 }
+
+

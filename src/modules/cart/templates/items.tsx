@@ -1,6 +1,7 @@
+import { getLang } from "@lib/data"
 import { LineItem, Region } from "@medusajs/medusa"
 import { Heading, Table } from "@medusajs/ui"
-
+import initTranslations from "../../../app/i18n"
 import Item from "@modules/cart/components/item"
 import SkeletonLineItem from "@modules/skeletons/components/skeleton-line-item"
 
@@ -9,23 +10,26 @@ type ItemsTemplateProps = {
   region?: Region
 }
 
-const ItemsTemplate = ({ items, region }: ItemsTemplateProps) => {
+export default async function ItemsTemplate({ items, region }: ItemsTemplateProps) {
+  const locale = getLang();
+  const { t} = await initTranslations(locale, ['common']);
+
   return (
     <div>
       <div className="pb-3 flex items-center">
-        <Heading className="text-[2rem] leading-[2.75rem]">Cart</Heading>
+        <Heading className="text-[2rem] leading-[2.75rem]">{t("cart")}</Heading>
       </div>
       <Table>
         <Table.Header className="border-t-0">
           <Table.Row className="text-ui-fg-subtle txt-medium-plus">
-            <Table.HeaderCell className="!pl-0">Item</Table.HeaderCell>
+            <Table.HeaderCell className="!pl-0">{t("item")}</Table.HeaderCell>
             <Table.HeaderCell></Table.HeaderCell>
-            <Table.HeaderCell>Quantity</Table.HeaderCell>
+            <Table.HeaderCell>{t("quantity")}</Table.HeaderCell>
             <Table.HeaderCell className="hidden small:table-cell">
-              Price
+            {t("price")}
             </Table.HeaderCell>
             <Table.HeaderCell className="!pr-0 text-right">
-              Total
+            {t("total")}
             </Table.HeaderCell>
           </Table.Row>
         </Table.Header>
@@ -44,7 +48,7 @@ const ItemsTemplate = ({ items, region }: ItemsTemplateProps) => {
         </Table.Body>
       </Table>
     </div>
-  )
+  );
 }
 
-export default ItemsTemplate
+

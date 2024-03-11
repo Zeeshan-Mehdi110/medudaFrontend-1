@@ -4,7 +4,7 @@ import { Listbox, Transition } from "@headlessui/react"
 import { Region } from "@medusajs/medusa"
 import { Fragment, useEffect, useMemo, useState } from "react"
 import ReactCountryFlag from "react-country-flag"
-
+import { useTranslation } from "react-i18next"
 import { StateType } from "@lib/hooks/use-toggle-state"
 import { updateRegion } from "app/actions"
 import { useParams, usePathname } from "next/navigation"
@@ -22,10 +22,9 @@ type CountrySelectProps = {
 
 const CountrySelect = ({ toggleState, regions }: CountrySelectProps) => {
   const [current, setCurrent] = useState<CountryOption | undefined>(undefined)
-
   const { countryCode } = useParams()
   const currentPath = usePathname().split(`/${countryCode}`)[1]
-
+  const { t } = useTranslation()
   const { state, close } = toggleState
 
   const options: CountryOption[] | undefined = useMemo(() => {
@@ -66,7 +65,7 @@ const CountrySelect = ({ toggleState, regions }: CountrySelectProps) => {
       >
         <Listbox.Button className="py-1 w-full">
           <div className="txt-compact-small flex items-start gap-x-2">
-            <span>Shipping to:</span>
+            <span> {t("shipping-to")}:</span>
             {current && (
               <span className="txt-compact-small flex items-center gap-x-2">
                 <ReactCountryFlag

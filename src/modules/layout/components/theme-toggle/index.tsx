@@ -10,7 +10,7 @@ export default function Theme() {
       });
 
     useEffect(() => {
-      console.log(theme)
+  
       // Apply the memoized theme value to the document element
       document.documentElement.setAttribute('data-mode', theme);
     }, [theme]); // This effect depends on theme state for applying the theme to the document

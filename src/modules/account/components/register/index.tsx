@@ -8,47 +8,46 @@ import { signUp } from "@modules/account/actions"
 import ErrorMessage from "@modules/checkout/components/error-message"
 import { SubmitButton } from "@modules/checkout/components/submit-button"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
-
+import{ useTranslation } from "react-i18next"
 type Props = {
   setCurrentView: (view: LOGIN_VIEW) => void
 }
 
 const Register = ({ setCurrentView }: Props) => {
   const [message, formAction] = useFormState(signUp, null)
-
+const { t } = useTranslation();
   return (
     <div className="max-w-sm flex flex-col items-center">
       <h1 className="text-large-semi uppercase mb-6">
-        Become a Medusa Store Member
+      {t("become-pixels-journey-member")}
       </h1>
       <p className="text-center text-base-regular text-ui-fg-base mb-4">
-        Create your Medusa Store Member profile, and get access to an enhanced
-        shopping experience.
+      {t("create-pixels-journey-profile")}
       </p>
       <form className="w-full flex flex-col" action={formAction}>
         <div className="flex flex-col w-full gap-y-2">
           <Input
-            label="First name"
+            label={t("first-name")}
             name="first_name"
             required
             autoComplete="given-name"
           />
           <Input
-            label="Last name"
+            label={t("last-name")}
             name="last_name"
             required
             autoComplete="family-name"
           />
           <Input
-            label="Email"
+            label={t("email")}
             name="email"
             required
             type="email"
             autoComplete="email"
           />
-          <Input label="Phone" name="phone" type="tel" autoComplete="tel" />
+          <Input label={t("phone")} name="phone" type="tel" autoComplete="tel" />
           <Input
-            label="Password"
+            label={t("password")}
             name="password"
             required
             type="password"
@@ -57,31 +56,31 @@ const Register = ({ setCurrentView }: Props) => {
         </div>
         <ErrorMessage error={message} />
         <span className="text-center text-ui-fg-base text-small-regular mt-6">
-          By creating an account, you agree to Medusa Store&apos;s{" "}
+        {t("account-creation-agreement")}{" "}
           <LocalizedClientLink
             href="/content/privacy-policy"
             className="underline"
           >
-            Privacy Policy
+            {t("privacy-policy")}
           </LocalizedClientLink>{" "}
-          and{" "}
+          {t("and")}{" "}
           <LocalizedClientLink
             href="/content/terms-of-use"
             className="underline"
           >
-            Terms of Use
+            {t("terms-of-use")}
           </LocalizedClientLink>
           .
         </span>
-        <SubmitButton className="w-full mt-6">Join</SubmitButton>
+        <SubmitButton className="w-full mt-6">{t("join-us")}</SubmitButton>
       </form>
       <span className="text-center text-ui-fg-base text-small-regular mt-6">
-        Already a member?{" "}
+      {t("already-have-an-account")}{" "}
         <button
           onClick={() => setCurrentView(LOGIN_VIEW.SIGN_IN)}
           className="underline"
         >
-          Sign in
+          {t("sign-in")}
         </button>
         .
       </span>
