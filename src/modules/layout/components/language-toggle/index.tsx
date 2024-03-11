@@ -22,7 +22,7 @@ const getCookie = (name: string): string | null => {
 export default function LanguageToggle() {
   const [lang, setLang] = useState<string>(() => {
     // Try to get the language preference from a cookie first, then localStorage, default to 'en'
-    return getCookie('lang') || localStorage.getItem('lang') || 'en';
+    return getCookie('lang') || localStorage.getItem('lang') || 'he';
   });
 
 
