@@ -1,7 +1,7 @@
 const i18nConfig = {
     locales: ["en", "he", "ru"],
     defaultLocale: "en",
-    prefixDefault: true,
+    prefixDefault: false,
     "pages": {
       "*": ["common"]
     },

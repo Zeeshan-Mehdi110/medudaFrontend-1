@@ -150,10 +150,11 @@ export async function middleware(request: NextRequest) {
 export const config = {
    matcher: [
     // Exclude specific paths
-    "/((?!api|_next/static|favicon.ico).*)",
+    // "/((?!api|_next/static|favicon.ico).*)",
+    '/((?!api|static|.*\\..*|_next).*)',
     // Include root and paths starting with specific locales
-    "/",
-    "/(en|he|ru)/:path*"
+    // "/",
+    // "/(en|he|ru)/:path*"
   ],
 }
 
