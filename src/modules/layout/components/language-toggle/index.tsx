@@ -108,31 +108,30 @@ export default function LanguageToggle() {
   const router = useRouter();
 
   const changeLanguage = (e: any) => {
-    const newLocale = e.target.value;
-    const currentUrl = new URL(window.location.href);
-    const pathnameParts = currentUrl.pathname.split('/').filter(part => part.trim() !== '');
+    const newLocale = e.target.value; // The selected new locale from the event
+    const currentUrl = new URL(window.location.href); // Current full URL
+    let pathnameParts = currentUrl.pathname.split('/').filter(part => part.trim() !== ''); // Splits and filters out empty parts
   
-    // Assuming the countryCode is always the first segment in the URL path
-    // and the current locale (if present) is the second segment
-    if (pathnameParts.length >= 2) {
-      // Replace the second segment (current locale) with the new locale
-      pathnameParts[1] = newLocale;
-    } else if (pathnameParts.length === 1) {
-      // If there's only one segment, it's assumed to be the countryCode
-      // Just add the new locale as the second segment
-      pathnameParts.push(newLocale);
+    // Check if the path includes at least a countryCode (and optionally a current locale)
+    if (pathnameParts.length >= 1) {
+      // Ensure the pathname has space for the newLocale. If it only has one part (countryCode), add another segment for the newLocale
+      if (pathnameParts.length === 1) {
+        pathnameParts.push(newLocale); // Adds newLocale as the second segment
+      } else {
+        pathnameParts[1] = newLocale; // Replaces whatever is in the second segment with newLocale
+      }
     } else {
-      // If there are no segments at all, this scenario might need specific handling
-      // based on how you want to structure URLs without a countryCode
-      console.warn("Attempting to change locale on a URL without a countryCode.");
-      return;
+      // Handle edge case where the URL doesn't even have a countryCode
+      console.warn("Attempting to change locale on a URL without a countryCode. This should be handled differently.");
+      return; // Exit the function as this case might require a different handling logic
     }
   
-    // Construct the new pathname
+    // Reconstruct the URL with the updated language code
     const newPathname = `/${pathnameParts.join('/')}`;
+    const newUrl = `${currentUrl.origin}${newPathname}${currentUrl.search}`; // Preserves query parameters
   
-    // Use the Next.js router to navigate to the new locale path
-    router.push(newPathname);
+    // Use the Next.js router to navigate to the updated URL
+    router.push(newUrl);
   };
 
   useEffect(() => {
