@@ -57,6 +57,7 @@ async function getCountryCode(
   }
 }
 
+
 async function listCountries() {
   try {
     // Fetch regions from Medusa. We can't use the JS client here because middleware is running on Edge and the client needs a Node environment.
@@ -90,48 +91,54 @@ async function listCountries() {
  * Middleware to handle region selection and onboarding status.
  */
 export async function middleware(request: NextRequest) {
-
-  var t = nextIntl(request);
+  let t = nextIntl(request);
   const searchParams = request.nextUrl.searchParams
   const isOnboarding = searchParams.get("onboarding") === "true"
   const onboardingCookie = request.cookies.get("_medusa_onboarding")
+
   const regionMap = await listCountries()
-  let s = request.cookies.get("NEXT_LOCALE")?.value ?? "he";
-  s = locales.includes(s) ? s : "he";
+
   let countryCode = regionMap && (await getCountryCode(request, regionMap))
-  const isDiffCountryCode = request.nextUrl.pathname.split("/")[2]?.toLowerCase();
+  const isDiffCountryCode = request.nextUrl.pathname.split('/').filter(Boolean)[1]?.toLowerCase();
   countryCode = isDiffCountryCode && regionMap?.has(isDiffCountryCode) && isDiffCountryCode !== countryCode ? isDiffCountryCode : countryCode;
+  const locale = request.cookies.get("NEXT_LOCALE")?.value ?? "he";
   const urlHasCountryCode =
-    countryCode && request.nextUrl.pathname.split("/")[2]?.includes(countryCode)
+    countryCode && request.nextUrl.pathname.split("/")[1].includes(countryCode)
+  const urlHasLocale =
+  locale && request.nextUrl.pathname.split("/")[2]?.includes(locale)
 
-  // check if one of the country codes is in the url
-  if (urlHasCountryCode && (!isOnboarding || onboardingCookie)) {
-
+  if (urlHasCountryCode && urlHasLocale && (!isOnboarding || onboardingCookie)) {
     return NextResponse.next()
   }
 
   let response = NextResponse.redirect(request.nextUrl, 307)
 
-  // If no country code is set, we redirect to the relevant region.
-  if (!urlHasCountryCode && countryCode) {
-    const pathSegments = request.nextUrl.pathname.split('/');
-    pathSegments.splice(0, 2);
-    const newPathname = '/' + pathSegments.join('/');
-    const redirectPath =
-    newPathname === "/" ? "" : newPathname
- 
+  if (!urlHasLocale || !urlHasCountryCode) {
+
+    const pathSegments = request.nextUrl.pathname.split('/').filter(Boolean);
+
+    const hasCorrectStructure = pathSegments.length >= 2 && pathSegments[0] === countryCode && pathSegments[1] === locale;
   
 
-    response = redirectPath === "" ?  NextResponse.redirect(
-      `${request.nextUrl.origin}/${s}/${countryCode}`,
-      307
-    ) : NextResponse.redirect(
-      `${request.nextUrl.origin}/${s}/${countryCode}/${redirectPath}`,
-      307
-    )
+    if (!hasCorrectStructure) {
 
+      if (pathSegments[0] !== countryCode) {
+        pathSegments.unshift(countryCode);
+      }
+  
+      if (pathSegments[1] !== locale) {
+        pathSegments.splice(1, 0, locale); // This removes the need to check separately for urlHasLocale and urlHasCountryCode
+      }
+      // If extra locale or countryCode are present beyond their initial correct positions, consider removing or adjusting the logic to prevent duplication
+  
+      // Reconstruct the pathname
+      const newPathname = `/${pathSegments.join('/')}`;
+  
+      // Redirect to the new URL with correct countryCode and locale
+      response = NextResponse.redirect(`${request.nextUrl.origin}${newPathname}`, 307);
+    }
   }
-
+  
   // Set a cookie to indicate that we're onboarding. This is used to show the onboarding flow.
   if (isOnboarding) {
     response.cookies.set("_medusa_onboarding", "true", { maxAge: 60 * 60 * 24 })

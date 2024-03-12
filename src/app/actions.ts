@@ -4,7 +4,7 @@ import { revalidateTag } from "next/cache"
 import { cookies, headers } from "next/headers"
 import { redirect } from "next/navigation"
 
-import { listRegions, updateCart } from "@lib/data"
+import { getLang, listRegions, updateCart } from "@lib/data"
 
 import { Region } from "@medusajs/medusa"
 
@@ -46,7 +46,7 @@ export async function getRegion(countryCode: string) {
 export async function updateRegion(countryCode: string, currentPath: string) {
   const cartId = cookies().get("_medusa_cart_id")?.value
   const region = await getRegion(countryCode)
-
+  const locale = getLang();
   if (!region) {
     return null
   }
@@ -62,7 +62,7 @@ export async function updateRegion(countryCode: string, currentPath: string) {
   } catch (e) {
     return "Error updating region"
   }
-
+console.log('currentPath', currentPath);
   redirect(`/${countryCode}${currentPath}`)
 }
 

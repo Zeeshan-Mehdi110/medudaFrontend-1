@@ -24,7 +24,7 @@ const LocalizedClientLink = ({
   const { locale } = useParams()
 
   return (
-    <Link href={`/${locale}/${countryCode}${href}`} {...props}>
+    <Link href={`/${countryCode}${href}`} {...props}>
       {children}
     </Link>
   )
