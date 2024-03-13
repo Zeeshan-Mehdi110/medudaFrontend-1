@@ -1,7 +1,5 @@
 "use client"
-import React, { useState, useEffect } from "react";
-import { usePathname } from "next/navigation"; // Correct import for useRouter
-import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation" // Correct import for useRouter
 
 const setCookie = (name: string, value: string, days: number) => {
   const expires = new Date(Date.now() + days * 864e5).toUTCString()
@@ -34,7 +32,8 @@ export default function LanguageToggle() {
     localStorage.setItem("lang", newLocale);
     setIsOpen(false);
     // No router.push here since <Link> handles navigation
-  };
+    router.replace(createLocaleChangeUrl(newLocale))
+  }
 
   useEffect(() => {
     // Effect for updating state, cookies, or localStorage when lang changes might be placed here
