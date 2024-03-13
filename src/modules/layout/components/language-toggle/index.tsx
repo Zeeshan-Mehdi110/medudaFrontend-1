@@ -29,6 +29,8 @@ export default function LanguageToggle() {
     // setLang(getCookie("lang") || localStorage.getItem("lang") || "en")
     setLang(locales.includes(pathnameParts[1]) ? pathnameParts[1] : null ?? getCookie("lang") ?? localStorage.getItem("lang") ?? "en")
     localStorage.setItem("lang", lang)
+    setCookie("lang", lang, 365)
+    setCookie("NEXT_LOCALE", lang, 365)
   }, [lang])
 
   // Pre-calculate URLs for language change links
@@ -40,8 +42,8 @@ export default function LanguageToggle() {
 
   const handleLanguageChange = (newLocale: any) => {
     setLang(newLocale)
-    setCookie("lang", newLocale, 365)
-    setCookie("NEXT_LOCALE", newLocale, 365)
+    // setCookie("lang", newLocale, 365)
+    // setCookie("NEXT_LOCALE", newLocale, 365)
     // setIsOpen(false)
     // No router.push here since <Link> handles navigation
     router.replace(createLocaleChangeUrl(newLocale))
