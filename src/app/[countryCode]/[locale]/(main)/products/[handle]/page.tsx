@@ -14,7 +14,7 @@ import ProductTemplate from "@modules/products/templates"
 import { getRegion } from "app/actions"
 
 type Props = {
-  params: { countryCode: string; handle: string }
+  params: { countryCode: string; handle: string ,locale: string}
 }
 
 export async function generateStaticParams() {
@@ -100,6 +100,7 @@ export default async function ProductPage({ params }: Props) {
 
   return (
     <ProductTemplate
+      locale={params.locale}
       product={pricedProduct}
       region={region}
       countryCode={params.countryCode}

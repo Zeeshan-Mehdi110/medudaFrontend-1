@@ -5,11 +5,12 @@ import TextConvertor  from "@modules/products/components/text-convertor"
 
 type ProductInfoProps = {
   product: PricedProduct
+  locale: string
 }
 
 
 
-const ProductInfo = ({ product }: ProductInfoProps) => {
+const ProductInfo = ({ product,locale }: ProductInfoProps) => {
 
   return (
     <div id="product-info">
@@ -24,11 +25,11 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
         )}
     
         <Heading level="h2" className="text-3xl leading-10 text-ui-fg-base ">
-          <TextConvertor title={product.title as string} metadata={product?.metadata?.title ?? product.title as any} />
+          <TextConvertor locale={locale} title={product.title as string} metadata={product?.metadata?.title ?? product.title as any} />
         </Heading>
 
         <Text className="text-medium text-ui-fg-subtle ">
-        <TextConvertor title={product.description as string} metadata={product?.metadata?.description ?? product.description as any} />
+        <TextConvertor locale={locale} title={product.description as string} metadata={product?.metadata?.description ?? product.description as any} />
         </Text>
       </div>
     </div>

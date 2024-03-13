@@ -66,11 +66,12 @@ import React, { useState, useEffect } from 'react';
 interface ClientProps {
     title: string;
     metadata: string;
+    locale: string;
 }
 
-const TextConvertor: React.FC<ClientProps> = ({ title, metadata }) => {
+const TextConvertor: React.FC<ClientProps> = ({ title, metadata,locale }) => {
     // Initialize state to store the current language from localStorage or default to 'he'
-    const [lang, setLang] = useState(localStorage.getItem('lang') || 'he');
+    // const [lang, setLang] = useState(localStorage.getItem('lang') ?? 'he');
 
     // Safely parse metadata from string to object
     const parseMetadata = (metadataString: string): object => {
@@ -83,27 +84,27 @@ const TextConvertor: React.FC<ClientProps> = ({ title, metadata }) => {
     };
     const metadataObj: { [key: string]: any } = parseMetadata(metadata);
 
-    useEffect(() => {
-        // Function to update state when the lang changes in localStorage
-        const langChangeHandler = (e: StorageEvent) => {
-            if (e.key === 'lang' && e.newValue) {
-                setLang(e.newValue);
-            }
-        };
+    // useEffect(() => {
+    //     // Function to update state when the lang changes in localStorage
+    //     const langChangeHandler = (e: StorageEvent) => {
+    //         if (e.key === 'lang' && e.newValue) {
+    //             setLang(e.newValue);
+    //         }
+    //     };
 
-        // Listen for changes in localStorage
-        window.addEventListener('storage', langChangeHandler);
+    //     // Listen for changes in localStorage
+    //     window.addEventListener('storage', langChangeHandler);
 
-        // Cleanup event listener on component unmount
-        return () => {
-            window.removeEventListener('storage', langChangeHandler);
-        };
-    }, []); // Empty dependency array ensures this effect runs only once on mount
+    //     // Cleanup event listener on component unmount
+    //     return () => {
+    //         window.removeEventListener('storage', langChangeHandler);
+    //     };
+    // }, []); // Empty dependency array ensures this effect runs only once on mount
 
     // Determine which text to display based on the current language
     const findTextForCurrentLang = (): string => {
         // Assuming metadata object keys are in the format "title_en", "title_he", etc.
-        const textKey = Object.keys(metadataObj).find(key => key.endsWith(`_${lang}`));
+        const textKey = Object.keys(metadataObj).find(key => key.endsWith(`_${locale}`));
         return textKey ? metadataObj[textKey] : title; // Fallback to the title if no matching key is found
     };
 
