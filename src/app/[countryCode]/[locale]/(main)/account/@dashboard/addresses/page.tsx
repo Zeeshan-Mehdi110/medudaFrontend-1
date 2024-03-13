@@ -15,9 +15,9 @@ export const metadata: Metadata = {
 
 export default async function Addresses() {
   const nextHeaders = headers()
-  const countryCodeCookie = nextHeaders.get("cookie")?.split("; ").find((cookie) => cookie.startsWith("countryCode="))
-  const countryCode = countryCodeCookie?.split("=")[1] || ""
-  // const countryCode = nextHeaders.get("next-url")?.split("/")[2] || ""
+  // const countryCodeCookie = nextHeaders.get("cookie")?.split("; ").find((cookie) => cookie.startsWith("countryCode="))
+  // const countryCode = countryCodeCookie?.split("=")[1] || ""
+  const countryCode = nextHeaders.get("next-url")?.split("/")[1] || ""
   const customer = await getCustomer()
   const region = await getRegion(countryCode)
   const locale = getLang();
