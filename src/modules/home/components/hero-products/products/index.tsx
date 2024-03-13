@@ -46,6 +46,8 @@ const ProductSlider: React.FC<ProductSliderProps> = ({ products }) => {
 
   const [swiperDirection, setSwiperDirection] = useState<'horizontal' | 'vertical'>('vertical');
   const [swiperHeight, setSwiperHeight] = useState('auto');
+  const [isRtl, setIsRtl] = useState(localStorage.getItem('lang') === 'ar' || localStorage.getItem('lang') === 'he' ? true : false);
+
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth <= 767) {
@@ -76,8 +78,8 @@ const ProductSlider: React.FC<ProductSliderProps> = ({ products }) => {
        modules={[Navigation, Autoplay,Pagination, Scrollbar, A11y]}
        slidesPerView={'auto'}
        style={{height: swiperHeight}}
-      spaceBetween={15}
-      autoplay={{
+       spaceBetween={15}
+        autoplay={{
         delay: 2200, // Delay in milliseconds between slides auto change, adjust as needed
         disableOnInteraction: false, // Continue autoplay after user interactions
         pauseOnMouseEnter:true,
@@ -85,6 +87,7 @@ const ProductSlider: React.FC<ProductSliderProps> = ({ products }) => {
       }}
       loop={true} // Enable looping for infinite scroll effect
       direction={swiperDirection}
+      dir={swiperDirection === "horizontal" ? (isRtl ? "rtl" : "ltr") : undefined}
       breakpoints={{
         // When window width is <= 767px
         767: {
