@@ -19,16 +19,21 @@ export default function Theme() {
   }
 
   return (
-    <LocalizedClientLink
-      href=""
-      onClick={toggleTheme}
-      className="hover:text-ui-fg-base"
-    >
-      {theme === "light" ? (
-        <MoonSolid className="h-6 w-6" />
+    // <LocalizedClientLink
+    //   href=""
+    //   onClick={toggleTheme}
+    //   className="hover:text-ui-fg-base"
+    // >
+     
+    // </LocalizedClientLink>
+
+<>
+{theme === "light" ? (
+        <MoonSolid onClick={toggleTheme} className="h-6 w-6" />
       ) : (
-        <Moon className="h-6 w-6" />
+        <Moon onClick={toggleTheme} className="h-6 w-6" />
       )}
-    </LocalizedClientLink>
+</>
+    
   )
 }
