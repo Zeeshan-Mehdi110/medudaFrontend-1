@@ -1,4 +1,5 @@
 "use client"
+import React, { useState, useEffect } from "react"
 import { usePathname, useRouter } from "next/navigation" // Correct import for useRouter
 
 const setCookie = (name: string, value: string, days: number) => {
@@ -15,29 +16,38 @@ const getCookie = (name: string): string | null => {
 }
 
 export default function LanguageToggle() {
-  const [lang, setLang] = useState(() => getCookie("lang") || localStorage.getItem("lang") || "en");
-  const pathname = usePathname();
-  const [isOpen, setIsOpen] = useState(false);
+  const [lang, setLang] = useState("en")
+
+  const pathname = usePathname()
+  const [isOpen, setIsOpen] = useState(false)
+  const router = useRouter()
+
+  useEffect(() => {
+    setLang(getCookie("lang") || localStorage.getItem("lang") || "en")
+  }, [lang])
+
   // Pre-calculate URLs for language change links
-  const createLocaleChangeUrl = (newLocale : any) => {
-    const pathnameParts = pathname.split("/").filter(part => part.trim() !== "");
-    pathnameParts[1] = newLocale; // Assuming the second segment is the locale
-    return `/${pathnameParts.join("/")}`;
-  };
+  const createLocaleChangeUrl = (newLocale: any) => {
+    const pathnameParts = pathname
+      .split("/")
+      .filter((part) => part.trim() !== "")
+    pathnameParts[1] = newLocale // Assuming the second segment is the locale
+    return `/${pathnameParts.join("/")}`
+  }
 
   const handleLanguageChange = (newLocale: any) => {
-    setLang(newLocale);
-    setCookie("lang", newLocale, 365);
-    setCookie("NEXT_LOCALE", newLocale, 365);
-    localStorage.setItem("lang", newLocale);
-    setIsOpen(false);
+    setLang(newLocale)
+    setCookie("lang", newLocale, 365)
+    setCookie("NEXT_LOCALE", newLocale, 365)
+    setIsOpen(false)
     // No router.push here since <Link> handles navigation
     router.replace(createLocaleChangeUrl(newLocale))
   }
 
   useEffect(() => {
     // Effect for updating state, cookies, or localStorage when lang changes might be placed here
-  }, [lang]);
+    localStorage.setItem("lang", lang)
+  }, [lang])
 
   return (
     <div className="language-selector hover:text-ui-fg-base relative">
@@ -46,15 +56,24 @@ export default function LanguageToggle() {
       </button>
       {isOpen && (
         <div className="dropdown-menu absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20">
-          <Link legacyBehavior href={createLocaleChangeUrl('en')} locale={false} passHref>
-            <a className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={() => handleLanguageChange('en')}>English</a>
-          </Link>
-          <Link legacyBehavior href={createLocaleChangeUrl('he')} locale={false} passHref>
-            <a className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={() => handleLanguageChange('he')}>עברית</a>
-          </Link>
-          <Link legacyBehavior href={createLocaleChangeUrl('ru')} locale={false} passHref>
-            <a className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={() => handleLanguageChange('ru')}>Русский</a>
-          </Link>
+          <span
+            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+            onClick={() => handleLanguageChange("en")}
+          >
+            English
+          </span>
+          <span
+            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+            onClick={() => handleLanguageChange("he")}
+          >
+            עברית
+          </span>
+          <span
+            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+            onClick={() => handleLanguageChange("ru")}
+          >
+            Русский
+          </span>
         </div>
       )}
       <style jsx>{`
@@ -63,5 +82,5 @@ export default function LanguageToggle() {
         }
       `}</style>
     </div>
-  );
+  )
 }
