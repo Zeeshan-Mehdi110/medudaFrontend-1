@@ -50,37 +50,50 @@ export default function LanguageToggle() {
   }, [lang])
 
   return (
-    <div className="language-selector hover:text-ui-fg-base relative">
-      <button onClick={() => setIsOpen(!isOpen)} className="dropdown-button">
-        Change Language
-      </button>
-      {isOpen && (
-        <div className="dropdown-menu absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20">
-          <span
-            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
-            onClick={() => handleLanguageChange("en")}
-          >
-            English
-          </span>
-          <span
-            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
-            onClick={() => handleLanguageChange("he")}
-          >
-            עברית
-          </span>
-          <span
-            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
-            onClick={() => handleLanguageChange("ru")}
-          >
-            Русский
-          </span>
-        </div>
-      )}
-      <style jsx>{`
-        .dropdown-menu {
-          display: ${isOpen ? "block" : "none"};
-        }
-      `}</style>
-    </div>
+    // <div className="language-selector hover:text-ui-fg-base relative">
+    //   <button onClick={() => setIsOpen(!isOpen)} className="dropdown-button">
+    //     Change Language
+    //   </button>
+    //   {isOpen && (
+    //     <div className="dropdown-menu absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20">
+    //       <span
+    //         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+    //         onClick={() => handleLanguageChange("en")}
+    //       >
+    //         English
+    //       </span>
+    //       <span
+    //         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+    //         onClick={() => handleLanguageChange("he")}
+    //       >
+    //         עברית
+    //       </span>
+    //       <span
+    //         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+    //         onClick={() => handleLanguageChange("ru")}
+    //       >
+    //         Русский
+    //       </span>
+    //     </div>
+    //   )}
+    //   <style jsx>{`
+    //     .dropdown-menu {
+    //       display: ${isOpen ? "block" : "none"};
+    //     }
+    //   `}</style>
+    // </div>
+
+    <div className="language-selector hover:text-ui-fg-base">
+    <select className=" dark:text-white dark:bg-black" onChange={(e) => {
+                                                                                handleLanguageChange(e.target.value);
+                                                                                
+                                                                              }} value={lang}>
+      <option value="en">English</option>
+      <option value="he">עברית</option>
+      <option value="ru">Русский</option>
+    </select>
+  </div>
+
+
   )
 }
