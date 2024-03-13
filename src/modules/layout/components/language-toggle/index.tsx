@@ -19,11 +19,11 @@ export default function LanguageToggle() {
   const [lang, setLang] = useState(getCookie("lang") ?? localStorage.getItem("lang") ?? "en")
 
   const pathname = usePathname()
-  const [isOpen, setIsOpen] = useState(false)
   const router = useRouter()
 
   useEffect(() => {
-    setLang(getCookie("lang") || localStorage.getItem("lang") || "en")
+    // setLang(getCookie("lang") || localStorage.getItem("lang") || "en")
+    setLang(getCookie("lang") ?? localStorage.getItem("lang") ?? "en")
   }, [lang])
 
   // Pre-calculate URLs for language change links
@@ -39,7 +39,7 @@ export default function LanguageToggle() {
     setLang(newLocale)
     setCookie("lang", newLocale, 365)
     setCookie("NEXT_LOCALE", newLocale, 365)
-    setIsOpen(false)
+    // setIsOpen(false)
     // No router.push here since <Link> handles navigation
     router.replace(createLocaleChangeUrl(newLocale))
   }
