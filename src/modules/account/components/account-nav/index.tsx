@@ -20,6 +20,7 @@ const AccountNav = ({
   const route = usePathname()
   const { countryCode } = useParams()
 const { t } = useTranslation()
+const {locale} = useParams()
   const handleLogout = async () => {
     await signOut()
   }
@@ -27,7 +28,7 @@ const { t } = useTranslation()
   return (
     <div>
       <div className="small:hidden">
-        {route !== `/${countryCode}/account` ? (
+        {route !== `/${countryCode}/${locale}/account` ?  (
           <LocalizedClientLink
             href="/account"
             className="flex items-center gap-x-2 text-small-regular py-2"
