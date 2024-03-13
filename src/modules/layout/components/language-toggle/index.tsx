@@ -84,7 +84,7 @@ export default function LanguageToggle() {
     // </div>
 
     <div className="language-selector hover:text-ui-fg-base">
-    <select className=" dark:text-white dark:bg-black" onChange={(e) => {
+    <select className=" dark:text-white bg-transparent dark:bg-black" onChange={(e) => {
                                                                                 handleLanguageChange(e.target.value);
                                                                                 
                                                                               }} value={lang}>
