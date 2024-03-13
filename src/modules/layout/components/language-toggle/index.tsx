@@ -27,7 +27,8 @@ export default function LanguageToggle() {
   
   useEffect(() => {
     // setLang(getCookie("lang") || localStorage.getItem("lang") || "en")
-    setLang(getCookie("lang") ?? localStorage.getItem("lang") ?? "en")
+    setLang(locales.includes(pathnameParts[1]) ? pathnameParts[1] : null ?? getCookie("lang") ?? localStorage.getItem("lang") ?? "en")
+    localStorage.setItem("lang", lang)
   }, [lang])
 
   // Pre-calculate URLs for language change links
@@ -46,10 +47,10 @@ export default function LanguageToggle() {
     router.replace(createLocaleChangeUrl(newLocale))
   }
 
-  useEffect(() => {
-    // Effect for updating state, cookies, or localStorage when lang changes might be placed here
-    localStorage.setItem("lang", lang)
-  }, [lang])
+  // useEffect(() => {
+  //   // Effect for updating state, cookies, or localStorage when lang changes might be placed here
+  //   localStorage.setItem("lang", lang)
+  // }, [lang])
 
   return (
     <div className="language-selector hover:text-ui-fg-base">
