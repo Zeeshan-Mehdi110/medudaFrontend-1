@@ -16,7 +16,7 @@ const getCookie = (name: string): string | null => {
 }
 
 export default function LanguageToggle() {
-  const [lang, setLang] = useState("en")
+  const [lang, setLang] = useState(getCookie("lang") || localStorage.getItem("lang") || "en")
 
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
