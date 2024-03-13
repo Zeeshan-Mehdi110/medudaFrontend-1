@@ -25,8 +25,9 @@ const { t } = useTranslation()
   }
 
   return (
+    // small:hidden
     <div>
-      <div className="small:hidden">
+      <div className="">
         {route !== `/${countryCode}/account` ? (
           <LocalizedClientLink
             href="/account"
@@ -102,7 +103,7 @@ const { t } = useTranslation()
           </>
         )}
       </div>
-      <div className="hidden small:block">
+      <div className="small:block">
         <div>
           <div className="pb-4">
             <h3 className="text-base-semi">{t("account")}</h3>
