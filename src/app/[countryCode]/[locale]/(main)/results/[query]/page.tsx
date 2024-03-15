@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 }
 
 type Params = {
-  params: { query: string; countryCode: string }
+  params: { query: string; countryCode: string, locale: string}
   searchParams: {
     sortBy?: SortOptions
     page?: string
@@ -37,6 +37,7 @@ export default async function SearchResults({ params, searchParams }: Params) {
       sortBy={sortBy}
       page={page}
       countryCode={params.countryCode}
+      locale={params.locale}
     />
   )
 }

@@ -12,6 +12,7 @@ type SearchResultsTemplateProps = {
   sortBy?: SortOptions
   page?: string
   countryCode: string
+  locale: string
 }
 
 const SearchResultsTemplate = ({
@@ -20,6 +21,7 @@ const SearchResultsTemplate = ({
   sortBy,
   page,
   countryCode,
+  locale
 }: SearchResultsTemplateProps) => {
   const pageNumber = page ? parseInt(page) : 1
 
@@ -49,6 +51,7 @@ const SearchResultsTemplate = ({
                 sortBy={sortBy}
                 page={pageNumber}
                 countryCode={countryCode}
+                locale={locale}
               />
             </div>
           </>

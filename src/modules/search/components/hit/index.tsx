@@ -13,13 +13,18 @@ export type ProductHit = {
   variants: ProductVariant[]
   collection_handle: string | null
   collection_id: string | null
+  [key: string]: any 
+  
 }
 
 type HitProps = {
   hit: ProductHit
+  locale: string,
 }
 
-const Hit = ({ hit }: HitProps) => {
+const Hit = ({ hit, locale }: HitProps) => {
+  const metaTitleKey = `meta_title_${locale}`;
+  const titleToShow = hit[metaTitleKey] ?? hit.title;
   return (
     <LocalizedClientLink href={`/products/${hit.handle}`}>
       <Container
@@ -33,7 +38,7 @@ const Hit = ({ hit }: HitProps) => {
         />
         <div className="flex flex-col justify-between group">
           <div className="flex flex-col">
-            <Text className="text-ui-fg-subtle">{hit.title}</Text>
+            <Text className="text-ui-fg-subtle">{titleToShow}</Text>
           </div>
         </div>
       </Container>

@@ -1,16 +1,22 @@
 "use client"
 
 import { InstantSearch } from "react-instantsearch-hooks-web"
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { MagnifyingGlassMini } from "@medusajs/icons"
 
 import { SEARCH_INDEX_NAME, searchClient } from "@lib/search-client"
 import Hit from "@modules/search/components/hit"
 import Hits from "@modules/search/components/hits"
 import SearchBox from "@modules/search/components/search-box"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 
 export default function SearchModal() {
+  const locales = ["en", "he", "ru"];
+  const pathname = usePathname()
+  const pathnameParts = pathname
+  .split("/")
+  .filter((part) => part.trim() !== "")
+  const [locale, setLang] = useState(locales.includes(pathnameParts[1]) ? pathnameParts[1] : null ?? localStorage.getItem("lang") ?? "en")
   const router = useRouter()
   const searchRef = useRef(null)
 
@@ -29,6 +35,11 @@ export default function SearchModal() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    // setLang(getCookie("lang") || localStorage.getItem("lang") || "en")
+    setLang(locales.includes(pathnameParts[1]) ? pathnameParts[1] : null ?? localStorage.getItem("lang") ?? "en")
+  }, [locale])
 
   // disable scroll on body when modal is open
   useEffect(() => {
@@ -69,7 +80,7 @@ export default function SearchModal() {
                 <SearchBox />
               </div>
               <div className="flex-1 mt-6">
-                <Hits hitComponent={Hit} />
+                <Hits locale={locale} hitComponent={Hit} />
               </div>
             </div>
           </InstantSearch>

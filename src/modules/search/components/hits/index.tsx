@@ -11,12 +11,14 @@ import ShowAll from "../show-all"
 
 type HitsProps<THit> = React.ComponentProps<"div"> &
   UseHitsProps & {
-    hitComponent: (props: { hit: THit }) => JSX.Element
+    hitComponent: (props: { hit: THit, locale:string }) => JSX.Element;
+    locale: string;
   }
 
 const Hits = ({
   hitComponent: Hit,
   className,
+  locale,
   ...props
 }: HitsProps<ProductHit>) => {
   const { query } = useSearchBox()
@@ -41,7 +43,7 @@ const Hits = ({
               "hidden sm:block": index > 2,
             })}
           >
-            <Hit hit={hit as unknown as ProductHit} />
+            <Hit locale={locale} hit={hit as unknown as ProductHit} />
           </li>
         ))}
       </div>
