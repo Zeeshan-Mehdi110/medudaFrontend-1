@@ -51,7 +51,6 @@ const SearchResultsTemplate = ({
                 sortBy={sortBy}
                 page={pageNumber}
                 countryCode={countryCode}
-                locale={locale}
               />
             </div>
           </>
