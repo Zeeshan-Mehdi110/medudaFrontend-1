@@ -14,11 +14,13 @@ export default function CategoryTemplate({
   sortBy,
   page,
   countryCode,
+  locale,
 }: {
   categories: ProductCategoryWithChildren[]
   sortBy?: SortOptions
   page?: string
   countryCode: string
+  locale: string
 }) {
   const pageNumber = page ? parseInt(page) : 1
 
@@ -70,6 +72,7 @@ export default function CategoryTemplate({
             page={pageNumber}
             categoryId={category.id}
             countryCode={countryCode}
+            locale={locale}
           />
         </Suspense>
       </div>
