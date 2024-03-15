@@ -27,7 +27,7 @@ export default function LanguageToggle() {
   
   useEffect(() => {
     // setLang(getCookie("lang") || localStorage.getItem("lang") || "en")
-    setLang(locales.includes(pathnameParts[1]) ? pathnameParts[1] : null ?? getCookie("lang") ?? localStorage.getItem("lang") ?? "en")
+    // setLang(locales.includes(pathnameParts[1]) ? pathnameParts[1] : null ?? getCookie("lang") ?? localStorage.getItem("lang") ?? "en")
     localStorage.setItem("lang", lang)
     setCookie("lang", lang, 365)
     setCookie("NEXT_LOCALE", lang, 365)
