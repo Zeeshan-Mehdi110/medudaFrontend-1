@@ -161,7 +161,7 @@ export const config = {
     // "/((?!api|_next/static|favicon.ico).*)",
     "/((?!api|static|.*\\..*|_next).*)",
     // Include root and paths starting with specific locales
-    // "/",
+     "/"
     // "/(en|he|ru)/:path*"
   ],
 }
