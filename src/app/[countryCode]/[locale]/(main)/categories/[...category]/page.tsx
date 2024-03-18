@@ -1,7 +1,7 @@
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
 
-import { getCategoryByHandle, listCategories, listRegions } from "@lib/data"
+import { getCategoryByHandle, getLang, listCategories, listRegions } from "@lib/data"
 import CategoryTemplate from "@modules/categories/templates"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 
@@ -66,7 +66,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function CategoryPage({ params, searchParams }: Props) {
   const { sortBy, page } = searchParams
-
+const locale = getLang()
   const { product_categories } = await getCategoryByHandle(
     params.category
   ).then((product_categories) => product_categories)
@@ -81,6 +81,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
       sortBy={sortBy}
       page={page}
       countryCode={params.countryCode}
+      locale={locale ?? "en"}
     />
   )
 }

@@ -9,16 +9,19 @@ import { SortOptions } from "@modules/store/components/refinement-list/sort-prod
 import PaginatedProducts from "@modules/store/templates/paginated-products"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 
+
 export default function CategoryTemplate({
   categories,
   sortBy,
   page,
   countryCode,
+  locale
 }: {
   categories: ProductCategoryWithChildren[]
   sortBy?: SortOptions
   page?: string
   countryCode: string
+  locale: string
 }) {
   const pageNumber = page ? parseInt(page) : 1
 
@@ -70,6 +73,7 @@ export default function CategoryTemplate({
             page={pageNumber}
             categoryId={category.id}
             countryCode={countryCode}
+            locale={locale}
           />
         </Suspense>
       </div>
