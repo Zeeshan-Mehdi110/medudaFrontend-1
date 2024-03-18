@@ -8,15 +8,17 @@ import { Region } from "@medusajs/medusa"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import Thumbnail from "../thumbnail"
 import PreviewPrice from "./price"
-
+import TextConvertor from "../text-convertor"
 export default async function ProductPreview({
   productPreview,
   isFeatured,
   region,
+  locale,
 }: {
   productPreview: ProductPreviewType
   isFeatured?: boolean
   region: Region
+  locale: string
 }) {
   const pricedProduct = await retrievePricedProductById({
     id: productPreview.id,
@@ -32,6 +34,7 @@ export default async function ProductPreview({
     region,
   })
 
+
   return (
     <LocalizedClientLink
       href={`/products/${productPreview.handle}`}
@@ -44,7 +47,7 @@ export default async function ProductPreview({
           isFeatured={isFeatured}
         />
         <div className="flex txt-compact-medium mt-4 justify-between">
-          <Text className="text-ui-fg-subtle">{productPreview.title}</Text>
+          <Text className="text-ui-fg-subtle"><TextConvertor locale={locale} title={productPreview.title} metadata={productPreview?.metadata?.title ?? productPreview.title}/></Text>
           <div className="flex items-center gap-x-2">
             {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
           </div>

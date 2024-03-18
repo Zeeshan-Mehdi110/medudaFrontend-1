@@ -22,6 +22,7 @@ export type ProductPreviewType = {
     price_type: "default" | "sale"
   }
   isFeatured?: boolean
+  metadata:any
 }
 
 export type ProductCollectionWithPreviews = Omit<

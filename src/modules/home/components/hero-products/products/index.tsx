@@ -6,6 +6,7 @@ import 'swiper/css'; // Import Swiper styles
 import style from './style.module.css';
 import fire from '../../../../../../public/redDot.gif'; // Fix: Use default import syntax for 'fire.gif'
 import LocalizedClientLink from '@modules/common/components/localized-client-link';
+import TextConvertor from '@modules/products/components/text-convertor';
 
 // Assuming the rest of your Product and ProductCardProps interfaces remain unchanged
 interface Product {
@@ -14,12 +15,15 @@ interface Product {
     title: string;
     subtitle?: string;
     handle: string;
+    metadata?: any;
 }
   
   interface ProductCardProps {
     product: Product;
   }
+  
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const [locale, setLocale] = useState(localStorage.getItem("lang") ?? "en");
   return (
     <div className="product-card rounded-lg max-h-[200px] max-w-48 mr-2 flex flex-col bg-white shadow-lg overflow-hidden">
     {/* Fixed height for the image container */}
@@ -28,7 +32,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     </div>
     {/* Title and subtitle with padding for spacing */}
     <div className="flex-1 px-2 pb-4 pt-2">
-      <button className="text-sm font-semibold ">{product.title}</button>
+      <button className="text-sm font-semibold "><TextConvertor locale={locale ?? "en"} title={product.title as string} metadata={product?.metadata?.title ?? product.title as any} /></button>
       <p className="text-xs ">{product.subtitle}</p>
     </div>
   </div>

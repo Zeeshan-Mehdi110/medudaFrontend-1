@@ -7,10 +7,10 @@ import UnderlineLink from "@modules/common/components/interactive-link"
 import Input from "@modules/common/components/input"
 import { useParams } from "next/navigation";
 import { SubmitButton } from "@modules/checkout/components/submit-button";
-
+import { useTranslation } from "react-i18next";
 
 export default function ChangePassword() {
-  
+  const { t } = useTranslation();
   const params = useParams();
   const token = params.token;
   const [email, setEmail] = useState('');
@@ -63,37 +63,37 @@ export default function ChangePassword() {
     <>
     <div className="w-full flex justify-center lg:mr-60">
     <form onSubmit={handleSubmit} className="flex flex-col gap-3 mt-4 mb-6">
-      <h1 className="text-xl font-semibold mt-9">Choose New Password</h1>
-      <label htmlFor="email">Email:</label>
+      <h1 className="text-xl font-semibold mt-9">{t("password_choose")}:</h1>
+      <label htmlFor="email">{t("email")}:</label>
       <Input
        id="email"
        value={email}
        onChange={(e) => setEmail(e.target.value)}
-       label="Email"
+       label={t("email")}
        name="Email"
        type="email"
        title="Email"
        autoComplete="Email"
        required
       />
-      <label htmlFor="new-password">New Password:</label>
+      <label htmlFor="new-password">{t("password_new")}:</label>
       <Input
        id="password"
        value={password}
        onChange={(e) => setPassword(e.target.value)}
-       label="New password"
+       label={t("password_new")}
        name="New password"
        type="password"
        title="New password"
        autoComplete="password"
        required
       />
-       <label htmlFor="new-password">Confirm New Password:</label>
+       <label htmlFor="new-password">{t("password_confirm")}:</label>
       <Input
         id="new-password"
         value={confirmPassword}
         onChange={(e) => setConfirmPassword(e.target.value)}
-        label="Confirm new password"
+        label={t("password_confirm")}
         name="Confirm new password"
         type="password"
         title="Confirm new password"
@@ -114,15 +114,14 @@ export default function ChangePassword() {
     <section className="w-full flex justify-center">
     <div className="flex w-2/4  flex-col small:flex-row items-end justify-between small:border-t border-gray-200 py-12 gap-8">
           <div>
-            <h3 className="text-xl-semi mb-4">Got questions?</h3>
+            <h3 className="text-xl-semi mb-4">{t("got-questions")}</h3>
             <span className="txt-medium">
-              You can find frequently asked questions and answers on our
-              customer service page.
+            {t("frequently-asked-questions")}
             </span>
           </div>
           <div>
             <UnderlineLink href="/customer-service">
-              Customer Service
+            {t("customer-service")}
             </UnderlineLink>
           </div>
         </div>

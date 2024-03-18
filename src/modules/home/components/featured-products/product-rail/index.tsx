@@ -1,11 +1,12 @@
+import { getLang } from "@lib/data"
 import { Region } from "@medusajs/medusa"
 import { Text } from "@medusajs/ui"
 
 import InteractiveLink from "@modules/common/components/interactive-link"
 import ProductPreview from "@modules/products/components/product-preview"
 import { ProductCollectionWithPreviews } from "types/global"
-
-export default function ProductRail({
+import initTranslations from 'app/i18n';
+export default async function ProductRail({
   collection,
   region,
 }: {
@@ -13,7 +14,8 @@ export default function ProductRail({
   region: Region
 }) {
   const { products } = collection
-
+  const locale = await getLang();
+  const { t } = await initTranslations(locale, ['common']);
   if (!products) {
     return null
   }
@@ -23,7 +25,7 @@ export default function ProductRail({
       <div className="flex justify-between mb-8">
         <Text className="txt-xlarge">{collection.title}</Text>
         <InteractiveLink href={`/collections/${collection.handle}`}>
-          View all
+        {t("view-all")}
         </InteractiveLink>
       </div>
       <ul className="grid grid-cols-2 small:grid-cols-3 gap-x-6 gap-y-24 small:gap-y-36">
@@ -34,6 +36,7 @@ export default function ProductRail({
                 productPreview={product}
                 region={region}
                 isFeatured
+                locale={locale ?? "en"}
               />
             </li>
           ))}

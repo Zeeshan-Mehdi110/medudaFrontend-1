@@ -5,14 +5,14 @@ import { Heading, Text, clx } from "@medusajs/ui"
 import PaymentButton from "../payment-button"
 import { useSearchParams } from "next/navigation"
 import { Cart } from "@medusajs/medusa"
-
+import { useTranslation } from "react-i18next"
 const Review = ({
   cart,
 }: {
   cart: Omit<Cart, "refundable_amount" | "refunded_total">
 }) => {
   const searchParams = useSearchParams()
-
+const { t } = useTranslation()
   const isOpen = searchParams.get("step") === "review"
 
   const previousStepsCompleted =
@@ -32,7 +32,7 @@ const Review = ({
             }
           )}
         >
-          Review
+            {t("review-order")}
         </Heading>
       </div>
       {isOpen && previousStepsCompleted && (
@@ -40,10 +40,7 @@ const Review = ({
           <div className="flex items-start gap-x-1 w-full mb-6">
             <div className="w-full">
               <Text className="txt-medium-plus text-ui-fg-base mb-1">
-                By clicking the Place Order button, you confirm that you have
-                read, understand and accept our Terms of Use, Terms of Sale and
-                Returns Policy and acknowledge that you have read Medusa
-                Store&apos;s Privacy Policy.
+              {t("order-confirmation")}
               </Text>
             </div>
           </div>

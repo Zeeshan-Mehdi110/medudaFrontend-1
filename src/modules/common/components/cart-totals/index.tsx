@@ -51,7 +51,7 @@ const CartTotals: React.FC<CartTotalsProps> = ({ data }) => {
         )}
         {!!gift_card_total && (
           <div className="flex items-center justify-between">
-            <span>Gift card</span>
+            <span> {t("gift-card")}</span>
             <span className="text-ui-fg-interactive">
               - {getAmount(gift_card_total)}
             </span>

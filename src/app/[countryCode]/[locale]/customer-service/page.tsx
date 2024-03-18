@@ -1,7 +1,10 @@
 import Head from 'next/head';
 import Link from 'next/link';
-
-export default function CustomerService() {
+import initTranslations from 'app/i18n';
+import { getLang } from '@lib/data';
+export default async function CustomerService() {
+  const locale = await getLang();
+  const { t } = await initTranslations(locale, ['common']);
   return (
     <div className="flex flex-col min-h-screen py-2">
       <Head>
@@ -11,7 +14,7 @@ export default function CustomerService() {
 
       <main className="flex flex-col items-center justify-center flex-1 px-20 text-center">
         <h1 className="text-4xl font-bold">
-          Customer Service
+        {t("customer-service")}
         </h1>
         <p className="mt-3 text-base">
           Welcome to our Customer Service page. How can we help you today?

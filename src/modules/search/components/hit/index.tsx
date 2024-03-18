@@ -25,6 +25,8 @@ type HitProps = {
 const Hit = ({ hit, locale }: HitProps) => {
   const metaTitleKey = `meta_title_${locale}`;
   const titleToShow = hit[metaTitleKey] ?? hit.title;
+  const metaDescKey = `meta_desc_${locale}`;
+  const descToShow = hit[metaDescKey] ?? null;
   return (
     <LocalizedClientLink href={`/products/${hit.handle}`}>
       <Container
@@ -40,6 +42,9 @@ const Hit = ({ hit, locale }: HitProps) => {
           <div className="flex flex-col">
             <Text className="text-ui-fg-subtle">{titleToShow}</Text>
           </div>
+          {/* {descToShow && <div className="flex flex-col">
+            <Text className="text-ui-fg-subtle">{descToShow}</Text>
+          </div>} */}
         </div>
       </Container>
     </LocalizedClientLink>

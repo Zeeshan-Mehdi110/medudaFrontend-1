@@ -41,7 +41,7 @@ const { t } = useTranslation()
         })}`
 
       default:
-        return "Free shipping"
+        return t("free-shipping")
     }
   }, [discounts, region])
 

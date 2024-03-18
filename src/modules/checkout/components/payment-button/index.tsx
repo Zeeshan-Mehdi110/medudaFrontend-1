@@ -9,7 +9,7 @@ import { placeOrder } from "@modules/checkout/actions"
 import React, { useState } from "react"
 import ErrorMessage from "../error-message"
 import Spinner from "@modules/common/icons/spinner"
-
+import { useTranslation } from "react-i18next"
 type PaymentButtonProps = {
   cart: Omit<Cart, "refundable_amount" | "refunded_total">
 }
@@ -47,7 +47,7 @@ const StripePaymentButton = ({
 }) => {
   const [submitting, setSubmitting] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
-
+const {t} = useTranslation()
   const onPaymentCompleted = async () => {
     await placeOrder().catch(() => {
       setErrorMessage("An error occurred, please try again.")
@@ -127,7 +127,7 @@ const StripePaymentButton = ({
         size="large"
         isLoading={submitting}
       >
-        Place order
+         {t("place-order")}
       </Button>
       <ErrorMessage error={errorMessage} />
     </>
@@ -196,7 +196,7 @@ const PayPalPaymentButton = ({
 const ManualTestPaymentButton = ({ notReady }: { notReady: boolean }) => {
   const [submitting, setSubmitting] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
-
+const {t} = useTranslation()
   const onPaymentCompleted = async () => {
     await placeOrder().catch((err) => {
       setErrorMessage(err.toString())
@@ -218,7 +218,7 @@ const ManualTestPaymentButton = ({ notReady }: { notReady: boolean }) => {
         onClick={handlePayment}
         size="large"
       >
-        Place order
+       {t("place-order")}
       </Button>
       <ErrorMessage error={errorMessage} />
     </>

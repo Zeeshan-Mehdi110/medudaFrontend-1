@@ -10,7 +10,7 @@ import initTranslations from "app/i18n"
 export default async function Nav(params:any) {
   const regions = await listRegions().then((regions) => regions)
   const locale = params.children[1];
-  const { t,resources } = await initTranslations(locale, ['common']);
+  const { t } = await initTranslations(locale, ['common']);
 
 
   return (
@@ -23,18 +23,19 @@ export default async function Nav(params:any) {
             </div>
           </div>
 
-          <div className="flex items-center h-full">
-            <h1 className="text-center p-3.5">
+          <div className="flex items-center h-full sm:pl-0 pl-2">
+            <h1 className="text-center">
             <LocalizedClientLink
               href="/"
               className="txt-compact-xlarge-plus hover:text-ui-fg-base uppercase"
             >
-              Pixels Journey
+              <img className="max-w-[65px]" src="/logo.png"></img>
+              {/* Pixels Journey */}
             </LocalizedClientLink>
             </h1>
           </div>
 
-          <div className="flex items-center gap-8 sm:gap-x-6 h-full flex-1 basis-0 justify-end pl-1 sm:pl-0">
+          <div className="flex items-center gap-3 sm:gap-x-6 h-full flex-1 basis-0 justify-end sm:pl-0">
             <div className="hidden small:flex items-center gap-x-6 h-full">
               {process.env.FEATURE_SEARCH_ENABLED && (
                 <LocalizedClientLink

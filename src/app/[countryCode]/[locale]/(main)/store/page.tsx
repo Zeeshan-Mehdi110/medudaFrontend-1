@@ -15,6 +15,7 @@ type Params = {
   }
   params: {
     countryCode: string
+    locale: string
   }
 }
 
@@ -26,6 +27,7 @@ export default async function StorePage({ searchParams, params }: Params) {
       sortBy={sortBy}
       page={page}
       countryCode={params.countryCode}
+      locale={params.locale}
     />
   )
 }

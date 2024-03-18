@@ -8,7 +8,7 @@ import {
   useState,
 } from "react"
 import { UseSearchBoxProps, useSearchBox } from "react-instantsearch-hooks-web"
-
+import { useTranslation } from "react-i18next"
 export type ControlledSearchBoxProps = React.ComponentProps<"div"> & {
   inputRef: RefObject<HTMLInputElement>
   onChange(event: ChangeEvent): void
@@ -37,7 +37,7 @@ const SearchBoxWrapper = ({
   const { query, refine } = useSearchBox(rest)
   const [value, setValue] = useState(query)
   const inputRef = useRef<HTMLInputElement>(null)
-
+const { t } = useTranslation()
   const router = useRouter()
 
   const onReset = () => {
@@ -77,7 +77,7 @@ const SearchBoxWrapper = ({
       inputRef.current.focus()
     }
   }, [])
-
+  placeholder = t("search-placeholder")
   const state = {
     value,
     inputRef,

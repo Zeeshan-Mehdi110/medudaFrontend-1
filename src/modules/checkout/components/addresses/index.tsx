@@ -20,7 +20,7 @@ import { SubmitButton } from "../submit-button"
 import { useFormState } from "react-dom"
 import ErrorMessage from "../error-message"
 import compareAddresses from "@lib/util/compare-addresses"
-
+import { useTranslation } from "react-i18next"
 const Addresses = ({
   cart,
   customer,
@@ -32,7 +32,7 @@ const Addresses = ({
   const router = useRouter()
   const pathname = usePathname()
   const params = useParams()
-
+  const { t } = useTranslation()
   const countryCode = params.countryCode as string
 
   const isOpen = searchParams.get("step") === "address"
@@ -56,7 +56,7 @@ const Addresses = ({
           level="h2"
           className="flex flex-row text-3xl-regular gap-x-2 items-baseline"
         >
-          Address
+          {t("address")}
           {!isOpen && <CheckCircleSolid />}
         </Heading>
         {!isOpen && cart?.shipping_address && (
@@ -65,7 +65,7 @@ const Addresses = ({
               onClick={handleEdit}
               className="text-ui-fg-interactive hover:text-ui-fg-interactive-hover"
             >
-              Edit
+                {t("edit")}
             </button>
           </Text>
         )}
@@ -87,13 +87,13 @@ const Addresses = ({
                   level="h2"
                   className="text-3xl-regular gap-x-4 pb-6 pt-8"
                 >
-                  Billing address
+                 {t("billing-address")}
                 </Heading>
 
                 <BillingAddress cart={cart} countryCode={countryCode} />
               </div>
             )}
-            <SubmitButton className="mt-6">Continue to delivery</SubmitButton>
+            <SubmitButton className="mt-6">{t("continue-to-delivery")}</SubmitButton>
             <ErrorMessage error={message} />
           </div>
         </form>
@@ -105,7 +105,7 @@ const Addresses = ({
                 <div className="flex items-start gap-x-1 w-full">
                   <div className="flex flex-col w-1/3">
                     <Text className="txt-medium-plus text-ui-fg-base mb-1">
-                      Shipping Address
+                    {t("shipping-address")}
                     </Text>
                     <Text className="txt-medium text-ui-fg-subtle">
                       {cart.shipping_address.first_name}{" "}
@@ -126,7 +126,7 @@ const Addresses = ({
 
                   <div className="flex flex-col w-1/3 ">
                     <Text className="txt-medium-plus text-ui-fg-base mb-1">
-                      Contact
+                    {t("contact")}
                     </Text>
                     <Text className="txt-medium text-ui-fg-subtle">
                       {cart.shipping_address.phone}
@@ -138,12 +138,12 @@ const Addresses = ({
 
                   <div className="flex flex-col w-1/3">
                     <Text className="txt-medium-plus text-ui-fg-base mb-1">
-                      Billing Address
+                    {t("billing-address")}
                     </Text>
 
                     {sameAsSBilling ? (
                       <Text className="txt-medium text-ui-fg-subtle">
-                        Billing- and delivery address are the same.
+                       {t("billing-delivery-same")}
                       </Text>
                     ) : (
                       <>

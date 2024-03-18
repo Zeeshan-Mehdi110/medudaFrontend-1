@@ -20,6 +20,7 @@ export default async function PaginatedProducts({
   categoryId,
   productsIds,
   countryCode,
+  locale,
 }: {
   sortBy?: SortOptions
   page: number
@@ -27,6 +28,7 @@ export default async function PaginatedProducts({
   categoryId?: string
   productsIds?: string[]
   countryCode: string
+  locale: string
 }) {
   const region = await getRegion(countryCode)
 
@@ -67,7 +69,7 @@ export default async function PaginatedProducts({
         {products.map((p) => {
           return (
             <li key={p.id}>
-              <ProductPreview productPreview={p} region={region} />
+              <ProductPreview productPreview={p} region={region} locale={locale} />
             </li>
           )
         })}
