@@ -20,14 +20,14 @@ const TextConvertor: React.FC<ClientProps> = ({ title, metadata,locale }) => {
             return {}; // Return an empty object in case of error
         }
     };
-    const metadataObj: { [key: string]: any } = parseMetadata(metadata);
+    const metadataObj: { [key: string]: any } | null = metadata !== null ?  parseMetadata(metadata) : null;
 
-   
+       
     // Determine which text to display based on the current language
     const findTextForCurrentLang = (): string => {
         // Assuming metadata object keys are in the format "title_en", "title_he", etc.
-        const textKey = Object.keys(metadataObj).find(key => key.endsWith(`_${locale}`));
-        return textKey ? metadataObj[textKey] : title; // Fallback to the title if no matching key is found
+        const textKey = metadataObj !== null ? Object.keys(metadataObj).find(key => key.endsWith(`_${locale}`)) : null;
+        return textKey && metadataObj !== null ? metadataObj[textKey] : title; // Fallback to the title if no matching key is found
     };
 
     const text = findTextForCurrentLang();
