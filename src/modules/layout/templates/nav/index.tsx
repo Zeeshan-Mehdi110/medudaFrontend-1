@@ -7,6 +7,7 @@ import SideMenu from "@modules/layout/components/side-menu"
 import Theme from "@modules/layout/components/theme-toggle"
 import LanguageToggle from "@modules/layout/components/language-toggle"
 import initTranslations from "app/i18n"
+import Image from "next/image"
 export default async function Nav(params:any) {
   const regions = await listRegions().then((regions) => regions)
   const locale = params.children[1];
@@ -29,7 +30,8 @@ export default async function Nav(params:any) {
               href="/"
               className="txt-compact-xlarge-plus hover:text-ui-fg-base uppercase"
             >
-              <img className="max-w-[65px]" src="/logo.png"></img>
+              {/* <img className="max-w-[65px] max-h-[60px]" src="/logo.png"></img> */}
+              <Image width={60} height={65}  src="/logo.png" alt='Pixels Journey Logo'></Image>
               {/* Pixels Journey */}
             </LocalizedClientLink>
             </h1>
