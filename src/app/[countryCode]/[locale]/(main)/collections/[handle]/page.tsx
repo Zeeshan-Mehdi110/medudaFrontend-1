@@ -4,6 +4,7 @@ import { notFound } from "next/navigation"
 import {
   getCollectionByHandle,
   getCollectionsList,
+  getLang,
   listRegions,
 } from "@lib/data"
 import CollectionTemplate from "@modules/collections/templates"
@@ -63,7 +64,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function CollectionPage({ params, searchParams }: Props) {
   const { sortBy, page } = searchParams
-
+  const locale = getLang()
   const collection = await getCollectionByHandle(params.handle).then(
     (collection) => collection
   )
@@ -78,6 +79,7 @@ export default async function CollectionPage({ params, searchParams }: Props) {
       page={page}
       sortBy={sortBy}
       countryCode={params.countryCode}
+      locale={locale ?? "en"}
     />
   )
 }

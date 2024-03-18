@@ -11,11 +11,13 @@ export default function CollectionTemplate({
   collection,
   page,
   countryCode,
+  locale,
 }: {
   sortBy?: SortOptions
   collection: ProductCollection
   page?: string
-  countryCode: string
+  countryCode: string,
+  locale: string
 }) {
   const pageNumber = page ? parseInt(page) : 1
 
@@ -32,6 +34,7 @@ export default function CollectionTemplate({
             page={pageNumber}
             collectionId={collection.id}
             countryCode={countryCode}
+            locale={locale}
           />
         </Suspense>
       </div>
