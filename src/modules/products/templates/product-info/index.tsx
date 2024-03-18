@@ -25,11 +25,11 @@ const ProductInfo = ({ product,locale }: ProductInfoProps) => {
         )}
     
         <Heading level="h2" className="text-3xl leading-10 text-ui-fg-base ">
-          <TextConvertor locale={locale} title={product.title as string} metadata={product?.metadata?.title ?? product.title as any} />
+          <TextConvertor locale={locale} title={product.title as string} metadata={product?.metadata?.title ?? null as any} />
         </Heading>
 
         <Text className="text-medium text-ui-fg-subtle ">
-        <TextConvertor locale={locale} title={product.description as string} metadata={product?.metadata?.description ?? product.description as any} />
+        <TextConvertor locale={locale} title={product.description as string} metadata={product?.metadata?.description ?? null as any} />
         </Text>
       </div>
     </div>

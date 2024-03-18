@@ -32,7 +32,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     </div>
     {/* Title and subtitle with padding for spacing */}
     <div className="flex-1 px-2 pb-4 pt-2">
-      <button className="text-sm font-semibold "><TextConvertor locale={locale ?? "en"} title={product.title as string} metadata={product?.metadata?.title ?? product.title as any} /></button>
+      <button className="text-sm font-semibold "><TextConvertor locale={locale ?? "en"} title={product.title as string} metadata={product?.metadata?.title ?? null as any} /></button>
       <p className="text-xs ">{product.subtitle}</p>
     </div>
   </div>
