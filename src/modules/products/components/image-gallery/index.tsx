@@ -132,6 +132,7 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
               zIndex: 2,
             }}
             id="scalable-image"
+            {...(widthAttribute ? { "data-width": widthAttribute } : {})}
           >
             <img
               src={displayImages[1].url}
@@ -142,7 +143,7 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
                 width: "100%",
                 boxShadow: "3px 3px 8px 0 rgba(0,0,0,0.5)",
               }}
-              {...(widthAttribute ? { "data-width": widthAttribute } : {})}
+           
             />
           </div>
         )}
