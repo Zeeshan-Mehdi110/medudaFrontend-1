@@ -39,34 +39,32 @@
 // export default ImageGallery
 
 
-import { Image as MedusaImage } from "@medusajs/medusa";
-import { Container } from "@medusajs/ui";
-import Image from "next/image";
+import { Image as MedusaImage } from "@medusajs/medusa"
+import { Container } from "@medusajs/ui"
+import Image from "next/image"
 
 type ImageGalleryProps = {
-  images: MedusaImage[];
-};
+  images: MedusaImage[]
+}
 
 function isMockupImage(url: string) {
- 
-  const domainWithMockup = /(https?:\/\/[^\/]+\/mockup)/;
-  return domainWithMockup.test(url);
+  const domainWithMockup = /(https?:\/\/[^\/]+\/mockup)/
+  return domainWithMockup.test(url)
 }
 function getHeightFromUrl(url: string) {
-  const match = url.match(/width_(\d+)/);
-  return match ? parseInt(match[1], 10) : null;
+  const match = url.match(/width_(\d+)/)
+  return match ? parseInt(match[1], 10) : null
 }
-function extractBottomAttribute(url : string) {
-  const match = /bottom_(\d+)/.exec(url);
-  return match ? Number(match[1]) : null;
+function extractBottomAttribute(url: string) {
+  const match = /bottom_(\d+)/.exec(url)
+  return match ? Number(match[1]) : null
 }
 
 const ImageGallery = ({ images }: ImageGalleryProps) => {
-  const mockup = images.find((image) => isMockupImage(image.url));
-  const base = images.find((image) => !isMockupImage(image.url));
+  const mockup = images.find((image) => isMockupImage(image.url))
+  const base = images.find((image) => !isMockupImage(image.url))
 
-
-  const displayImages = mockup && base ? [base, mockup] : images;
+  const displayImages = mockup && base ? [base, mockup] : images
 
   if (!mockup) {
     // Render all images if no mockup image exists
@@ -89,29 +87,31 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
                   objectFit="cover"
                 />
               </Container>
-            );
+            )
           })}
         </div>
       </div>
-    );
+    )
   }
- const bottomAttribute = displayImages[1] ? extractBottomAttribute(displayImages[1].url) : 40;
-  const widthAttribute = displayImages[1] ? getHeightFromUrl(displayImages[1].url) : null;
-  const widthPercentage = widthAttribute ? widthAttribute : 30; // a number now
-  const heightPercentage = widthAttribute ? widthAttribute * 1.3 : 36; // a number now
+  const bottomAttribute = displayImages[1]
+    ? extractBottomAttribute(displayImages[1].url)
+    : 40
+  const widthAttribute = displayImages[1]
+    ? getHeightFromUrl(displayImages[1].url)
+    : null
+  const widthPercentage = widthAttribute ? widthAttribute : 30 // a number now
+  const heightPercentage = widthAttribute ? widthAttribute * 1.3 : 36 // a number now
 
- 
-  const leftPercentage = 50 - (widthPercentage / 2); 
+  const leftPercentage = 50 - widthPercentage / 2
 
   // Else, render according to the current setup
   return (
-    
     <div className="flex flex-col flex-1 small:mx-16 gap-y-4">
       <Container
         key={displayImages[0].id}
         className={`relative aspect-[29/34] w-full overflow-hidden bg-ui-bg-subtle}`}
         id={displayImages[0].id}
-        style={{ zIndex: 1, position: 'relative' }}
+        style={{ zIndex: 1, position: "relative" }}
       >
         <Image
           src={displayImages[0].url}
@@ -121,28 +121,34 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
           objectFit="cover"
         />
         {displayImages[1] && (
-          <Image
-            src={displayImages[1].url}
-            className="absolute"
-            alt={`Product image mockup`}
-            width={100}
-            height={100}
-            id="scalable-image"
-            style={{ 
-              width: `${widthPercentage}%`, 
-              height: `${heightPercentage}%`, 
-              left: `${leftPercentage}%`, 
-              bottom: `${bottomAttribute}%`, 
-              boxShadow: '3px 3px 8px 0 rgba(0,0,0,0.5)',
-              position: 'absolute',
-              zIndex: 2
+          <div
+            style={{
+              width: `${widthPercentage}%`,
+              height: `${heightPercentage}%`,
+              left: `${leftPercentage}%`,
+              bottom: `${bottomAttribute}%`,
+
+              position: "absolute",
+              zIndex: 2,
             }}
-            {...(widthAttribute ? {'data-width': widthAttribute} : {})}
-          />
+            id="scalable-image"
+          >
+            <img
+              src={displayImages[1].url}
+              className="absolute"
+              alt={`Product image mockup`}
+              style={{
+                height: "100%",
+                width: "100%",
+                boxShadow: "3px 3px 8px 0 rgba(0,0,0,0.5)",
+              }}
+              {...(widthAttribute ? { "data-width": widthAttribute } : {})}
+            />
+          </div>
         )}
       </Container>
     </div>
-  );
-};
+  )
+}
 
-export default ImageGallery;
+export default ImageGallery
