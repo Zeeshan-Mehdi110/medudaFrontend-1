@@ -100,7 +100,7 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
     ? getHeightFromUrl(displayImages[1].url)
     : null
   const widthPercentage = widthAttribute ? widthAttribute : 30 // a number now
-  const heightPercentage = widthAttribute ? widthAttribute * 1.3 : 36 // a number now
+  const heightPercentage = widthAttribute ? widthAttribute * 1.2 : 36 // a number now
 
   const leftPercentage = 50 - widthPercentage / 2
 
