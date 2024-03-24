@@ -22,7 +22,7 @@ export default function LanguageToggle() {
   const pathnameParts = pathname
   .split("/")
   .filter((part) => part.trim() !== "")
-  const [lang, setLang] = useState(localStorage.getItem("lang") ?? "en")
+  const [lang, setLang] = useState(getCookie("lang") ?? "en")
   const router = useRouter()
   
   useEffect(() => {
