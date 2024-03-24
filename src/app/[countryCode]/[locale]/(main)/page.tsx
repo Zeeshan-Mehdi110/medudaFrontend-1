@@ -55,9 +55,9 @@ const getCollectionsWithProducts = async (
 }
 
 export default async function Home({
-  params: { countryCode },
+  params: { countryCode,locale },
 }: {
-  params: { countryCode: string }
+  params: { countryCode: string,locale: string}
 }) {
   const collections = await getCollectionsWithProducts(countryCode)
   const region = await getRegion(countryCode)
@@ -71,7 +71,7 @@ export default async function Home({
       <Hero />
       <div className="py-12">
         <ul className="flex flex-col gap-x-6">
-          <FeaturedProducts collections={collections} region={region} />
+          <FeaturedProducts locale={locale} collections={collections} region={region} />
         </ul>
       </div>
     </>

@@ -10,12 +10,13 @@ import TextConvertor from "@modules/products/components/text-convertor"
 export default async function ProductRail({
   collection,
   region,
+  locale,
 }: {
   collection: ProductCollectionWithPreviews
-  region: Region
+  region: Region,
+  locale: string
 }) {
   const { products } = collection
-  const locale = getLang();
   const { t } = await initTranslations(locale, ['common']);
   if (!products) {
     return null
