@@ -6,6 +6,7 @@ import InteractiveLink from "@modules/common/components/interactive-link"
 import ProductPreview from "@modules/products/components/product-preview"
 import { ProductCollectionWithPreviews } from "types/global"
 import initTranslations from 'app/i18n';
+import TextConvertor from "@modules/products/components/text-convertor"
 export default async function ProductRail({
   collection,
   region,
@@ -14,7 +15,7 @@ export default async function ProductRail({
   region: Region
 }) {
   const { products } = collection
-  const locale = await getLang();
+  const locale = getLang();
   const { t } = await initTranslations(locale, ['common']);
   if (!products) {
     return null
@@ -23,7 +24,7 @@ export default async function ProductRail({
   return (
     <div className="content-container py-12 small:py-24">
       <div className="flex justify-between mb-8">
-        <Text className="txt-xlarge">{collection.title}</Text>
+        <Text className="txt-xlarge"> <TextConvertor locale={locale ?? "en"} title={collection.title as string} metadata={collection?.metadata?.title ?? null as any}/></Text>
         <InteractiveLink href={`/collections/${collection.handle}`}>
         {t("view-all")}
         </InteractiveLink>
