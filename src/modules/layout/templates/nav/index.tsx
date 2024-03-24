@@ -18,13 +18,15 @@ export default async function Nav(params:any) {
     <div className="sticky top-0 inset-x-0 z-50 group ">
       <header className="relative dark:bg-black bg-ui-bg-subtle h-16 mx-auto border-b duration-200  border-ui-border-base">
         <nav className="content-container txt-xsmall-plus text-ui-fg-subtle flex items-center justify-between w-full pr-2 pl-2 h-full text-small-regular">
-          <div className="flex-1 basis-0 h-full flex items-center">
+          <div className="flex-1 basis-0 h-full flex items-center sm:justify-between justify-around">
             <div className="h-full">
               <SideMenu regions={regions} />
             </div>
+            <div className="sm:hidden"><Theme/></div>
           </div>
 
           <div className="flex items-center h-full sm:pl-0 pl-2">
+          
             <h1 className="text-center">
             <LocalizedClientLink
               href="/"
@@ -67,7 +69,9 @@ export default async function Nav(params:any) {
             >
               <CartButton />
             </Suspense>
-            <Theme/>
+            <div className="hidden sm:block">
+              <Theme/>
+            </div>
             <LanguageToggle/>
           </div>
         </nav>

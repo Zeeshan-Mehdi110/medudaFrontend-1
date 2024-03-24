@@ -1,6 +1,6 @@
 "use client"
 import { useEffect, useState } from "react"
-import { Moon, MoonSolid } from "@medusajs/icons"
+import { Moon, MoonSolid, SunSolid } from "@medusajs/icons"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 
 export default function Theme() {
@@ -31,7 +31,7 @@ export default function Theme() {
 {theme === "light" ? (
         <MoonSolid onClick={toggleTheme} className="h-6 w-6" />
       ) : (
-        <Moon onClick={toggleTheme} className="h-6 w-6" />
+        <SunSolid onClick={toggleTheme} className="h-6 w-6" />
       )}
 </>
     
