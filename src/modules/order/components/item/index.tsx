@@ -8,10 +8,11 @@ import Thumbnail from "@modules/products/components/thumbnail"
 
 type ItemProps = {
   item: Omit<LineItem, "beforeInsert">
-  region: Region
+  region: Region,
+  locale : string
 }
 
-const Item = ({ item, region }: ItemProps) => {
+const Item = ({ item, region,locale }: ItemProps) => {
   return (
     <Table.Row className="w-full">
       <Table.Cell className="!pl-0 p-4 w-24">
@@ -22,7 +23,7 @@ const Item = ({ item, region }: ItemProps) => {
 
       <Table.Cell className="text-left">
         <Text className="txt-medium-plus text-ui-fg-base">{item.title}</Text>
-        <LineItemOptions variant={item.variant} />
+        <LineItemOptions locale={locale} variant={item.variant} />
       </Table.Cell>
 
       <Table.Cell className="!pr-0">

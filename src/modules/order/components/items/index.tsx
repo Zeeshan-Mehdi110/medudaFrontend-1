@@ -7,10 +7,11 @@ import SkeletonLineItem from "@modules/skeletons/components/skeleton-line-item"
 
 type ItemsProps = {
   items: LineItem[]
-  region: Region
+  region: Region,
+  locale: string
 }
 
-const Items = ({ items, region }: ItemsProps) => {
+const Items = ({ items, region,locale }: ItemsProps) => {
   return (
     <div className="flex flex-col">
       <Divider className="!mb-0" />
@@ -22,7 +23,7 @@ const Items = ({ items, region }: ItemsProps) => {
                   return a.created_at > b.created_at ? -1 : 1
                 })
                 .map((item) => {
-                  return <Item key={item.id} item={item} region={region} />
+                  return <Item locale={locale} key={item.id} item={item} region={region} />
                 })
             : Array.from(Array(5).keys()).map((i) => {
                 return <SkeletonLineItem key={i} />

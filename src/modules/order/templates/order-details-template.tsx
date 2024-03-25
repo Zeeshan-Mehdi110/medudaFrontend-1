@@ -12,12 +12,15 @@ import ShippingDetails from "@modules/order/components/shipping-details"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 
 type OrderDetailsTemplateProps = {
-  order: Order
+  order: Order,
+  params: any
 }
 
 const OrderDetailsTemplate: React.FC<OrderDetailsTemplateProps> = ({
   order,
+  params,
 }) => {
+  const {locale} = params;
   return (
     <div className="flex flex-col justify-center gap-y-4">
       <div className="flex gap-2 justify-between items-center">
@@ -31,7 +34,7 @@ const OrderDetailsTemplate: React.FC<OrderDetailsTemplateProps> = ({
       </div>
       <div className="flex flex-col gap-4 h-full bg-white w-full">
         <OrderDetails order={order} showStatus />
-        <Items items={order.items} region={order.region} />
+        <Items locale={locale} items={order.items} region={order.region} />
         <ShippingDetails order={order} />
         <OrderSummary order={order} />
         <Help />
