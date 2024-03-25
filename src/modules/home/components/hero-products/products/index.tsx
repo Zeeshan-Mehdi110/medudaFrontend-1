@@ -25,7 +25,7 @@ interface Product {
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const [locale, setLocale] = useState(localStorage.getItem("lang") ?? "en");
   return (
-    <div className="product-card rounded-lg h-[200px] w-48 mr-2 flex flex-col bg-white shadow-lg overflow-hidden">
+    <div className="product-card rounded-lg h-[200px] sm:w-full w-[175px] flex flex-col bg-white shadow-lg overflow-hidden">
     {/* Fixed height for the image container */}
     <div className="h-2/3 overflow-hidden">
       <img src={product.thumbnail} className="w-full h-full object-cover" alt={product.title} />
