@@ -8,6 +8,7 @@ import Theme from "@modules/layout/components/theme-toggle"
 import LanguageToggle from "@modules/layout/components/language-toggle"
 import initTranslations from "app/i18n"
 import Image from "next/image"
+import { ShoppingCart } from "@medusajs/icons"
 export default async function Nav(params:any) {
   const regions = await listRegions().then((regions) => regions)
   const locale = params.children[1];
@@ -63,7 +64,7 @@ export default async function Nav(params:any) {
                   className="hover:text-ui-fg-base flex gap-2 ml "
                   href="/cart"
                 >
-                  {t("cart")}(0)
+                    <ShoppingCart className="mr-1" /> 
                 </a>
               }
             >
