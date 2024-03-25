@@ -28,5 +28,5 @@ export default async function OrderDetailPage({ params }: Props) {
     notFound()
   }
 
-  return <OrderDetailsTemplate order={order} />
+  return <OrderDetailsTemplate params={params} order={order} />
 }
