@@ -57,7 +57,11 @@ export const getLang = () => {
   return token
 }
 
-
+export const getTheme = () => {
+  
+  const theme = cookies().get("theme")?.value
+  return theme;
+}
 // Cart actions
 export async function createCart(data = {}) {
   const headers = getMedusaHeaders(["cart"])

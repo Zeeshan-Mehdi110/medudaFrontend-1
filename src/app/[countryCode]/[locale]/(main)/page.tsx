@@ -1,7 +1,7 @@
 import { Product } from "@medusajs/medusa"
 import { Metadata } from "next"
 
-import { getCollectionsList, getProductsList } from "@lib/data"
+import { getCollectionsList, getProductsList, getTheme } from "@lib/data"
 import FeaturedProducts from "@modules/home/components/featured-products"
 import Hero from "@modules/home/components/hero"
 import { getRegion } from "app/actions"
@@ -64,12 +64,13 @@ export default async function Home({
   if (!collections || !region) {
     return null
   }
+  const theme = getTheme();
   const backgroundImageStyle = {
-    backgroundImage: `url('/lightTheme.jpg')`,
+    backgroundImage: theme ==='dark' ? `url('/2363.jpg')` : `url('/lightTheme.jpg')`,
     backgroundPosition: 'center',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
-    minHeight: '100vh',
+    minHeight: '100vh', // Ensures the background covers the full viewport height
   };
   return (
     <>
