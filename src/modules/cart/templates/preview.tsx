@@ -8,10 +8,11 @@ import SkeletonLineItem from "@modules/skeletons/components/skeleton-line-item"
 
 type ItemsTemplateProps = {
   items?: Omit<LineItem, "beforeInsert">[]
-  region?: Region
+  region?: Region,
+  locale: string
 }
 
-const ItemsPreviewTemplate = ({ items, region }: ItemsTemplateProps) => {
+const ItemsPreviewTemplate = ({ items, region,locale }: ItemsTemplateProps) => {
   const hasOverflow = items && items.length > 4
 
   return (
@@ -35,6 +36,7 @@ const ItemsPreviewTemplate = ({ items, region }: ItemsTemplateProps) => {
                       item={item}
                       region={region}
                       type="preview"
+                      locale={locale}
                     />
                   )
                 })

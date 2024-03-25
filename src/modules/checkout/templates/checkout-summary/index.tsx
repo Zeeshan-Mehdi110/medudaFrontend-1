@@ -8,9 +8,9 @@ import { retrieveCart } from "@modules/cart/actions"
 import initTranslations from "app/i18n"
 import { getLang } from "@lib/data"
 
-const CheckoutSummary = async () => {
+const CheckoutSummary = async ({locale} : {locale:string}) => {
   const cart = await retrieveCart().then((cart) => cart)
-  const locale = getLang()
+
 const {t} = await initTranslations(locale, ['common']);
   if (!cart) {
     return null
@@ -28,7 +28,7 @@ const {t} = await initTranslations(locale, ['common']);
         </Heading>
         <Divider className="my-6" />
         <CartTotals data={cart} />
-        <ItemsPreviewTemplate region={cart?.region} items={cart?.items} />
+        <ItemsPreviewTemplate locale={locale} region={cart?.region} items={cart?.items} />
         <div className="my-6">
           <DiscountCode cart={cart} />
         </div>

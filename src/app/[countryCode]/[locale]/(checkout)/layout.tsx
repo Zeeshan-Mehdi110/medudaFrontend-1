@@ -5,10 +5,12 @@ import MedusaCTA from "@modules/layout/components/medusa-cta"
 import initTranslations from "app/i18n"
 export default async function CheckoutLayout({
   children,
+  params,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode,
+  params: any
 }) {
-  const locale = getLang();
+  const {locale} = params;
   const { t} = await initTranslations(locale, ['common']);
   return (
     <div className="w-full bg-white dark:text-white dark:bg-black relative small:min-h-screen ">

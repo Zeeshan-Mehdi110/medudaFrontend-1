@@ -23,7 +23,8 @@ const fetchCart = async () => {
   return cart
 }
 
-export default async function Checkout() {
+export default async function Checkout({params} : {params:any}) {
+  const { locale } = params
   const cartId = cookies().get("_medusa_cart_id")?.value
 
   if (!cartId) {
@@ -41,7 +42,7 @@ export default async function Checkout() {
       <Wrapper cart={cart}>
         <CheckoutForm />
       </Wrapper>
-      <CheckoutSummary />
+      <CheckoutSummary locale={locale}/>
     </div>
   )
 }
