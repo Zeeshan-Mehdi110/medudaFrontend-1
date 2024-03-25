@@ -8,25 +8,24 @@ export default function Theme() {
 
   useEffect(() => {
     // Apply the memoized theme value to the document element
+  
     setTheme(localStorage.getItem("theme") || "light")
     document.documentElement.setAttribute("data-mode", theme)
+
+    const backgroundContainer = document.getElementById("background-image");
+    if (backgroundContainer) {
+      backgroundContainer.style.backgroundImage =
+        theme === "light" ? "url('/lightTheme.jpg')" : "url('/2363.jpg')";
+    }
   }, [theme]) // This effect depends on theme state for applying the theme to the document
 
   const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light"
+    const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme)
     localStorage.setItem("theme", newTheme)
   }
 
   return (
-    // <LocalizedClientLink
-    //   href=""
-    //   onClick={toggleTheme}
-    //   className="hover:text-ui-fg-base"
-    // >
-     
-    // </LocalizedClientLink>
-
 <>
 {theme === "light" ? (
         <MoonSolid onClick={toggleTheme} className="h-6 w-6" />

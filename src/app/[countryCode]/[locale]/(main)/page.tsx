@@ -8,7 +8,7 @@ import { getRegion } from "app/actions"
 import { ProductCollectionWithPreviews } from "types/global"
 
 export const metadata: Metadata = {
-  title: "Medusa Next.js Starter Template",
+  title: "Pixels Journey Store",
   description:
     "A performant frontend ecommerce starter template with Next.js 14 and Medusa.",
 }
@@ -55,21 +55,26 @@ const getCollectionsWithProducts = async (
 }
 
 export default async function Home({
-  params: { countryCode,locale },
+  params: { countryCode, locale},
 }: {
-  params: { countryCode: string,locale: string}
+  params: { countryCode: string, locale: string}
 }) {
   const collections = await getCollectionsWithProducts(countryCode)
   const region = await getRegion(countryCode)
-
   if (!collections || !region) {
     return null
   }
-
+  const backgroundImageStyle = {
+    backgroundImage: `url('/lightTheme.jpg')`,
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    minHeight: '100vh',
+  };
   return (
     <>
       <Hero />
-      <div className="py-12">
+      <div id="background-image" style={backgroundImageStyle}>
         <ul className="flex flex-col gap-x-6">
           <FeaturedProducts locale={locale} collections={collections} region={region} />
         </ul>
