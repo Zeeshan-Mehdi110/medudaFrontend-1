@@ -25,7 +25,7 @@ export default async function ProductRail({
   return (
     <div className="content-container py-12 small:py-24">
       <div className="flex justify-between mb-8">
-        <Text className="txt-xlarge"> <TextConvertor locale={locale ?? "en"} title={collection.title as string} metadata={collection?.metadata?.title ?? null as any}/></Text>
+        <Text className="txt-xlarge dark:text-white"> <TextConvertor locale={locale ?? "en"} title={collection.title as string} metadata={collection?.metadata?.title ?? null as any}/></Text>
         <InteractiveLink href={`/collections/${collection.handle}`}>
         {t("view-all")}
         </InteractiveLink>
