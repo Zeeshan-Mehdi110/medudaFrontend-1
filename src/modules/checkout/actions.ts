@@ -6,13 +6,14 @@ import {
   addShippingMethod,
   completeCart,
   deleteDiscount,
+  getLang,
   setPaymentSession,
   updateCart,
 } from "@lib/data"
 import { GiftCard, StorePostCartsCartReq } from "@medusajs/medusa"
 import { revalidateTag } from "next/cache"
 import { redirect } from "next/navigation"
-
+const locale = getLang()
 export async function cartUpdate(data: StorePostCartsCartReq) {
   const cartId = cookies().get("_medusa_cart_id")?.value
 
@@ -153,7 +154,7 @@ export async function setAddresses(currentState: unknown, formData: FormData) {
   }
 
   redirect(
-    `/${formData.get("shipping_address.country_code")}/checkout?step=delivery`
+    `/${formData.get("shipping_address.country_code")}/${locale}/checkout?step=delivery`
   )
 }
 
@@ -201,7 +202,7 @@ export async function placeOrder() {
   if (cart?.type === "order") {
     const countryCode = cart.data.shipping_address?.country_code?.toLowerCase()
     cookies().set("_medusa_cart_id", "", { maxAge: -1 })
-    redirect(`/${countryCode}/order/confirmed/${cart?.data.id}`)
+    redirect(`/${countryCode}/${locale}/order/confirmed/${cart?.data.id}`)
   }
 
   return cart
