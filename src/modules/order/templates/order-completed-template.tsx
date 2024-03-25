@@ -11,14 +11,16 @@ import ShippingDetails from "@modules/order/components/shipping-details"
 import PaymentDetails from "@modules/order/components/payment-details"
 
 type OrderCompletedTemplateProps = {
-  order: Order
+  order: Order,
+  params: any
 }
 
 export default function OrderCompletedTemplate({
   order,
+  params
 }: OrderCompletedTemplateProps) {
   const isOnboarding = cookies().get("_medusa_onboarding")?.value === "true"
-
+const { locale } = params;
   return (
     <div className="py-6 min-h-[calc(100vh-64px)]">
       <div className="content-container flex flex-col justify-center items-center gap-y-10 max-w-4xl h-full w-full">
@@ -35,7 +37,7 @@ export default function OrderCompletedTemplate({
           <Heading level="h2" className="flex flex-row text-3xl-regular">
             Summary
           </Heading>
-          <Items items={order.items} region={order.region} />
+          <Items locale={locale} items={order.items} region={order.region} />
           <CartTotals data={order} />
           <ShippingDetails order={order} />
           <PaymentDetails order={order} />
