@@ -25,6 +25,7 @@ const CartDropdown = ({
   const [cartDropdownOpen, setCartDropdownOpen] = useState(false)
 
   const { countryCode } = useParams()
+  const { locale } = useParams()
   const { t } = useTranslation()
   const open = () => setCartDropdownOpen(true)
   const close = () => setCartDropdownOpen(false)
@@ -132,7 +133,7 @@ const CartDropdown = ({
                                     {item.title}
                                   </LocalizedClientLink>
                                 </h3>
-                                <LineItemOptions variant={item.variant} />
+                                <LineItemOptions locale={locale} variant={item.variant} />
                                 <span>{t("quantity")}: {item.quantity}</span>
                               </div>
                               <div className="flex justify-end">

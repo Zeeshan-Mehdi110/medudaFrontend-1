@@ -18,10 +18,11 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 type ItemProps = {
   item: Omit<LineItem, "beforeInsert">
   region: Region
-  type?: "full" | "preview"
+  type?: "full" | "preview",
+  locale: string
 }
 
-const Item = async({ item, region, type = "full" }: ItemProps) => {
+const Item = async({ item,locale, region, type = "full" }: ItemProps) => {
   const [updating, setUpdating] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -61,7 +62,7 @@ const Item = async({ item, region, type = "full" }: ItemProps) => {
 
       <Table.Cell className="text-left">
         <Text className="txt-medium-plus text-ui-fg-base">{item.title}</Text>
-        <LineItemOptions variant={item.variant} />
+        <LineItemOptions locale={locale} variant={item.variant} />
       </Table.Cell>
 
       {type === "full" && (

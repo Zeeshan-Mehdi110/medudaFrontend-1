@@ -41,7 +41,7 @@ export default async function ItemsTemplate({ items, region,locale }: ItemsTempl
                   return a.created_at > b.created_at ? -1 : 1
                 })
                 .map((item) => {
-                  return <Item key={item.id} item={item} region={region} />
+                  return <Item locale={locale} key={item.id} item={item} region={region} />
                 })
             : Array.from(Array(5).keys()).map((i) => {
                 return <SkeletonLineItem key={i} />
