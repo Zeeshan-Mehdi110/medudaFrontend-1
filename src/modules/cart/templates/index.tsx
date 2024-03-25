@@ -9,9 +9,11 @@ import { Customer } from "@medusajs/medusa"
 const CartTemplate = ({
   cart,
   customer,
+  locale,
 }: {
   cart: CartWithCheckoutStep | null
   customer: Omit<Customer, "password_hash"> | null
+  locale: string
 }) => {
   return (
     <div className="py-12 dark:text-white ">
@@ -21,11 +23,11 @@ const CartTemplate = ({
             <div className="flex flex-col bg-white py-6 gap-y-6 dark:bg-black">
               {!customer && (
                 <>
-                  <SignInPrompt />
+                  <SignInPrompt locale={locale} />
                   <Divider />
                 </>
               )}
-              <ItemsTemplate region={cart?.region} items={cart?.items} />
+              <ItemsTemplate locale={locale} region={cart?.region} items={cart?.items} />
             </div>
             <div className="relative">
               <div className="flex flex-col gap-y-8 sticky top-12">
@@ -41,7 +43,7 @@ const CartTemplate = ({
           </div>
         ) : (
           <div>
-            <EmptyCartMessage />
+            <EmptyCartMessage locale={locale} />
           </div>
         )}
       </div>

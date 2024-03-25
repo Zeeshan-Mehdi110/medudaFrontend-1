@@ -30,9 +30,10 @@ const fetchCart = async () => {
   return cart
 }
 
-export default async function Cart() {
+export default async function Cart({params}: {params: any}) {
+  const {locale} = params;
   const cart = await fetchCart()
   const customer = await getCustomer()
 
-  return <CartTemplate cart={cart} customer={customer} />
+  return <CartTemplate locale={locale} cart={cart} customer={customer} />
 }

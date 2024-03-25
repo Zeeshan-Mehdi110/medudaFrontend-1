@@ -21,7 +21,7 @@ type ItemProps = {
   type?: "full" | "preview"
 }
 
-const Item = ({ item, region, type = "full" }: ItemProps) => {
+const Item = async({ item, region, type = "full" }: ItemProps) => {
   const [updating, setUpdating] = useState(false)
   const [error, setError] = useState<string | null>(null)
 

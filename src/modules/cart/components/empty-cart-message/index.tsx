@@ -3,8 +3,7 @@ import { Heading, Text } from "@medusajs/ui"
 import InteractiveLink from "@modules/common/components/interactive-link"
 import initTranslations from 'app/i18n';
 import { getLang } from '@lib/data';
-export default async function EmptyCartMessage(): Promise<JSX.Element> {
-  const locale = getLang();
+export default async function EmptyCartMessage({locale} : {locale:string}): Promise<JSX.Element> {
   const { t } = await initTranslations(locale, ['common']);
   return (
     <div className="py-48 px-2 flex flex-col justify-center items-start">

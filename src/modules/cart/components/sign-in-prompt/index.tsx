@@ -2,8 +2,8 @@ import { getLang } from "@lib/data";
 import { Button, Heading, Text } from "@medusajs/ui"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import initTranslations from "app/i18n"
-export default async function SignInPrompt(): Promise<JSX.Element> {
-  const locale = getLang();
+export default async function SignInPrompt({locale} : {locale:string}): Promise<JSX.Element> {
+
   const { t } = await initTranslations(locale, ['common']);
   return (
     <div className="bg-white dark:bg-black flex items-center justify-between">

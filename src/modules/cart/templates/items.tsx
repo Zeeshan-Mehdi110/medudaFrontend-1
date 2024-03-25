@@ -8,10 +8,11 @@ import SkeletonLineItem from "@modules/skeletons/components/skeleton-line-item"
 type ItemsTemplateProps = {
   items?: Omit<LineItem, "beforeInsert">[]
   region?: Region
+  locale: string
 }
 
-export default async function ItemsTemplate({ items, region }: ItemsTemplateProps) {
-  const locale = getLang();
+export default async function ItemsTemplate({ items, region,locale }: ItemsTemplateProps) {
+
   const { t} = await initTranslations(locale, ['common']);
 
   return (
