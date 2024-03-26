@@ -50,7 +50,7 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
       </div>
       <div className="content-container my-16 small:my-32">
         <Suspense fallback={<SkeletonRelatedProducts />}>
-          <RelatedProducts product={product} countryCode={countryCode} />
+          <RelatedProducts locale={locale} product={product} countryCode={countryCode} />
         </Suspense>
       </div>
     </>

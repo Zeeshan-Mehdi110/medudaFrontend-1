@@ -3,10 +3,11 @@ import { formatAmount } from "@lib/util/prices"
 import { getLang } from "@lib/data"
 import initTranslations from "app/i18n"
 type OrderSummaryProps = {
-  order: Order
+  order: Order,
+  locale: string
 }
 
-export default async function OrderSummary({ order }: OrderSummaryProps): Promise<JSX.Element> {
+export default async function OrderSummary({ order,locale }: OrderSummaryProps): Promise<JSX.Element> {
   const getAmount = (amount?: number | null) => {
     if (!amount) {
       return
@@ -14,7 +15,6 @@ export default async function OrderSummary({ order }: OrderSummaryProps): Promis
     return formatAmount({ amount, region: order.region, includeTaxes: false })
   }
 
-  const locale = getLang();
   const { t} = await initTranslations(locale, ['common']);
   return (
     <div>

@@ -7,8 +7,8 @@ export const metadata: Metadata = {
   description: "Something went wrong",
 }
 
-export default async function NotFound() {
-  const locale = getLang();
+export default async function NotFound({params}: {params: any}) {
+  const {locale} = params;
   const { t } = await initTranslations(locale, ['common']);
   return (
     <div className="flex flex-col gap-4 items-center justify-center min-h-[calc(100vh-64px)]">

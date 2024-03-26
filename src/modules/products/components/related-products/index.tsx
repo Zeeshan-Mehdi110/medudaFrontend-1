@@ -9,15 +9,16 @@ import initTranslations from "app/i18n"
 
 type RelatedProductsProps = {
   product: PricedProduct
-  countryCode: string
+  countryCode: string,
+  locale: string
 }
 
 export default async function RelatedProducts({
   product,
   countryCode,
+  locale,
 }: RelatedProductsProps) {
   const region = await getRegion(countryCode)
-const locale = await getLang()
 const { t } = await initTranslations(locale, ['common']);
   if (!region) {
     return null

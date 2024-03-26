@@ -2,8 +2,8 @@ import Head from 'next/head';
 import Link from 'next/link';
 import initTranslations from 'app/i18n';
 import { getLang } from '@lib/data';
-export default async function CustomerService() {
-  const locale = await getLang();
+export default async function CustomerService({params}: {params: any}) {
+  const {locale} = params;
   const { t } = await initTranslations(locale, ['common']);
   return (
     <div className="flex flex-col min-h-screen py-2">
