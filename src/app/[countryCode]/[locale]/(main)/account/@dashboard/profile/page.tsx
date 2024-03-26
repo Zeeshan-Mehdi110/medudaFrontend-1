@@ -14,10 +14,10 @@ export const metadata: Metadata = {
   description: "View and edit your Medusa Store profile.",
 }
 
-export default async function Profile() {
+export default async function Profile({params}: {params: any}) {
   const customer = await getCustomer()
   const regions = await listRegions()
-  const locale = getLang()
+  const {locale} = params;
   const { t } = await initTranslations(locale, ["common"])
   if (!customer || !regions) {
     notFound()

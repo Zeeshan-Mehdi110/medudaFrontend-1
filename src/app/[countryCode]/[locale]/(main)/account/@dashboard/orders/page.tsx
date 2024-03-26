@@ -10,9 +10,9 @@ export const metadata: Metadata = {
   description: "Overview of your previous orders.",
 }
 
-export default async function Orders() {
+export default async function Orders({params}: {params: any}) {
   const orders = await listCustomerOrders()
-const locale = getLang();
+  const {locale} = params;
 const { t } = await initTranslations(locale, ['common']);
   if (!orders) {
     notFound()
