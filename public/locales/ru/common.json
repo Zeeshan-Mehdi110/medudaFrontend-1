@@ -186,5 +186,14 @@
   "password_length": "Пароль должен быть не менее 6 символов",
   "password_match": "Пароли не совпадают",
   "password_reset_request_confirm_fail": "Не удалось подтвердить запрос на сброс пароля",
-  "password_reset_request_confirm_success": "Запрос на сброс пароля подтвержден успешно"
+  "password_reset_request_confirm_success": "Запрос на сброс пароля подтвержден успешно",
+  "view-your-orders": "Просмотреть ваши заказы",
+  "view-your-addresses": "Просмотреть ваши адреса",
+  "collections": "Коллекции",
+  "category": "Категория",
+  "categories": "Категории",
+  "cart-page-meta-description" : "Просмотрите товары, которые вы добавили в корзину на Pixels Journey.",
+  "overview-of-your-previous-orders": "Обзор ваших предыдущих заказов",
+  "overview-of-your-account-activity": "Обзор вашей активности в учетной записи",
+  "sign-in-to-view-your-pixels-journey-account": "Войдите, чтобы просмотреть ваш аккаунт Pixels Journey"
 }

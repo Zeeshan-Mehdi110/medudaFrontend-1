@@ -169,7 +169,7 @@
   "password_reset_confirm": "Confirm Password Reset",
   "contact-us-message": "Message",
   "contact-us-title": "Contact Us",
-  "contact-us-description":"If you have any questions or concerns, please feel free to contact us. We will get back to you as soon as possible.",
+  "contact-us-description": "If you have any questions or concerns, please feel free to contact us. We will get back to you as soon as possible.",
   "password_reset_request": "Request Password Reset",
   "password_reset_request_confirm": "Confirm Password Reset Request",
   "password_reset_request_success": "Password Reset Request Sent Successfully",
@@ -185,5 +185,17 @@
   "password_length": "Password must be at least 6 characters long",
   "password_match": "Passwords do not match",
   "password_reset_request_confirm_fail": "Password Reset Request Confirmation Failed",
-  "password_reset_request_confirm_success": "Password Reset Request Confirmed Successfully"
+  "password_reset_request_confirm_success": "Password Reset Request Confirmed Successfully",
+  "cart-page-meta-description": "View your cart",
+  "view-your-addresses": "View your addresses",
+  "categories": "Categories",
+  "category": "Category",
+  "collections": "Collections",
+  "send": "Send",
+  "view-your-profile": "View your profile",
+  "overview-of-your-previous-orders": "Overview of your previous orders",
+  "view-your-order": "View your order",
+  "order": "Order",
+  "sign-in-to-view-your-pixels-journey-account": "Sign in to view your Pixels Journey account",
+  "overview-of-your-account-activity": "Overview of your account activity"
 }

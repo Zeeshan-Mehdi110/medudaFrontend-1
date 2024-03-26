@@ -1,4 +1,4 @@
-import { Metadata } from "next"
+import { Metadata, ResolvingMetadata } from "next"
 
 import ProfilePhone from "@modules/account//components/profile-phone"
 import ProfileBillingAddress from "@modules/account/components/profile-billing-address"
@@ -9,9 +9,21 @@ import initTranslations from "app/i18n"
 import { getCustomer, getLang, listRegions } from "@lib/data"
 import { notFound } from "next/navigation"
 
-export const metadata: Metadata = {
-  title: "Profile",
-  description: "View and edit your Medusa Store profile.",
+type Props = {
+  params: { locale: string }
+
+}
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+
+  const { t } = await initTranslations(params.locale, ['common']);
+ 
+  return {
+    title: t("profile"),
+    description: t("view-your-profile"),
+  }
 }
 
 export default async function Profile({params}: {params: any}) {

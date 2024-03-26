@@ -1,4 +1,4 @@
-import { Metadata } from "next"
+import { Metadata, ResolvingMetadata } from "next"
 import { notFound } from "next/navigation"
 
 import AddressBook from "@modules/account/components/address-book"
@@ -8,9 +8,21 @@ import initTranslations from "app/i18n"
 import { getRegion } from "app/actions"
 import { headers } from "next/headers"
 
-export const metadata: Metadata = {
-  title: "Addresses",
-  description: "View your addresses",
+type Props = {
+  params: { locale: string }
+
+}
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+
+  const { t } = await initTranslations(params.locale, ['common']);
+ 
+  return {
+    title: t("sign-in"),
+    description: t("sign-in-to-view-your-pixels-journey-account"),
+  }
 }
 
 export default async function Addresses({params}: {params: any}) {

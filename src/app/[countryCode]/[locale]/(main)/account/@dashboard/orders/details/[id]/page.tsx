@@ -3,21 +3,23 @@ import { notFound } from "next/navigation"
 
 import { retrieveOrder } from "@lib/data"
 import OrderDetailsTemplate from "@modules/order/templates/order-details-template"
+import initTranslations from "app/i18n"
 
 type Props = {
-  params: { id: string }
+  params: { id: string, locale: string }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const order = await retrieveOrder(params.id).catch(() => null)
-
+  const {locale} = params;
+  const { t } = await initTranslations(locale, ['common']);
   if (!order) {
     notFound()
   }
 
   return {
-    title: `Order #${order.display_id}`,
-    description: `View your order`,
+    title: `${t("order")} #${order.display_id}`,
+    description: t("view-your-order"),
   }
 }
 

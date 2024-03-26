@@ -1,13 +1,24 @@
-import { Metadata } from "next"
+import { Metadata, ResolvingMetadata } from "next"
 
 import OrderOverview from "@modules/account/components/order-overview"
 import { listCustomerOrders } from "@lib/data"
 import { notFound } from "next/navigation"
-import { getLang } from "@lib/data"
 import initTranslations from "app/i18n"
-export const metadata: Metadata = {
-  title: "Orders",
-  description: "Overview of your previous orders.",
+type Props = {
+  params: { locale: string }
+
+}
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+
+  const { t } = await initTranslations(params.locale, ['common']);
+ 
+  return {
+    title: t("orders"),
+    description: t("overview-of-your-previous-orders"),
+  }
 }
 
 export default async function Orders({params}: {params: any}) {
