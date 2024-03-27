@@ -21,7 +21,8 @@ const RefinementList = ({ sortBy }: RefinementListProps) => {
   const [categories, setCategories] = useState([]);
   const [check, setCheck] = useState(localStorage.getItem("checkedCategoryId") || "/");
   const [artistCheck, setArtistCheck] = useState(localStorage.getItem("checkedArtistId") || "/");
-  const [artists, setArtists] = useState(localStorage.getItem("checkedartistId") || "/");
+  const [artistName, setArtistName] = useState(localStorage.getItem("checkedArtistName") || "All");
+  const [artists, setArtists] = useState({});
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -61,13 +62,17 @@ const RefinementList = ({ sortBy }: RefinementListProps) => {
     router.push(`/categories/${value}`);
   }
 
-  const handleArtistChange = (artistId: string) => {
+  const handleArtistChange = (artistId: string, artistName:string) => {
     setArtistCheck(artistId);
+    
     if (artistId === "/") {
-      localStorage.setItem("checkedartistId", artistId);
+      setArtistName("All");
+      localStorage.setItem("checkedArtistId", artistId);
       router.push("/store")
       return
     }
+    setArtistName("All");
+    localStorage.setItem("checkedArtistName", artistName);
     router.push(`/artist/${artistId}`);
   }
 
@@ -127,9 +132,9 @@ const RefinementList = ({ sortBy }: RefinementListProps) => {
         <>
           <div className="language-selector hover:text-ui-fg-base">
             <select className=" dark:text-white bg-transparent dark:bg-black w-24" onChange={(e) => {
-              handleArtistChange(e.target.value);
+              handleArtistChange(e.target.value,artist.value);
             }} value={artistCheck}>
-              <option selected value={"/"}>All</option>
+              <option selected value={"/"}>{artistName}</option>
               {artists.values.map((artist) => (
                 <option key={artist.id} value={artist.id}>{artist.value}</option>
               ))}
