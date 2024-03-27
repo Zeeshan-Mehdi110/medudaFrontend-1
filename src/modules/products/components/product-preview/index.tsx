@@ -1,18 +1,12 @@
 import { Text } from "@medusajs/ui"
-
 import { ProductPreviewType } from "types/global"
-
-import { retrievePricedProductById } from "@lib/data"
-import { getProductPrice } from "@lib/util/get-product-price"
 import { Region } from "@medusajs/medusa"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import Thumbnail from "../thumbnail"
-import PreviewPrice from "./price"
 import TextConvertor from "../text-convertor"
-export default async function ProductPreview({
+export default function ProductPreview({
   productPreview,
   isFeatured,
-  region,
   locale,
 }: {
   productPreview: ProductPreviewType
@@ -20,19 +14,6 @@ export default async function ProductPreview({
   region: Region
   locale: string
 }) {
-  const pricedProduct = await retrievePricedProductById({
-    id: productPreview.id,
-    regionId: region.id,
-  }).then((product) => product)
-
-  if (!pricedProduct) {
-    return null
-  }
-
-  const { cheapestPrice } = getProductPrice({
-    product: pricedProduct,
-    region,
-  })
 
 
   return (
@@ -49,7 +30,6 @@ export default async function ProductPreview({
         <div className="flex txt-compact-medium mt-4 justify-between">
           <Text className="text-ui-fg-subtle"><TextConvertor locale={locale} title={productPreview.title} metadata={productPreview?.metadata?.title ?? null}/></Text>
           <div className="flex items-center gap-x-2">
-            {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
           </div>
         </div>
       </div>
