@@ -88,7 +88,7 @@ const RefinementList = ({ sortBy }: RefinementListProps) => {
       <div className="flex small:flex-col gap-12 py-4 mb-8 small:px-0 pl-6 small:min-w-[250px] small:ml-[1.675rem]">
         <SortProducts sortBy={sortBy} setQueryParams={setQueryParams} />
       </div>
-      <div className="md:flex md:flex-row md:justify-between">
+      <div className="md:flex md:flex-row md:justify-between flex flex-col">
       {categories && (
         <>
           {/* <div >
@@ -123,6 +123,7 @@ const RefinementList = ({ sortBy }: RefinementListProps) => {
             ))}
         </>
       )}
+      <div>
       <Text className="txt-compact-small-plus mb-4 mt-8 text-ui-fg-muted">Artists</Text>
       {artists?.values && (
         <>
@@ -138,6 +139,7 @@ const RefinementList = ({ sortBy }: RefinementListProps) => {
           </div>
         </>
       )}
+      </div>
       </div>
     </div>
   );
