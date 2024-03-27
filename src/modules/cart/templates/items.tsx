@@ -1,3 +1,4 @@
+import { getLang } from "@lib/data"
 import { LineItem, Region } from "@medusajs/medusa"
 import { Heading, Table } from "@medusajs/ui"
 import initTranslations from "../../../app/i18n"
@@ -28,7 +29,7 @@ export default async function ItemsTemplate({ items, region,locale }: ItemsTempl
             <Table.HeaderCell className={`${rtl ? 'text-right' : ""} hidden small:table-cell`}>
             {t("price")}
             </Table.HeaderCell>
-            <Table.HeaderCell className={`${rtl ? 'text-left' : 'text-right'} pl-0`}>
+            <Table.HeaderCell className={`${rtl ? 'text-left !pl-2' : 'text-right !pr-2'} `}>
             {t("total")}
             </Table.HeaderCell>
           </Table.Row>
