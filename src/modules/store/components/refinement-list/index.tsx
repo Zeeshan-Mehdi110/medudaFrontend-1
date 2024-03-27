@@ -111,7 +111,7 @@ const RefinementList = ({ sortBy }: RefinementListProps) => {
               <div key={parentCategory.id}>
                 <Text className="txt-compact-small-plus mb-4 mt-4 text-ui-fg-muted">{parentCategory.name}</Text>
                 <div className="language-selector hover:text-ui-fg-base">
-                  <select className="dark:text-white bg-transparent dark:bg-black w-24" onChange={(e) => handleCategoryChange(e)} value={check}>
+                  <select className="dark:text-white bg-transparent dark:bg-black w-32" onChange={(e) => handleCategoryChange(e)} value={check}>
                     <option value={"/"}>All</option>
                     {parentCategory.category_children.map(child => (
                       <option key={child.id} value={child.handle}>{child.name}</option>
@@ -126,7 +126,7 @@ const RefinementList = ({ sortBy }: RefinementListProps) => {
       {artists?.values && (
         <>
           <div className="language-selector hover:text-ui-fg-base">
-            <select className=" dark:text-white bg-transparent dark:bg-black w-24" onChange={(e) => {
+            <select className=" dark:text-white bg-transparent dark:bg-black w-32" onChange={(e) => {
               handleArtistChange(e.target.value);
             }} value={artistCheck}>
               <option selected value={"/"}>All</option>
