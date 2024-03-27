@@ -22,10 +22,10 @@ type ItemProps = {
   locale: string
 }
 
-const Item = async({ item,locale, region, type = "full" }: ItemProps) => {
+const Item =  ({ item,locale ,region, type = "full" }: ItemProps) => {
   const [updating, setUpdating] = useState(false)
   const [error, setError] = useState<string | null>(null)
-
+  const rtl = locale === "ar" || locale === "he";
   const { handle } = item.variant.product
 
   const changeQuantity = async (quantity: number) => {
@@ -60,7 +60,7 @@ const Item = async({ item,locale, region, type = "full" }: ItemProps) => {
         </LocalizedClientLink>
       </Table.Cell>
 
-      <Table.Cell className="text-left">
+      <Table.Cell className={`${rtl ? 'text-right' : "text-left"}`}>
         <Text className="txt-medium-plus text-ui-fg-base">{item.title}</Text>
         <LineItemOptions locale={locale} variant={item.variant} />
       </Table.Cell>

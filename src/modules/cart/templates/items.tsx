@@ -1,4 +1,3 @@
-import { getLang } from "@lib/data"
 import { LineItem, Region } from "@medusajs/medusa"
 import { Heading, Table } from "@medusajs/ui"
 import initTranslations from "../../../app/i18n"
@@ -7,14 +6,14 @@ import SkeletonLineItem from "@modules/skeletons/components/skeleton-line-item"
 
 type ItemsTemplateProps = {
   items?: Omit<LineItem, "beforeInsert">[]
-  region?: Region
+  region?: Region,
   locale: string
 }
 
 export default async function ItemsTemplate({ items, region,locale }: ItemsTemplateProps) {
 
   const { t} = await initTranslations(locale, ['common']);
-
+  const rtl = locale === "ar" || locale === "he";
   return (
     <div>
       <div className="pb-3 flex items-center">
@@ -23,13 +22,13 @@ export default async function ItemsTemplate({ items, region,locale }: ItemsTempl
       <Table>
         <Table.Header className="border-t-0">
           <Table.Row className="text-ui-fg-subtle txt-medium-plus">
-            <Table.HeaderCell className="!pl-0">{t("item")}</Table.HeaderCell>
+            <Table.HeaderCell className={`${rtl ? 'text-right' : ""} !pl-0`}>{t("item")}</Table.HeaderCell>
             <Table.HeaderCell></Table.HeaderCell>
-            <Table.HeaderCell>{t("quantity")}</Table.HeaderCell>
-            <Table.HeaderCell className="hidden small:table-cell">
+            <Table.HeaderCell className={`${rtl ? 'text-right' : ""}`}>{t("quantity")}</Table.HeaderCell>
+            <Table.HeaderCell className={`${rtl ? 'text-right' : ""} hidden small:table-cell`}>
             {t("price")}
             </Table.HeaderCell>
-            <Table.HeaderCell className="!pr-0 text-right">
+            <Table.HeaderCell className={`${rtl ? 'text-left' : 'text-right'} pl-0`}>
             {t("total")}
             </Table.HeaderCell>
           </Table.Row>
