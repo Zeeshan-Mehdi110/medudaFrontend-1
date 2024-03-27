@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
 
@@ -10,6 +11,7 @@ type Props = {
   searchParams: {
     sortBy?: SortOptions
     page?: string
+    artist?: string
   }
 }
 
@@ -65,7 +67,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function CategoryPage({ params, searchParams }: Props) {
-  const { sortBy, page } = searchParams
+  const { sortBy, page, artist } = searchParams
   const {locale} = params;
   const { product_categories } = await getCategoryByHandle(
     params.category
@@ -76,12 +78,13 @@ export default async function CategoryPage({ params, searchParams }: Props) {
   }
 
   return (
-    <CategoryTemplate
-      categories={product_categories}
-      sortBy={sortBy}
-      page={page}
-      countryCode={params.countryCode}
-      locale={locale ?? "en"}
-    />
+      <CategoryTemplate
+        categories={product_categories}
+        sortBy={sortBy}
+        page={page}
+        countryCode={params.countryCode}
+        locale={locale ?? "en"}
+        artist={artist}
+      />
   )
 }

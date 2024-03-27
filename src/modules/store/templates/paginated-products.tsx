@@ -21,6 +21,7 @@ export default async function PaginatedProducts({
   productsIds,
   countryCode,
   locale,
+  artist
 }: {
   sortBy?: SortOptions
   page: number
@@ -29,6 +30,7 @@ export default async function PaginatedProducts({
   productsIds?: string[]
   countryCode: string
   locale: string
+  artist?: string
 }) {
   const region = await getRegion(countryCode)
 
