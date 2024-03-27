@@ -124,7 +124,7 @@ const RefinementList = ({ sortBy }: RefinementListProps) => {
         </>
       )}
       <div>
-      <Text className="txt-compact-small-plus mb-4 mt-8 text-ui-fg-muted">Artists</Text>
+      <Text className="txt-compact-small-plus mb-4 mt-4 text-ui-fg-muted">Artists</Text>
       {artists?.values && (
         <>
           <div className="language-selector hover:text-ui-fg-base">
