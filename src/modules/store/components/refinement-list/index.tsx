@@ -90,7 +90,7 @@ const RefinementList = ({ sortBy }: RefinementListProps) => {
       </div>
       {categories && (
         <>
-          <div >
+          {/* <div >
             <Text className="txt-compact-small-plus mb-4 text-ui-fg-muted">Category</Text>
             <div className="language-selector hover:text-ui-fg-base">
               <select className="dark:text-white bg-transparent dark:bg-black" onChange={(e) => handleCategoryChange(e)} value={check}>
@@ -102,7 +102,7 @@ const RefinementList = ({ sortBy }: RefinementListProps) => {
                   ))}
               </select>
             </div>
-          </div>
+          </div> */}
 
           {/* Dropdown for parent categories with children */}
           {categories
