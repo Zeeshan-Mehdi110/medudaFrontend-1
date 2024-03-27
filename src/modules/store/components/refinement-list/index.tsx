@@ -21,7 +21,7 @@ const RefinementList = ({ sortBy }: RefinementListProps) => {
   const [categories, setCategories] = useState([]);
   const [check, setCheck] = useState(localStorage.getItem("checkedCategoryId") || "/");
   const [artistCheck, setArtistCheck] = useState(localStorage.getItem("checkedArtistId") || "/");
-  const [artists, setArtists] = useState({});
+  const [artists, setArtists] = useState(localStorage.getItem("checkedartistId") || "/");
   useEffect(() => {
     const fetchData = async () => {
       try {
