@@ -21,7 +21,6 @@ const RefinementList = ({ sortBy }: RefinementListProps) => {
   const [categories, setCategories] = useState([]);
   const [check, setCheck] = useState(localStorage.getItem("checkedCategoryId") || "/");
   const [artistCheck, setArtistCheck] = useState(localStorage.getItem("checkedArtistId") || "/");
-  const [artistName, setArtistName] = useState(localStorage.getItem("checkedArtistName") || "All");
   const [artists, setArtists] = useState({});
   useEffect(() => {
     const fetchData = async () => {
@@ -62,17 +61,13 @@ const RefinementList = ({ sortBy }: RefinementListProps) => {
     router.push(`/categories/${value}`);
   }
 
-  const handleArtistChange = (artistId: string, artistName:string) => {
+  const handleArtistChange = (artistId: string) => {
     setArtistCheck(artistId);
-    
     if (artistId === "/") {
-      setArtistName("All");
-      localStorage.setItem("checkedArtistId", artistId);
+      localStorage.setItem("checkedartistId", artistId);
       router.push("/store")
       return
     }
-    setArtistName("All");
-    localStorage.setItem("checkedArtistName", artistName);
     router.push(`/artist/${artistId}`);
   }
 
@@ -94,7 +89,7 @@ const RefinementList = ({ sortBy }: RefinementListProps) => {
         <SortProducts sortBy={sortBy} setQueryParams={setQueryParams} />
       </div>
       {categories && (
-        <>
+        <div className="sm:flex sm:flex-row sm:justify-between gap-12 py-4 mb-8 small:px-0 pl-6 small:min-w-[250px] small:ml-[1.675rem]">
           {/* <div >
             <Text className="txt-compact-small-plus mb-4 text-ui-fg-muted">Category</Text>
             <div className="language-selector hover:text-ui-fg-base">
@@ -125,16 +120,16 @@ const RefinementList = ({ sortBy }: RefinementListProps) => {
                 </div>
               </div>
             ))}
-        </>
+        </div>
       )}
       <Text className="txt-compact-small-plus mb-4 mt-8 text-ui-fg-muted">Artists</Text>
       {artists?.values && (
         <>
           <div className="language-selector hover:text-ui-fg-base">
             <select className=" dark:text-white bg-transparent dark:bg-black w-24" onChange={(e) => {
-              handleArtistChange(e.target.value,artist.value);
+              handleArtistChange(e.target.value);
             }} value={artistCheck}>
-              <option selected value={"/"}>{artistName}</option>
+              <option selected value={"/"}>All</option>
               {artists.values.map((artist) => (
                 <option key={artist.id} value={artist.id}>{artist.value}</option>
               ))}
