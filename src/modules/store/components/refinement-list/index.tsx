@@ -22,6 +22,7 @@ const RefinementList = ({ sortBy }: RefinementListProps) => {
   const [check, setCheck] = useState(localStorage.getItem("checkedCategoryId") || "/");
   const [artistCheck, setArtistCheck] = useState(localStorage.getItem("checkedArtistId") || "/");
   const [artists, setArtists] = useState({});
+  const [selectedArtistValue, setSelectedArtistValue] = useState(localStorage.getItem("selectedArtistValue") || "All");
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -61,15 +62,19 @@ const RefinementList = ({ sortBy }: RefinementListProps) => {
     router.push(`/categories/${value}`);
   }
 
-  const handleArtistChange = (artistId: string) => {
-    setArtistCheck(artistId);
+  const handleArtistChange = (artistId: string, artistValue: string) => {
     if (artistId === "/") {
-      localStorage.setItem("checkedartistId", artistId);
-      router.push("/store")
-      return
+      localStorage.setItem("checkedArtistId", artistId);
+      setSelectedArtistValue("All");
+      router.push("/store");
+      return;
     }
+    setArtistCheck(artistId);
+    localStorage.setItem("checkedArtistId", artistId);
+    setSelectedArtistValue(artistValue);
+    localStorage.setItem("selectedArtistValue", artistValue);
     router.push(`/artist/${artistId}`);
-  }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -91,7 +96,7 @@ const RefinementList = ({ sortBy }: RefinementListProps) => {
       <div className="flex flex-row justify-between md:flex md:flex-col md:justify-normal pl-6 overflow-hidden flex-wrap">
       {categories && (
         <>
-          {/* <div >
+          <div >
             <Text className="txt-compact-small-plus mb-4 text-ui-fg-muted">Category</Text>
             <div className="language-selector hover:text-ui-fg-base">
               <select className="dark:text-white bg-transparent dark:bg-black" onChange={(e) => handleCategoryChange(e)} value={check}>
@@ -103,7 +108,7 @@ const RefinementList = ({ sortBy }: RefinementListProps) => {
                   ))}
               </select>
             </div>
-          </div> */}
+          </div>
 
           {/* Dropdown for parent categories with children */}
           {categories
@@ -124,22 +129,26 @@ const RefinementList = ({ sortBy }: RefinementListProps) => {
         </>
       )}
       <div>
-      <Text className="txt-compact-small-plus mb-4 mt-4 text-ui-fg-muted">Artists</Text>
-      {artists?.values && (
-        <>
-          <div className="language-selector hover:text-ui-fg-base">
-            <select className=" dark:text-white bg-transparent dark:bg-black w-32" onChange={(e) => {
-              handleArtistChange(e.target.value);
-            }} value={artistCheck}>
-              <option selected value={"/"}>All</option>
-              {artists.values.map((artist) => (
-                <option key={artist.id} value={artist.id}>{artist.value}</option>
-              ))}
-            </select>
-          </div>
-        </>
-      )}
-      </div>
+          <Text className="txt-compact-small-plus mb-4 mt-4 text-ui-fg-muted">Artists</Text>
+          {artists?.values && (
+            <>
+              <div className="language-selector hover:text-ui-fg-base">
+                <select
+                  className="dark:text-white bg-transparent dark:bg-black w-32"
+                  onChange={(e) => handleArtistChange(e.target.value, e.target.options[e.target.selectedIndex].text)}
+                  value={artistCheck}
+                >
+                  <option value={"/"}>All</option>
+                  {artists.values.map((artist) => (
+                    <option key={artist.id} value={artist.id}>
+                      {artist.value}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
