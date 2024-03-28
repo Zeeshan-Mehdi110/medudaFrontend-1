@@ -6,7 +6,7 @@ import RefinementList from "@modules/store/components/refinement-list"
 import { useEffect, useState } from "react"
 
 const ArtistTemplate = (params) => {
-  let {artistId , local , region } = params 
+  let {artistId , locale , region } = params 
   const [products, setProducts] = useState([])
   useEffect(()=>{
     const fetchData = async () => {
@@ -23,7 +23,7 @@ const ArtistTemplate = (params) => {
           {products && products.map((p) => {
             return (
               <li key={p.id}>
-                <ProductPreview productPreview={p} region={region} locale={local} />
+                <ProductPreview productPreview={p} region={region} locale={locale} />
               </li>
             )
           })}
