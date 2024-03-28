@@ -10,8 +10,8 @@ export const metadata: Metadata = {
 
 export default async function ArtistPage(params) {
   const { params: nestedParams } = params;
-  const { artistId, local , countryCode } = nestedParams;
+  const { artistId, locale , countryCode } = nestedParams;
   const region = await getRegion(countryCode)
   const actualArtistId = Array.isArray(artistId) ? artistId[0] : artistId;
-  return <ArtistTemplate artistId={actualArtistId} countryCode={countryCode} local={local} region={region} />
+  return <ArtistTemplate artistId={actualArtistId} countryCode={countryCode} local={locale} region={region} />
 }
