@@ -17,7 +17,7 @@ const ArtistTemplate = (params) => {
   },[])
   return (
     <div className="flex flex-col small:flex-row small:items-start py-6 content-container">
-      <RefinementList sortBy={"created_at"} />
+      <RefinementList locale={locale} sortBy={"created_at"} />
       <div className="w-full">
         <ul className="grid grid-cols-2 w-full small:grid-cols-3 medium:grid-cols-4 gap-x-6 gap-y-8">
           {products && products.map((p) => {
