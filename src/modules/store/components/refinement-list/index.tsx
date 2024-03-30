@@ -280,7 +280,7 @@ const RefinementList = ({ sortBy,locale }: RefinementListProps) => {
               <TextConvertor locale={locale ?? "en"} title={parentCategory.name as string} metadata={parentCategory?.metadata?.title ?? null as any}/>
               </Text>
               <select
-                className="bg-transparent w-32"
+                className="bg-transparent w-32 dark:text-white"
                 onChange={(e) => handleCategoryChange(e, parentCategory.id)}
                 value={selectedCategories[parentCategory.id] || "/"}
               >
