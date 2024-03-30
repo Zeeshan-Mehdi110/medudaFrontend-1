@@ -131,7 +131,7 @@ export default async function CategoryTemplate({
   return (
     <div className="flex flex-col small:flex-row small:items-start py-6 content-container">
       <RefinementList locale={locale} sortBy={sortBy || "created_at"} />
-      <div className="w-full mr-10 ml-10">
+      <div className="w-full sm:mr-10 sm:ml-10">
         {/* Single <h1> for all category names */}
         <div className="flex flex-col sm:flex-row mb-8 gap-4 mt-6">
           <h1 className="text-2xl-semi align-middle">{t("search-results-for")}</h1>
