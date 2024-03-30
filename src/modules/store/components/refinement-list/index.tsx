@@ -266,7 +266,7 @@ const RefinementList = ({ sortBy,locale }: RefinementListProps) => {
       {/* Sorting and other controls */}
       <SortProducts sortBy={sortBy} setQueryParams={setQueryParams} />
       {/* Category Selection */}
-      <div className="flex flex-row justify-between md:flex md:flex-col md:justify-normal pl-6 overflow-hidden flex-wrap">
+      <div className="flex flex-row justify-around md:flex md:flex-col md:justify-normal overflow-hidden flex-wrap">
       {categories.length > 0 &&
         categories
           .filter(
