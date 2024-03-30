@@ -258,7 +258,7 @@ export async function getToken(credentials: StorePostAuthReq) {
       },
     })
     .then(({ access_token }) => {
-      console.log("access_token", access_token);
+    
       access_token && cookies().set("_medusa_jwt", access_token)
       return access_token
     })
@@ -429,6 +429,55 @@ export async function getProductByHandle(
   return { product }
 }
 
+// export async function getProductsList({
+//   pageParam = 0,
+//   queryParams,
+//   countryCode,
+// }: {
+//   pageParam?: number
+//   queryParams?: StoreGetProductsParams
+//   countryCode: string
+// }): Promise<{
+//   response: { products: ProductPreviewType[]; count: number }
+//   nextPage: number | null
+//   queryParams?: StoreGetProductsParams
+// }> {
+//   const limit = queryParams?.limit || 12
+
+//   const region = await getRegion(countryCode)
+
+//   if (!region) {
+//     return emptyResponse
+//   }
+
+//   const { products, count } = await medusaClient.products
+//     .list(
+//       {
+//         limit,
+//         offset: pageParam,
+//         region_id: region.id,
+//         ...queryParams,
+//       },
+//       { next: { tags: ["products"] } }
+//     )
+//     .then((res) => res)
+//     .catch((err) => {
+//       throw err
+//     })
+
+//   const transformedProducts = products.map((product) => {
+//     return transformProductPreview(product, region!)
+//   })
+
+//   const nextPage = count > pageParam + 1 ? pageParam + 1 : null
+
+//   return {
+//     response: { products: transformedProducts, count },
+//     nextPage,
+//     queryParams,
+//   }
+// }
+
 export async function getProductsList({
   pageParam = 0,
   queryParams,
@@ -450,6 +499,28 @@ export async function getProductsList({
     return emptyResponse
   }
 
+
+
+  const { products:products1, count:count1 } = await medusaClient.products
+  .list(
+    {
+      limit,
+      offset: pageParam,
+      region_id: region.id,
+      ...queryParams,
+      category_id: queryParams?.category_id,
+     expand: "categories",
+    },
+    { next: { tags: ["products"]} }
+  )
+  .then((res) => res)
+  .catch((err) => {
+    throw err
+  })
+
+
+
+
   const { products, count } = await medusaClient.products
     .list(
       {
@@ -457,26 +528,62 @@ export async function getProductsList({
         offset: pageParam,
         region_id: region.id,
         ...queryParams,
+        category_id: queryParams?.category_id,
+        include_category_children: true,
       },
-      { next: { tags: ["products"] } }
+      { next: { tags: ["products"]} }
     )
     .then((res) => res)
     .catch((err) => {
       throw err
     })
 
-  const transformedProducts = products.map((product) => {
+
+    const categoriesMap = products1.reduce((acc, product) => {
+      acc[product.id] = product.categories;
+      return acc;
+    }, {});
+    
+    // Iterate over the products array and attach the categories from products1
+    const mergedProducts = products.map(product => {
+      const categoriesFromProducts1 = categoriesMap[product.id];
+      // Only attach categories if they exist in the map
+      if (categoriesFromProducts1) {
+        return { ...product, categories: categoriesFromProducts1 };
+      }
+      return product;
+    });
+
+
+  const transformedProducts = mergedProducts.map((product) => {
     return transformProductPreview(product, region!)
   })
+
+  const categoryIdsToFilterBy = queryParams?.category_id;
+  let filteredProducts;
+
+if(categoryIdsToFilterBy && categoryIdsToFilterBy.length > 0){
+  filteredProducts  = transformedProducts.filter((product) =>
+  // Check if at least one of the product's categories is included in categoryIdsToFilterBy
+  categoryIdsToFilterBy?.every((categoryId) =>
+    product.categories.map(category => category.id).includes(categoryId)
+  )
+);
+}
+else{
+  filteredProducts = transformedProducts;
+}
+ 
 
   const nextPage = count > pageParam + 1 ? pageParam + 1 : null
 
   return {
-    response: { products: transformedProducts, count },
+    response: { products: filteredProducts, count },
     nextPage,
     queryParams,
   }
 }
+
 
 export async function getProductsListWithSort({
   page = 0,

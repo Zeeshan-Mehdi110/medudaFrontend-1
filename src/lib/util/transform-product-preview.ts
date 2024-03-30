@@ -48,7 +48,8 @@ const transformProductPreview = (
           price_type: cheapestVariant.calculated_price_type,
         }
       : undefined,
-      metadata: product.metadata
+      metadata: product.metadata,
+      categories: product.categories ?? null,
   }
 }
 

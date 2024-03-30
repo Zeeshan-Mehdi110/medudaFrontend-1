@@ -22,7 +22,7 @@ const StoreTemplate = async ({
   const { t } = await initTranslations(locale, ['common']);
   return (
     <div className="flex flex-col small:flex-row small:items-start py-6 content-container">
-      <RefinementList sortBy={sortBy || "created_at"} />
+      <RefinementList locale={locale} sortBy={sortBy || "created_at"} />
       <div className="w-full">
         <div className="mb-8 text-2xl-semi">
           <h1>{t("all-products")}</h1>
