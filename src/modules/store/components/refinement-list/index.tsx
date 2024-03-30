@@ -284,7 +284,7 @@ const RefinementList = ({ sortBy,locale }: RefinementListProps) => {
                 onChange={(e) => handleCategoryChange(e, parentCategory.id)}
                 value={selectedCategories[parentCategory.id] || "/"}
               >
-                <option value="/">All</option>
+                <option value="/">{t("all")}</option>
                 {parentCategory.category_children.map((child) => (
                   <option key={child.id} value={child.handle}>
                     <TextConvertor locale={locale ?? "en"} title={child.name as string} metadata={child?.metadata?.title ?? null as any}/>
