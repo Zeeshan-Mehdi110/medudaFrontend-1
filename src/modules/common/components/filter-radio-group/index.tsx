@@ -1,4 +1,4 @@
-import { EllipseMiniSolid } from "@medusajs/icons"
+import { EllipseMiniSolid, EllipseSolid } from "@medusajs/icons"
 import { Label, RadioGroup, Text, clx } from "@medusajs/ui"
 import { ChangeEvent } from "react"
 
@@ -31,7 +31,7 @@ const FilterRadioGroup = ({
               "ml-[-1.75rem]": i.value === value,
             })}
           >
-            {i.value === value && <EllipseMiniSolid className="dark:text-white" />}
+            {i.value === value && <EllipseSolid className="dark:text-white" />}
             <RadioGroup.Item
               checked={i.value === value}
               onClick={(e) =>
