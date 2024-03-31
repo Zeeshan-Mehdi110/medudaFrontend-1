@@ -45,7 +45,7 @@ const SearchResultsTemplate = async ({
       <div className="flex flex-col small:flex-row small:items-start p-6">
         {ids.length > 0 ? (
           <>
-            <RefinementList locale={locale} sortBy={sortBy || "created_at"} search />
+            <RefinementList isCategoryPage={true} locale={locale} sortBy={sortBy || "created_at"} search />
             <div className="content-container">
               <PaginatedProducts
                 productsIds={ids}

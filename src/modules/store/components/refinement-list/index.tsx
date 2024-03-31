@@ -156,11 +156,10 @@
 
 // export default RefinementList;
 
-
 //@ts-nocheck
 "use client"
 import { useState, useEffect, useCallback } from "react"
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation"
 import SortProducts, { SortOptions } from "./sort-products"
 import { ProductCategories } from "@lib/util/list-categories"
 import { Text } from "@medusajs/ui"
@@ -170,20 +169,21 @@ import { useTranslation } from "react-i18next"
 import TextConvertor from "@modules/products/components/text-convertor"
 type RefinementListProps = {
   sortBy: SortOptions
-  search?: boolean,
+  search?: boolean
   locale: string
+  isCategoryPage?: boolean
 }
 
-const RefinementList = ({ sortBy,locale }: RefinementListProps) => {
+const RefinementList = ({ sortBy, locale,isCategoryPage }: RefinementListProps) => {
   const router = useRouter()
   const [categories, setCategories] = useState([])
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
   // const [selectedCategories, setSelectedCategories] = useState({})
   const [selectedCategories, setSelectedCategories] = useState(() => {
-    const savedCategories = localStorage.getItem('selectedCategories');
-    return savedCategories ? JSON.parse(savedCategories) : {};
-  });
+    const savedCategories = localStorage.getItem("selectedCategories")
+    return savedCategories ? JSON.parse(savedCategories) : {}
+  })
   const [artists, setArtists] = useState({})
   const [artistCheck, setArtistCheck] = useState("/")
   const { t } = useTranslation()
@@ -213,16 +213,17 @@ const RefinementList = ({ sortBy,locale }: RefinementListProps) => {
   }, [])
 
   const handleCategoryChange = (e, parentCategoryId) => {
-    const selectedHandle = e.target.value;
+    const selectedHandle = e.target.value
     setSelectedCategories((prev) => {
-      const newState = selectedHandle === "/"
-        ? { ...prev, [parentCategoryId]: undefined } // Remove the entry if "All" is selected
-        : { ...prev, [parentCategoryId]: selectedHandle }; // Update with new selection
-      
-      localStorage.setItem('selectedCategories', JSON.stringify(newState)); // Save to localStorage
-      return newState;
-    });
-  };
+      const newState =
+        selectedHandle === "/"
+          ? { ...prev, [parentCategoryId]: undefined } // Remove the entry if "All" is selected
+          : { ...prev, [parentCategoryId]: selectedHandle } // Update with new selection
+
+      localStorage.setItem("selectedCategories", JSON.stringify(newState)) // Save to localStorage
+      return newState
+    })
+  }
 
   const handleArtistChange = (artistId: string) => {
     setArtistCheck(artistId)
@@ -233,25 +234,25 @@ const RefinementList = ({ sortBy,locale }: RefinementListProps) => {
     }
     router.push(`/artist/${artistId}`)
   }
-    const createQueryString = useCallback(
-        (name: string, value: string) => {
-          const params = new URLSearchParams(searchParams);
-          params.set(name, value);
-          return params.toString();
-        },
-        [searchParams]
-      );
-    
-      const setQueryParams = (name: string, value: string) => {
-        const query = createQueryString(name, value);
-        router.push(`${pathname}?${query}`);
-      };
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams)
+      params.set(name, value)
+      return params.toString()
+    },
+    [searchParams]
+  )
+
+  const setQueryParams = (name: string, value: string) => {
+    const query = createQueryString(name, value)
+    router.push(`${pathname}?${query}`)
+  }
 
   const handleSearch = () => {
     const query = Object.entries(selectedCategories)
-    .filter(([key, value]) => value && value !== "/") // Keep only entries with defined and non-"/" values
-    .map(([key, value]) => value) // Extract the value part
-    .join("_"); // Join the remaining values with "_"
+      .filter(([key, value]) => value && value !== "/") // Keep only entries with defined and non-"/" values
+      .map(([key, value]) => value) // Extract the value part
+      .join("_") // Join the remaining values with "_"
 
     if (query) {
       router.push(`/categories/${query}`)
@@ -260,45 +261,64 @@ const RefinementList = ({ sortBy,locale }: RefinementListProps) => {
     }
   }
 
-
   return (
     <div className="flex flex-col">
       {/* Sorting and other controls */}
       <SortProducts sortBy={sortBy} setQueryParams={setQueryParams} />
-      {/* Category Selection */}
-      <div className="flex flex-row justify-around md:flex md:flex-col md:justify-normal overflow-hidden flex-wrap">
-      {categories.length > 0 &&
-        categories
-          .filter(
-            (category) =>
-              category.parent_category_id === null &&
-              category.category_children.length > 0
-          )
-          .map((parentCategory) => (
-            <div key={parentCategory.id}>
-              <Text className="txt-compact-small-plus mb-4 mt-4 text-ui-fg-muted">
-              <TextConvertor locale={locale ?? "en"} title={parentCategory.name as string} metadata={parentCategory?.metadata?.title ?? null as any}/>
-              </Text>
-              <select
-                className="bg-transparent w-32 dark:text-white"
-                onChange={(e) => handleCategoryChange(e, parentCategory.id)}
-                value={selectedCategories[parentCategory.id] || "/"}
-              >
-                <option value="/">{t("all")}</option>
-                {parentCategory.category_children.map((child) => (
-                  <option key={child.id} value={child.handle}>
-                    <TextConvertor locale={locale ?? "en"} title={child.name as string} metadata={child?.metadata?.title ?? null as any}/>
-                  </option>
+      {isCategoryPage && (
+        <>
+          {/* Category Selection */}
+          <div className="flex flex-row justify-around md:flex md:flex-col md:justify-normal overflow-hidden flex-wrap">
+            {categories.length > 0 &&
+              categories
+                .filter(
+                  (category) =>
+                    category.parent_category_id === null &&
+                    category.category_children.length > 0
+                )
+                .map((parentCategory) => (
+                  <div key={parentCategory.id}>
+                    <Text className="txt-compact-small-plus mb-4 mt-4 text-ui-fg-muted">
+                      <TextConvertor
+                        locale={locale ?? "en"}
+                        title={parentCategory.name as string}
+                        metadata={
+                          parentCategory?.metadata?.title ?? (null as any)
+                        }
+                      />
+                    </Text>
+                    <select
+                      className="bg-transparent w-32 dark:text-white"
+                      onChange={(e) =>
+                        handleCategoryChange(e, parentCategory.id)
+                      }
+                      value={selectedCategories[parentCategory.id] || "/"}
+                    >
+                      <option value="/">{t("all")}</option>
+                      {parentCategory.category_children.map((child) => (
+                        <option key={child.id} value={child.handle}>
+                          <TextConvertor
+                            locale={locale ?? "en"}
+                            title={child.name as string}
+                            metadata={child?.metadata?.title ?? (null as any)}
+                          />
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 ))}
-              </select>
-            </div>
-          ))}
           </div>
-      <div className="flex w-full justify-center items-center">
-      <Button onClick={handleSearch} type="submit" className="min-w-[150px] mt-5">
-        {t("search")}
-      </Button>
-      </div>
+          <div className="flex w-full justify-center items-center">
+            <Button
+              onClick={handleSearch}
+              type="submit"
+              className="min-w-[150px] mt-5"
+            >
+              {t("search")}
+            </Button>
+          </div>
+        </>
+      )}
     </div>
   )
 }
