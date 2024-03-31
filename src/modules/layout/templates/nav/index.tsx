@@ -32,7 +32,7 @@ export default async function Nav(params:any) {
             <div className="sm:hidden"><Theme/></div>
           </div>
 
-          <div className="flex items-center h-full sm:pl-0 pl-2">
+          <div className="flex items-center h-full sm:pl-0 p-4">
           
           <h1 className="text-center w-min sm:w-fit">
             <LocalizedClientLink
