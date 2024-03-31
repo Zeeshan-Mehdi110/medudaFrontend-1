@@ -93,7 +93,7 @@ export default async function Footer({locale}: {locale: string}) {
             )} */}
             {productCollections && productCollections.length > 0 && (
               <div className="flex flex-col gap-y-2">
-                <span className="txt-small-plus txt-ui-fg-base">
+                <span className="txt-small-plus txt-ui-fg-base dark:text-white">
                   {t("collections")}
                 </span>
                 <ul
