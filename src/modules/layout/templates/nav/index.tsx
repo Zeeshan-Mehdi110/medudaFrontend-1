@@ -9,6 +9,12 @@ import LanguageToggle from "@modules/layout/components/language-toggle"
 import initTranslations from "app/i18n"
 import Image from "next/image"
 import { ShoppingCart } from "@medusajs/icons"
+import { Merienda } from 'next/font/google'
+const merienda = Merienda({
+  fallback: ['sans-serif'],
+  weight: "800",
+  subsets:['latin']
+})
 export default async function Nav(params:any) {
   const regions = await listRegions().then((regions) => regions)
   const locale = params.children[1];
@@ -31,10 +37,10 @@ export default async function Nav(params:any) {
             <h1 className="text-center">
             <LocalizedClientLink
               href="/"
-              className="txt-compact-xlarge-plus hover:text-ui-fg-base uppercase"
+              className={`txt-compact-xlarge-plus hover:text-ui-fg-base uppercase ${merienda.className} text-lg sm:text-xl`}
             >
               {/* <img className="max-w-[65px] max-h-[60px]" src="/logo.png"></img> */}
-              <Image width={60} height={65}  src="/logo.png" alt='Pixels Journey Logo'></Image>
+              {/* <Image width={60} height={65}  src="/logo.png" alt='Pixels Journey Logo'></Image> */}
               {/* Pixels Journey */}
             </LocalizedClientLink>
             </h1>
