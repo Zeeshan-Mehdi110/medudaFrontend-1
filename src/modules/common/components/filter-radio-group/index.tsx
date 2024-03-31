@@ -31,7 +31,7 @@ const FilterRadioGroup = ({
               "ml-[-1.75rem]": i.value === value,
             })}
           >
-            {i.value === value && <EllipseMiniSolid />}
+            {i.value === value && <EllipseMiniSolid className="dark:text-white" />}
             <RadioGroup.Item
               checked={i.value === value}
               onClick={(e) =>
