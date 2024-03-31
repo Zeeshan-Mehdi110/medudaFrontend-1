@@ -41,7 +41,7 @@ export default async function Nav(params:any) {
             >
               {/* <img className="max-w-[65px] max-h-[60px]" src="/logo.png"></img> */}
               {/* <Image width={60} height={65}  src="/logo.png" alt='Pixels Journey Logo'></Image> */}
-              {/* Pixels Journey */}
+              Pixels Journey
             </LocalizedClientLink>
             </h1>
           </div>
