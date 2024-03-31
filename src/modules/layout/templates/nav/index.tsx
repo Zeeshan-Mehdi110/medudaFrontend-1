@@ -34,7 +34,7 @@ export default async function Nav(params:any) {
 
           <div className="flex items-center h-full sm:pl-0 pl-2">
           
-            <h1 className="text-center">
+          <h1 className="text-center w-min sm:w-fit">
             <LocalizedClientLink
               href="/"
               className={`txt-compact-xlarge-plus hover:text-ui-fg-base uppercase ${merienda.className} text-lg sm:text-xl`}
