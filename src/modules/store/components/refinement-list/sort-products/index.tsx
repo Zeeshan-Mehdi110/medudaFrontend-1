@@ -9,11 +9,12 @@ export type SortOptions = "price_asc" | "price_desc" | "created_at"
 type SortProductsProps = {
   sortBy: SortOptions
   setQueryParams: (name: string, value: SortOptions) => void
+  locale: string
 }
 
 
 
-const SortProducts = ({ sortBy, setQueryParams }: SortProductsProps) => {
+const SortProducts = ({ sortBy, setQueryParams,locale }: SortProductsProps) => {
   const handleChange = (e: ChangeEvent<HTMLButtonElement>) => {
     const newSortBy = e.target.value as SortOptions
     setQueryParams("sortBy", newSortBy)
@@ -39,6 +40,7 @@ const SortProducts = ({ sortBy, setQueryParams }: SortProductsProps) => {
       items={sortOptions}
       value={sortBy}
       handleChange={handleChange}
+      locale={locale}
     />
   )
 }

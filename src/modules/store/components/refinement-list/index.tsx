@@ -264,7 +264,7 @@ const RefinementList = ({ sortBy, locale,isCategoryPage }: RefinementListProps) 
   return (
     <div className="flex flex-col">
       {/* Sorting and other controls */}
-      <SortProducts sortBy={sortBy} setQueryParams={setQueryParams} />
+      <SortProducts locale={locale} sortBy={sortBy} setQueryParams={setQueryParams} />
       {isCategoryPage && (
         <>
           {/* Category Selection */}

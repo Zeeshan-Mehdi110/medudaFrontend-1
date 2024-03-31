@@ -10,6 +10,7 @@ type FilterRadioGroupProps = {
   }[]
   value: any
   handleChange: (...args: any[]) => void
+  locale: string
 }
 
 const FilterRadioGroup = ({
@@ -17,11 +18,12 @@ const FilterRadioGroup = ({
   items,
   value,
   handleChange,
+  locale,
 }: FilterRadioGroupProps) => {
   return (
     <div className="flex gap-x-3 flex-col gap-y-3">
       <Text className="txt-compact-small-plus text-ui-fg-muted">{title}</Text>
-      <RadioGroup>
+      <RadioGroup dir={locale === "he" || locale === "ar" ? "rtl" : "ltr"}>
         {items?.map((i) => (
           <div
             key={i.value}
