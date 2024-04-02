@@ -13,9 +13,13 @@ export default function Theme() {
     document.documentElement.setAttribute("data-mode", theme)
 
     const backgroundContainer = document.getElementById("background-image");
+    const logoColor = document.getElementById("nav-logo") as HTMLImageElement;
     if (backgroundContainer) {
       backgroundContainer.style.backgroundImage =
         theme === "light" ? "url('/lightTheme.jpg')" : "url('/2363.jpg')";
+    }
+    if (logoColor) {
+      logoColor.src = theme === "light" ? "/rr.svg" : "/dd.svg";
     }
     document.cookie = `theme=${theme}; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
   }, [theme]) // This effect depends on theme state for applying the theme to the document

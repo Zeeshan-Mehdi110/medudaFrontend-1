@@ -39,9 +39,9 @@ export default async function Nav(params:any) {
               href="/"
               className={`txt-compact-xlarge-plus hover:text-ui-fg-base uppercase ${merienda.className} text-lg sm:text-xl`}
             >
-              {/* <img className="max-w-[65px] max-h-[60px]" src="/logo.png"></img> */}
+              <img className="sm:max-w-[300px] max-w-[150px] min-w-[150px]" id="nav-logo" src="/rr.svg"></img>
               {/* <Image width={60} height={65}  src="/logo.png" alt='Pixels Journey Logo'></Image> */}
-              Pixels Journey
+              {/* Pixels Journey */}
             </LocalizedClientLink>
             </h1>
           </div>
