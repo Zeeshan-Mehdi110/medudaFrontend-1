@@ -12,6 +12,11 @@ module.exports = {
   ],
   theme: {
     extend: {
+      scale: {
+        '80': '0.8',
+        '90': '0.9',
+        '100': '1',
+      },
       transitionProperty: {
         width: "width margin",
         height: "height",
