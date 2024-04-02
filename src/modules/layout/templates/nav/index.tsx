@@ -25,7 +25,7 @@ export default async function Nav(params:any) {
     <div className="sticky top-0 inset-x-0 z-50 group ">
       <header className="relative dark:bg-black bg-ui-bg-subtle h-16 mx-auto border-b duration-200  border-ui-border-base">
         <nav className="content-container txt-xsmall-plus text-ui-fg-subtle flex items-center justify-between w-full p-[10px] h-full text-small-regular gap-[2px]">
-          <div className="flex-1 basis-0 h-full flex items-center sm:justify-between justify-around gap-2">
+        <div className="flex-1 basis-0 h-full flex items-center sm:justify-between gap-4">
             <div className="h-full">
               <SideMenu regions={regions} />
             </div>
@@ -39,7 +39,7 @@ export default async function Nav(params:any) {
               href="/"
               className={`txt-compact-xlarge-plus hover:text-ui-fg-base uppercase ${merienda.className} text-lg sm:text-xl`}
             >
-              <img className="sm:max-w-[300px] max-w-[150px] min-w-[150px]" id="nav-logo" src="/rr.svg"></img>
+            <img className="pb-[20px] sm:scale-100 scale-90 max-w-[150px] min-w-[150px]" id="nav-logo" src="/rr.svg"></img>
               {/* <Image width={60} height={65}  src="/logo.png" alt='Pixels Journey Logo'></Image> */}
               {/* Pixels Journey */}
             </LocalizedClientLink>
