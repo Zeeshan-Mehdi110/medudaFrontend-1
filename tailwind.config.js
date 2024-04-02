@@ -34,6 +34,10 @@ module.exports = {
         'dark-navy':'#3A3B48',
         'gold':'#FFE7E0',
         'gray' : '#F0F0F0',
+        scale: {
+          '90': '0.9',
+          '100': '1',
+        },
         grey: {
           0: "#FFFFFF",
           5: "#F9FAFB",
