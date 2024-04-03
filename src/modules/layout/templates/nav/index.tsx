@@ -19,7 +19,7 @@ export default async function Nav(params:any) {
   const regions = await listRegions().then((regions) => regions)
   const locale = params.children[1];
   const { t } = await initTranslations(locale, ['common']);
-
+  const isRtl = locale === 'ar' || locale === 'he';
 
   return (
     <div className="sticky top-0 inset-x-0 z-50 group ">
@@ -32,7 +32,7 @@ export default async function Nav(params:any) {
             <div className="sm:hidden"><Theme/></div>
           </div>
 
-          <div className="flex items-center h-full sm:pl-0 scale-100 sm:scale-90">
+          <div className={`flex items-center h-full ${isRtl ? 'pr-[13px]' : 'pl-[13px]'} sm:pl-0 scale-100 sm:scale-90`}>
           
           <h1 className="text-center w-min sm:w-fit">
             <LocalizedClientLink
