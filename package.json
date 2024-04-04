@@ -36,6 +36,7 @@
     "@stripe/stripe-js": "^1.29.0",
     "algoliasearch": "^4.20.0",
     "crypto-js": "^4.2.0",
+    "framer-motion": "^11.0.24",
     "i18next": "^23.10.1",
     "i18next-resources-to-backend": "^1.2.0",
     "lodash": "^4.17.21",

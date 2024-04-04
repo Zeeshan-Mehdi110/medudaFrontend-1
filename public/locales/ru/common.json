@@ -86,7 +86,8 @@
   "latest-arrivals": "Последние поступления",
   "all-products": "Все товары",
   "sort-by": "Сортировать по",
-  "search-results-for": "Результаты поиска для",
+  "no-products-found": "Товары не найдены",
+  "search-results-for": "Результаты поиска для:",
   "search-placeholder": "Поиск по всем товарам...",
   "check-out-products": "Возможно, вам также стоит ознакомиться с этими товарами.",
   "type": "Тип",
@@ -196,5 +197,7 @@
   "overview-of-your-previous-orders": "Обзор ваших предыдущих заказов",
   "overview-of-your-account-activity": "Обзор вашей активности в учетной записи",
   "sign-in-to-view-your-pixels-journey-account": "Войдите, чтобы просмотреть ваш аккаунт Pixels Journey",
-  "share-with-friends-on": "Поделиться с друзьями на"
+  "share-with-friends-on": "Поделиться с друзьями на",
+  "all": "Все",
+  "the-hottest": "Самые горячие"
 }

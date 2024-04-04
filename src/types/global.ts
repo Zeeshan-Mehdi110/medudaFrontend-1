@@ -23,6 +23,7 @@ export type ProductPreviewType = {
   }
   isFeatured?: boolean
   metadata:any
+  categories:any
 }
 
 export type ProductCollectionWithPreviews = Omit<

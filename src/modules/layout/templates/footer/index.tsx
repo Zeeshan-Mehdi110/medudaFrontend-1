@@ -4,6 +4,8 @@ import { getCategoriesList, getCollectionsList } from "@lib/data"
 
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import MedusaCTA from "../../components/medusa-cta"
+import TextConvertor from "@modules/products/components/text-convertor"
+import initTranslations from "app/i18n"
 
 const fetchCollections = async () => {
   const { collections } = await getCollectionsList()
@@ -15,13 +17,14 @@ const fetchCategories = async () => {
   return product_categories
 }
 
-export default async function Footer() {
+export default async function Footer({locale}: {locale: string}) {
   const productCollections = await fetchCollections().then(
     (collections) => collections
   )
   const productCategories = await fetchCategories().then(
     (categories) => categories
   )
+  const { t } = await initTranslations(locale, ["common"])
   return (
     <footer className="border-t border-ui-border-base w-full">
       <div className="content-container flex flex-col w-full">
@@ -31,11 +34,11 @@ export default async function Footer() {
               href="/"
               className="txt-compact-xlarge-plus text-ui-fg-subtle hover:text-ui-fg-base uppercase"
             >
-              Medusa Store
+              Pixels Journey
             </LocalizedClientLink>
           </div>
           <div className="text-small-regular gap-10 md:gap-x-16 grid grid-cols-2 sm:grid-cols-3">
-            {productCategories && productCategories?.length > 0 && (
+            {/* {productCategories && productCategories?.length > 0 && (
               <div className="flex flex-col gap-y-2">
                 <span className="txt-small-plus txt-ui-fg-base">
                   Categories
@@ -87,11 +90,11 @@ export default async function Footer() {
                   })}
                 </ul>
               </div>
-            )}
+            )} */}
             {productCollections && productCollections.length > 0 && (
               <div className="flex flex-col gap-y-2">
-                <span className="txt-small-plus txt-ui-fg-base">
-                  Collections
+                <span className="txt-small-plus txt-ui-fg-base dark:text-white">
+                  {t("collections")}
                 </span>
                 <ul
                   className={clx(
@@ -107,14 +110,14 @@ export default async function Footer() {
                         className="hover:text-ui-fg-base"
                         href={`/collections/${c.handle}`}
                       >
-                        {c.title}
+                        <TextConvertor locale={locale} metadata={c?.metadata?.title as string ?? null} title={c.title}/>
                       </LocalizedClientLink>
                     </li>
                   ))}
                 </ul>
               </div>
             )}
-            <div className="flex flex-col gap-y-2">
+            {/* <div className="flex flex-col gap-y-2">
               <span className="txt-small-plus txt-ui-fg-base">Medusa</span>
               <ul className="grid grid-cols-1 gap-y-2 text-ui-fg-subtle txt-small">
                 <li>
@@ -148,12 +151,12 @@ export default async function Footer() {
                   </a>
                 </li>
               </ul>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="flex w-full mb-16 justify-between text-ui-fg-muted">
           <Text className="txt-compact-small">
-            © {new Date().getFullYear()} Medusa Store. All rights reserved.
+            © {new Date().getFullYear()} {t("copyright")}
           </Text>
           <MedusaCTA />
         </div>

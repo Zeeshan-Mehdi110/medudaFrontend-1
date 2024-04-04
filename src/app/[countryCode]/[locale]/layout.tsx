@@ -18,7 +18,7 @@ export default async function RootLayout(props: { children: React.ReactNode, par
     <html lang={params.locale} data-mode="light" dir={dir}>
       
       <body className="dark:bg-black">
-        <main className="relative ">{props.children}
+        <main className="relative  bg-white-smoke dark:bg-black ">{props.children}
         </main>
       </body>
   

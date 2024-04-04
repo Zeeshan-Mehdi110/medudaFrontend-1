@@ -12,6 +12,11 @@ module.exports = {
   ],
   theme: {
     extend: {
+      scale: {
+        '80': '0.8',
+        '90': '0.9',
+        '100': '1',
+      },
       transitionProperty: {
         width: "width margin",
         height: "height",
@@ -20,7 +25,24 @@ module.exports = {
         visibility: "visibility",
         padding: "padding-top padding-right padding-bottom padding-left",
       },
+      backgroundImage: {
+        'gradient-to-rb': "linear-gradient(to right bottom, #f5f5f5, #f4f4f4, #f3f3f3, #f2f2f2, #f1f1f1, #f1f1f1, #f1f1f1, #f1f1f1, #f2f2f2, #f3f3f3, #f4f4f4, #f5f5f5)",
+      },
+      boxShadow: {
+        'soft': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06)',
+        'medium': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05)',
+        'hard': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+        'two-tone': '0 4px 6px -1px rgba(255, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 255, 0.06)',
+      },   
       colors: {
+        'white-smoke': '#f5f5f5',
+        'dark-navy':'#3A3B48',
+        'gold':'#FFE7E0',
+        'gray' : '#F0F0F0',
+        scale: {
+          '90': '0.9',
+          '100': '1',
+        },
         grey: {
           0: "#FFFFFF",
           5: "#F9FAFB",

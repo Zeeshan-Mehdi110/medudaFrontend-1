@@ -7,7 +7,7 @@ import style from './style.module.css';
 import fire from '../../../../../../public/redDot.gif'; // Fix: Use default import syntax for 'fire.gif'
 import LocalizedClientLink from '@modules/common/components/localized-client-link';
 import TextConvertor from '@modules/products/components/text-convertor';
-
+import { useTranslation } from 'react-i18next';
 // Assuming the rest of your Product and ProductCardProps interfaces remain unchanged
 interface Product {
     id: string;
@@ -24,6 +24,7 @@ interface Product {
   
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const [locale, setLocale] = useState(localStorage.getItem("lang") ?? "en");
+
   return (
     <div className="product-card rounded-lg h-[200px] w-full flex flex-col bg-white shadow-lg overflow-hidden">
     {/* Fixed height for the image container */}
@@ -51,7 +52,7 @@ const ProductSlider: React.FC<ProductSliderProps> = ({ products }) => {
   const [swiperDirection, setSwiperDirection] = useState<'horizontal' | 'vertical'>('vertical');
   const [swiperHeight, setSwiperHeight] = useState('auto');
   const [isRtl, setIsRtl] = useState(localStorage.getItem('lang') === 'ar' || localStorage.getItem('lang') === 'he' ? true : false);
-
+  const { t } = useTranslation();
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth <= 767) {
@@ -77,7 +78,11 @@ const ProductSlider: React.FC<ProductSliderProps> = ({ products }) => {
 
   return ( 
     <>
-    <div className='w-full top-2 relative mb-4 flex justify-between items-center'><img src={fire.src} style={{width:'22px'}}/><h2 className="dark:text-white absolute left-6 whitespace-nowrap  dark:bg-transparent text-lg text-center font-bold">The Hottest</h2></div>   
+    <div className='w-full top-2 relative mb-4 flex justify-between items-center'>
+    <div className='flex justify-between w-fit gap-1'>
+      <img src={fire.src} style={{width:'27px'}}/><h2 className="dark:text-white  whitespace-nowrap  dark:bg-transparent text-lg text-center font-bold">{t("the-hottest")}</h2>
+      </div>
+      </div>   
     <Swiper
        modules={[Navigation, Autoplay,Pagination, Scrollbar, A11y]}
        slidesPerView={'auto'}

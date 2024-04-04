@@ -86,8 +86,9 @@
   "price-low-high": "מחיר: נמוך -> גבוה",
   "latest-arrivals": "הגיעו לאחרונה",
   "no-results": "אין תוצאות",
+  "no-products-found": "לא נמצאו מוצרים",
   "search-placeholder": "חפש מוצרים...",
-  "search-results-for": "תוצאות חיפוש עבור",
+  "search-results-for": "תוצאות חיפוש עבור:",
   "related-products": "מוצרים קשורים",
   "check-out-products": "ייתכן שגם המוצרים האלה יהיו מעניינים עבורך.",
   "orders": "הזמנות",
@@ -196,5 +197,7 @@
   "categories": "קטגוריות",
   "category": "קטגוריה",
   "collections": "אוספים",
-  "share-with-friends-on": "שתפו עם חברים"
+  "all": "הכל",
+  "share-with-friends-on": "שתפו עם חברים",
+  "the-hottest": "הכי חמים"
 }
