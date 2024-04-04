@@ -110,3 +110,23 @@
     @apply text-[32px] leading-[44px] font-semibold;
   }
 }
+
+
+.rotate-270 {
+  transform: rotate(270deg);
+}
+
+/* Hover effect for LTR */
+.ltr:hover .rotate-on-hover {
+  transform: rotate(45deg);
+}
+
+/* Hover effect for RTL */
+.rtl:hover .rotate-on-hover {
+  transform: rotate(225deg);
+}
+
+/* Ensure smooth transitions */
+.rotate-on-hover {
+  transition: transform 0.15s ease-in-out;
+}
