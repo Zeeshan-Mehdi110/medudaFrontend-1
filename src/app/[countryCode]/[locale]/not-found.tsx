@@ -8,9 +8,9 @@ export const metadata: Metadata = {
   description: "Something went wrong",
 }
 
-export default async function NotFound(props: { children: React.ReactNode, params: { locale: string }}) {
-  const { params } = props;
-  const { t } = await initTranslations(params.locale, ['common']);
+export default async function NotFound() {
+  const locale = getLang();
+  const { t } = await initTranslations(locale, ['common']);
   return (
     <div className="flex flex-col gap-4 items-center justify-center min-h-[calc(100vh-64px)]">
       <h1 className="text-2xl-semi text-ui-fg-base">{t("page-not-found")}</h1>

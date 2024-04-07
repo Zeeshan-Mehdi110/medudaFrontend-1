@@ -12,7 +12,6 @@ export default async function RootLayout(props: { children: React.ReactNode, par
   const { params } = props;
   const { t,resources } = await initTranslations(params.locale, ['common',"profile","en"]);
   const dir = params.locale === 'ar' || params.locale === 'he' ? 'rtl' : 'ltr';
-  console.log("RootLayout -> dir", dir)
   return (
   <TranslationsProvider resources={resources} locale={params.locale} namespaces={i18NameSpaces} >
     <html lang={params.locale} data-mode="light" dir={dir}>

@@ -20,7 +20,7 @@ const { t } = useTranslation();
   return (
     <div className="flex-1 small:py-12 dark:text-white">
       <div className="flex-1 content-container h-full max-w-5xl mx-auto dark:bg-black bg-white flex flex-col">
-        <div className="grid grid-cols-1  small:grid-cols-[240px_1fr] py-12">
+      <div className={`grid grid-cols-1  ${customer && 'small:grid-cols-[240px_1fr]' } py-12`}>
           <div>{customer && <AccountNav customer={customer} />}</div>
           <div className="flex-1">{children}</div>
         </div>

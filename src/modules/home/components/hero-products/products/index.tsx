@@ -51,7 +51,7 @@ const ProductSlider: React.FC<ProductSliderProps> = ({ products }) => {
 
   const [swiperDirection, setSwiperDirection] = useState<'horizontal' | 'vertical'>('vertical');
   const [swiperHeight, setSwiperHeight] = useState('auto');
-  const [isRtl, setIsRtl] = useState(localStorage.getItem('lang') === 'ar' || localStorage.getItem('lang') === 'he' ? true : false);
+ 
   const { t } = useTranslation();
   useEffect(() => {
     const handleResize = () => {
@@ -96,7 +96,6 @@ const ProductSlider: React.FC<ProductSliderProps> = ({ products }) => {
       }}
       loop={true} // Enable looping for infinite scroll effect
       direction={swiperDirection}
-      dir={swiperDirection === "horizontal" ? (isRtl ? "rtl" : "ltr") : undefined}
       breakpoints={{
         // When window width is <= 767px
         767: {
