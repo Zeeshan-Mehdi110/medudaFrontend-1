@@ -24,7 +24,7 @@ export default async function Nav(params:any) {
   return (
     <div className="sticky top-0 inset-x-0 z-50 group ">
       <header className="relative dark:bg-black bg-ui-bg-subtle h-16 mx-auto border-b duration-200  border-ui-border-base">
-        <nav className="content-container txt-xsmall-plus text-ui-fg-subtle flex items-center justify-between w-full p-[3px] h-full text-small-regular gap-[2px]">
+      <nav className="content-container txt-xsmall-plus text-ui-fg-subtle flex items-center justify-between w-full  h-full text-small-regular gap-[2px] pr-2 pl-2">
         <div className="flex-1 basis-0 h-full flex items-center sm:justify-between gap-4">
             <div className="h-full">
               <SideMenu regions={regions} />
@@ -32,7 +32,7 @@ export default async function Nav(params:any) {
             <div className="sm:hidden"><Theme/></div>
           </div>
 
-          <div className={`flex items-center h-full ${isRtl ? 'pr-[13px]' : 'pl-[13px]'} sm:pl-0 scale-100 sm:scale-90`}>
+          <div className={`flex items-center h-full ${isRtl ? 'pr-[22px]' : 'pl-[30px]'} sm:pl-0 scale-100 sm:scale-90`}>
           
           <h1 className="text-center w-min sm:w-fit">
             <LocalizedClientLink
