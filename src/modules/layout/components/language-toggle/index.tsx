@@ -15,14 +15,14 @@ const getCookie = (name: string): string | null => {
   return null
 }
 
-export default function LanguageToggle() {
+export default function LanguageToggle({locale} : {locale: string}) {
   
   const locales = ["en", "he", "ru"];
   const pathname = usePathname()
   const pathnameParts = pathname
   .split("/")
   .filter((part) => part.trim() !== "")
-  const [lang, setLang] = useState(getCookie("lang") ?? "en")
+  const [lang, setLang] = useState(locale)
   const router = useRouter()
   
   useEffect(() => {

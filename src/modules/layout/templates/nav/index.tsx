@@ -79,7 +79,7 @@ export default async function Nav(params:any) {
             <div className="hidden sm:block">
               <Theme/>
             </div>
-            <LanguageToggle/>
+            <LanguageToggle locale={locale}/>
           </div>
         </nav>
       </header>
