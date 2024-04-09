@@ -205,7 +205,7 @@ const ProductSlider: React.FC<ProductSliderProps> = ({ products, locale }) => {
       </div>
       {isMobile ? (
         <Marquee 
-          duration={20000}
+          duration={30000}
           height="200px"
           className='custom-marquee'
           reverse={isRtlLocale}
