@@ -12,12 +12,12 @@ export default function Theme() {
     setTheme(localStorage.getItem("theme") || "light")
     document.documentElement.setAttribute("data-mode", theme)
 
-    const backgroundContainer = document.getElementById("background-image");
+    // const backgroundContainer = document.getElementById("background-image");
     const logoColor = document.getElementById("nav-logo") as HTMLImageElement;
-    if (backgroundContainer) {
-      backgroundContainer.style.backgroundImage =
-        theme === "light" ? "url('/lightTheme.jpg')" : "url('/2363.jpg')";
-    }
+    // if (backgroundContainer) {
+    //   backgroundContainer.style.backgroundImage =
+    //     theme === "light" ? "url('/lightTheme.jpg')" : "url('/2363.jpg')";
+    // }
     if (logoColor) {
       logoColor.src = theme === "light" ? "/rr.svg" : "/dd.svg";
     }
