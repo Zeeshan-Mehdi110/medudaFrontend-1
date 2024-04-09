@@ -144,6 +144,7 @@ interface Product {
 
 interface ProductCardProps {
   product: Product;
+  locale: string;
 }
 
 interface ProductSliderProps {
@@ -170,11 +171,9 @@ function useMediaQuery(query: string) {
   return matches;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-  const [locale, setLocale] = useState(localStorage.getItem("lang") ?? "en");
-  const isMobile = useMediaQuery('(max-width: 767px)');
-  const isRtlLocale = ['ar', 'he'].includes(locale);
-  const marqueeDirection = isMobile ? (isRtlLocale ? 'left' : 'right') : 'down';
+const ProductCard: React.FC<ProductCardProps> = ({ product,locale }) => {
+
+
   return (
     <div className="product-card rounded-lg h-[200px] w-full flex flex-col bg-white shadow-lg overflow-hidden">
       <div className="h-2/3 overflow-hidden">
@@ -214,7 +213,7 @@ const ProductSlider: React.FC<ProductSliderProps> = ({ products, locale }) => {
         >
           {products.map((product, index) => (
             <LocalizedClientLink className='mr-2 ml-2 w-[150px]' href={`/products/${product.handle}`} key={index}>
-              <ProductCard product={product} />
+              <ProductCard locale={locale} product={product} />
             </LocalizedClientLink>
           ))}
         </Marquee>
@@ -227,7 +226,7 @@ const ProductSlider: React.FC<ProductSliderProps> = ({ products, locale }) => {
           }}>
             {products.concat(products).map((product, index) => (
       <LocalizedClientLink className='my-2' href={`/products/${product.handle}`} key={index}>
-        <ProductCard product={product} />
+        <ProductCard locale={locale} product={product} />
       </LocalizedClientLink>
     ))}
           </div>

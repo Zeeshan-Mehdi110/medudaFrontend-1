@@ -74,7 +74,7 @@ export default async function Home({
   };
   return (
     <>
-      <Hero />
+      <Hero locale={locale} />
       <div id="background-image" style={backgroundImageStyle}>
         <ul className="flex flex-col gap-x-6">
           <FeaturedProducts locale={locale} collections={collections} region={region} />

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import ProductSlider from "./products";
 
 
-export default function HeroProducts() {
+export default function HeroProducts({locale}:{locale:string}) {
     const [products, setProducts] = useState<any[]>([])
 
     const getProducts = async () => {
@@ -21,6 +21,6 @@ export default function HeroProducts() {
     }, []);
 
     return(
-        <ProductSlider products={products}/>
+        <ProductSlider locale={locale} products={products}/>
     )
 }
