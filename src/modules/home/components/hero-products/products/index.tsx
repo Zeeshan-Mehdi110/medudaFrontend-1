@@ -177,7 +177,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product,locale }) => {
   return (
     <div className="product-card rounded-lg h-[200px] w-full flex flex-col bg-white shadow-lg overflow-hidden">
       <div className="h-2/3 overflow-hidden">
-        <img src={product.thumbnail} className='w-full h-full object-cover' alt={product.title} />
+        {/* <img src={product.thumbnail} className='w-full h-full object-cover' alt={product.title} /> */}
+        <Image src={product.thumbnail} width={300} height={500} className='w-full h-full object-cover' alt={product.title} />
       </div>
       <div className="flex-1 px-2 pb-4 pt-2">
         <button className="text-sm font-semibold ">
