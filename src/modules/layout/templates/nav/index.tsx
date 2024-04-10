@@ -23,8 +23,8 @@ export default async function Nav(params:any) {
 
   return (
     <div className="sticky top-0 inset-x-0 z-50 group ">
-      <header className="relative overflow-hidden dark:bg-black bg-ui-bg-subtle h-16 mx-auto border-b duration-200  border-ui-border-base">
-      <nav className="content-container txt-xsmall-plus text-ui-fg-subtle flex items-center justify-between w-full  h-full text-small-regular gap-[2px] pr-2 pl-2">
+      <header className="relative  dark:bg-black bg-ui-bg-subtle h-16 mx-auto border-b duration-200  border-ui-border-base">
+      <nav className="content-container overflow-x-hidden txt-xsmall-plus text-ui-fg-subtle flex items-center justify-between w-full  h-full text-small-regular gap-[2px] pr-2 pl-2">
         <div className="flex-1 basis-0 h-full flex items-center sm:justify-between gap-4">
             <div className="h-full">
               <SideMenu regions={regions} />
