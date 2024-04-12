@@ -130,3 +130,27 @@
 .rotate-on-hover {
   transition: transform 0.15s ease-in-out;
 }
+
+
+.blog-post-card h1 {
+  @apply text-2xl font-semibold;
+  text-align: center;
+}
+
+.blog-post-card h2 {
+  @apply text-lg font-semibold;
+  text-align: center;
+}
+
+.blog-post-card h3 {
+  @apply text-lg font-semibold;
+  text-align: center;
+}
+
+
+ .blog-post-card h4, .blog-post-card p {
+  @apply text-base font-normal;
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+
