@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react"
 import { useParams } from "next/navigation"
 import { BlocksRenderer, type BlocksContent } from '@strapi/blocks-react-renderer';
-
+import { useTranslation } from "react-i18next";
 export const fetchBlogPosts = async (
   locale: string,
   numberOfPosts: number | null
@@ -54,6 +54,7 @@ const BlogModule: React.FC = () => {
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const  locale = useParams().locale; // Use generic to specify expected params
   const isRtl = locale === "ar" || locale === "he"
+  const { t } = useTranslation();
   useEffect(() => {
     const getBlogPosts = async () => {
       try {
@@ -79,12 +80,12 @@ const BlogModule: React.FC = () => {
     </div>
           <BlocksRenderer content={post.attributes.blogBody} />
         </div>
-         <p className="text-sm text-gray-600">Published on: {convertToDDMMYYYY(post.attributes.publishedAt)}</p>
+         <p className="text-sm text-gray-600">{t("published-on")}: {convertToDDMMYYYY(post.attributes.publishedAt)}</p>
          <div>
         
       </div>
          <a  href={`/blog/${post.attributes.uniqueId}`} className="text-blue-500 p-4 hover:underline"
-            >Read More</a>
+            >{t("read-more")}</a>
          </a >
       ))}
     </div>
