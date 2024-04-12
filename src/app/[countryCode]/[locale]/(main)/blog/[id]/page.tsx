@@ -22,10 +22,10 @@ type BlogPost = {
   attributes: PostAttributes;
 };
 
-const BlogPostPage: React.FC = () => {
+const BlogPostPage: React.FC<{params:any}> = ({params}: {params: any}) => {
   const [post, setPost] = useState<BlogPost | null>(null);
   const uniqueId = useParams().id;
-  const locale = useParams().locale as string; // Assuming locale is a string
+  const {locale} = params;
 const { t } = useTranslation();
 
   useEffect(() => {

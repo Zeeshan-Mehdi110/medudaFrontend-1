@@ -12,7 +12,7 @@ export default async function Blog({params}: {params: any}) {
         <p>Here you will find all the latest news and updates about our products and services.</p>
     </div>
     <div>
-      <BlogModule></BlogModule>
+      <BlogModule locale={locale}></BlogModule>
     </div>
     </>
   )

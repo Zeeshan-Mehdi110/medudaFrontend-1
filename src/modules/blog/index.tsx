@@ -1,6 +1,5 @@
 "use client"
 import React, { useEffect, useState } from "react"
-import { useParams } from "next/navigation"
 import { BlocksRenderer, type BlocksContent } from '@strapi/blocks-react-renderer';
 import { useTranslation } from "react-i18next";
 export const fetchBlogPosts = async (
@@ -50,9 +49,8 @@ type BlogPost = {
 
 // Adjust the fetchBlogPosts function if needed (not shown here for brevity)
 
-const BlogModule: React.FC = () => {
+const BlogModule: React.FC<{locale:string}> = ({locale}:{locale:string}) => {
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
-  const  locale = useParams().locale; // Use generic to specify expected params
   const isRtl = locale === "ar" || locale === "he"
   const { t } = useTranslation();
   useEffect(() => {
