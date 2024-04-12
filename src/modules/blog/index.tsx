@@ -71,8 +71,8 @@ const BlogModule: React.FC = () => {
   return (
     <div className="flex flex-col w-full pr-6 pl-6 gap-4 justify-center items-center">
       {blogPosts.map((post) => (
-        <a href={`/blog/${post.attributes.uniqueId}`} className="blog-post-card sm:w-3/4 w-full mb-4 p-4 rounded border border-gray-200 shadow-lg ">
-        <div  key={post.id} className="h-[300px] mb-4 overflow-hidden  ">
+        <a key={post.attributes.uniqueId} href={`/blog/${post.attributes.uniqueId}`} className="blog-post-card sm:w-3/4 w-full mb-4 p-4 rounded border border-gray-200 shadow-lg ">
+        <div className="h-[300px] mb-4 overflow-hidden  ">
           <h2 className="mb-2 text-lg font-semibold">{post.attributes.Author}</h2>
           <div className="flex justify-center text-xl mb-2">
       {post.attributes[`tags_${locale}` as keyof BlogPostAttributes].join(' | ')}
