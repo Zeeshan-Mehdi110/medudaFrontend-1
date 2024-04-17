@@ -255,7 +255,6 @@ async function listCountries() {
 export async function middleware(request: NextRequest) {
   let t = nextIntl(request)
   const searchParams = request.nextUrl.searchParams
-  console.log(searchParams, "searchParams")
   const isOnboarding = searchParams.get("onboarding") === "true"
   const onboardingCookie = request.cookies.get("_medusa_onboarding")
 
