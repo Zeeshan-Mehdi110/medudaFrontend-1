@@ -107,7 +107,7 @@ export default function PasswordChange() {
        
         <Button onClick={() => router.push('/account')} className="w-full" variant={"primary"}>{t("back-to-login-page")}</Button>
       ) : (
-        <SubmitButton variant={"primary"} onClick={() => setMessage('')} disabled={isSuccess} className="w-full mt-6">Reset Password</SubmitButton>
+        <SubmitButton variant={"primary"} onClick={() => setMessage('')} disabled={isSuccess} className="w-full mt-6">{t("reset-password")}</SubmitButton>
       )}
     </form>
  
