@@ -10,6 +10,7 @@ import ErrorMessage from "@modules/checkout/components/error-message"
 import { SubmitButton } from "@modules/checkout/components/submit-button"
 import Medusa from "@medusajs/medusa-js"
 import { useTranslation } from "react-i18next"
+import { Button } from '@medusajs/ui';
 type Props = {
   setCurrentView: (view: LOGIN_VIEW) => void
 }
@@ -62,7 +63,7 @@ const ResetPassword = ({ setCurrentView }: Props) => {
             {isSent && !error && <p className='h-14 text-center mt-6 bg-green-200 items-center justify-center flex rounded-lg'> {t("check-email-reset-link")}</p>}
             {!isSent && error && <p className='h-14 text-center mt-6 bg-red-200 items-center justify-center flex rounded-lg'> {t("error-try-again-contact")}</p>}
           
-            <button disabled={isSent && !error} className='bg-black text-white w-full mt-6 pt-3 pb-3 rounded-md' onClick={handleResetPassword}>{t("password_reset")}</button>
+            <Button variant={"primary"} disabled={isSent && !error} className=' w-full mt-6 pt-3 pb-3 rounded-md' onClick={handleResetPassword}>{t("password_reset")}</Button>
            
          
         </div>
