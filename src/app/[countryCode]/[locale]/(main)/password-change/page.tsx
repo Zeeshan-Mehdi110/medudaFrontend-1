@@ -6,7 +6,7 @@ import { SubmitButton } from "@modules/checkout/components/submit-button";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from 'next/navigation'
 
-export default function ChangePassword() {
+export default function PasswordChange() {
   const { t } = useTranslation();
   const searchParams = useSearchParams() 
   const token = searchParams.get('token')
