@@ -4,7 +4,8 @@ import UnderlineLink from "@modules/common/components/interactive-link"
 import Input from "@modules/common/components/input"
 import { SubmitButton } from "@modules/checkout/components/submit-button";
 import { useTranslation } from "react-i18next";
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams, useRouter } from 'next/navigation'
+import { Button } from '@medusajs/ui';
 
 export default function PasswordChange() {
   const { t } = useTranslation();
@@ -16,6 +17,7 @@ export default function PasswordChange() {
   const [message, setMessage] = useState('');
   const [isErr, setIsErr] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const router = useRouter();
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 
     event.preventDefault();
@@ -101,9 +103,11 @@ export default function PasswordChange() {
   <p className={isErr ? "text-red-500" : "text-green-500"} style={{maxWidth:'224px',textAlign:'center'}}>{message}</p>
 )}
       {isSuccess ? (
-        <a className="bg-black text-white w-full mt-6 pt-3 pb-3 rounded-md text-center" href='/account'>Go to Homepage</a>
+        // <a className="bg-black text-white w-full mt-6 pt-3 pb-3 rounded-md text-center" href='/account'>Go to Homepage</a>
+       
+        <Button onClick={() => router.push('/account')} variant={"primary"}>{t("back-to-login-page")}</Button>
       ) : (
-        <SubmitButton onClick={() => setMessage('')} disabled={isSuccess} className="w-full mt-6">Reset Password</SubmitButton>
+        <SubmitButton variant={"primary"} onClick={() => setMessage('')} disabled={isSuccess} className="w-full mt-6">Reset Password</SubmitButton>
       )}
     </form>
  
