@@ -58,7 +58,7 @@ export default function PasswordChange() {
 
   return (
     <>
-    <div className="w-full flex justify-center lg:mr-60">
+    <div className="w-full flex justify-center">
     <form onSubmit={handleSubmit} className="flex flex-col gap-3 mt-4 mb-6">
       <h1 className="text-xl font-semibold mt-9">{t("password_choose")}:</h1>
       <label htmlFor="email">{t("email")}:</label>
