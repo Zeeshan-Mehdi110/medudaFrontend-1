@@ -9,7 +9,7 @@ import { useParams } from "next/navigation";
 import { SubmitButton } from "@modules/checkout/components/submit-button";
 import { useTranslation } from "react-i18next";
 
-export default function ChangePassword() {
+export default function ChangePasswordDone() {
   const { t } = useTranslation();
   const params = useParams();
   const token = params.token;
