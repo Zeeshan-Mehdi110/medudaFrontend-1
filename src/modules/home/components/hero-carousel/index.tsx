@@ -100,7 +100,7 @@ const MySwiperComponent = ({ locale }: { locale: string }) => {
   const router = useRouter()
   const [images, setImages] = useState<ImageItem[]>([])
   useEffect(() => {
-    fetch( `https://strapi-blog-m4go.onrender.com/api/blog-posts?locale=${locale}&populate=*`)
+    fetch( `https://strapi-blog-m4go.onrender.com/api/hero-images?locale=${locale}&populate=*`)
       .then((response) => response.json())
       .then((data) => {
         let items = extractData(data)
