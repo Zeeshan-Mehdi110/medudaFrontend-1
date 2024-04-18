@@ -153,7 +153,10 @@
   padding-right: 1rem;
   padding-left: 1rem;
 }
-
+.heroBannerTitle {
+  @apply text-xl;
+  @apply sm:text-3xl;
+}
 .fade-bottom-text{
   mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
   -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);

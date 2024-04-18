@@ -31,7 +31,7 @@ const nextConfig = withStoreConfig({
       // },
     ],
     domains: [
-      'pixelsjourney.fra1.digitaloceanspaces.com'
+      'pixelsjourney.fra1.digitaloceanspaces.com','res.cloudinary.com'
     ],
   },
 })
