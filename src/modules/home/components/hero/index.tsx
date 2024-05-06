@@ -11,7 +11,7 @@ const Hero = ({locale}:{locale:string}) => {
       <MySwiperComponent locale={locale}/>
 
       </div>
-      <div className="w-full sm:w-auto pl-4 h-full flex overflow-hidden flex-col float-right bg-gray gap-2 shadow-xl rounded-lg">
+      <div className="w-full sm:w-auto pl-4 h-full flex overflow-hidden flex-col float-right bg-gray dark:bg-black gap-2 shadow-xl rounded-lg">
           <HeroProducts locale={locale} />
         </div>
     </div>
