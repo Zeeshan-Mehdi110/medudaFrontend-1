@@ -27,7 +27,7 @@ export async function generateMetadata(
 
 export default async function Addresses({params}: {params: any}) {
   const {countryCode} = params;
-  const customer = await getCustomer()
+  const customer = await getCustomer().catch(() => null)
   const region = await getRegion(countryCode)
   const {locale} = params;
   const { t } = await initTranslations(locale, ['common']);

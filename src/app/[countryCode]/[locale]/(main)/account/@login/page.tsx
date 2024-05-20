@@ -14,7 +14,7 @@ export async function generateMetadata(
 ): Promise<Metadata> {
 
   const { t } = await initTranslations(params.locale, ['common']);
- const session = await getSession();
+  const session = await getSession().catch(() => null)
   
   return {
     title: session ? t("my-account") :  t("sign-in"),
