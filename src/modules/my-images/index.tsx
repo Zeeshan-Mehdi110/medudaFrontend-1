@@ -128,8 +128,8 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
   const fetchData = useCallback(async () => {
     setInitialLoading(true)
     const newImages = []
-    const ids = Object.values(customer.metadata.userImages || null)
-    if(ids){
+    const ids = customer.metadata?.userImages ? Object.values(customer.metadata.userImages) : [];
+    if(ids.length > 0){
     for (const id of ids) {
       const url = `https://imagedelivery.net/${process.env.NEXT_PUBLIC_CLOUDFLARE_ACCOUNT_HASH}/${id}/public`
       const exists = await checkImageExists(id as string)
