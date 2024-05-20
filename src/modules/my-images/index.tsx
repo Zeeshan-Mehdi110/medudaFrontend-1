@@ -23,13 +23,11 @@ import { getSession } from "@lib/data"
 import { useRouter } from "next/navigation"
 
 interface MyImagesComponentProps {
-  token: string
   customer: any
   locale: string
 }
 
 const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
-  token,
   customer,
   locale,
 }) => {
@@ -204,7 +202,6 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
         image: base64String,
         metadata: JSON.stringify({ name: file?.name }),
         requireSignedURLs: "false",
-        token: token,
       }
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/store/post-images`,

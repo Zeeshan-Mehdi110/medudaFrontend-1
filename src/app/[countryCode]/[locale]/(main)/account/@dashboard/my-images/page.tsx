@@ -31,29 +31,29 @@ export async function generateMetadata(
 
 
 
-async function fetchCloudflareBatchToken() {
-  const url = `https://api.cloudflare.com/client/v4/accounts/${process.env.NEXT_PUBLIC_CLOUDFLARE_ACCOUNT_ID}/images/v1/batch_token`;
+// async function fetchCloudflareBatchToken() {
+//   const url = `https://api.cloudflare.com/client/v4/accounts/${process.env.NEXT_PUBLIC_CLOUDFLARE_ACCOUNT_ID}/images/v1/batch_token`;
 
-  try {
-    const response = await fetch(url, {
-      method: 'GET', // or 'POST' based on the API requirements
-      headers: {
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_CLOUDFLARE_API_TOKEN}`,
-        'Content-Type': 'application/json'
-      }
-    });
+//   try {
+//     const response = await fetch(url, {
+//       method: 'GET', // or 'POST' based on the API requirements
+//       headers: {
+//         Authorization: `Bearer ${process.env.NEXT_PUBLIC_CLOUDFLARE_API_TOKEN}`,
+//         'Content-Type': 'application/json'
+//       }
+//     });
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
+//     if (!response.ok) {
+//       throw new Error(`HTTP error! Status: ${response.status}`);
+//     }
 
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Failed to fetch Cloudflare batch token:", error);
-    return null; // Handle error case appropriately
-  }
-}
+//     const data = await response.json();
+//     return data;
+//   } catch (error) {
+//     console.error("Failed to fetch Cloudflare batch token:", error);
+//     return null; // Handle error case appropriately
+//   }
+// }
 
 
 export default async function MyImages({params}: {params: any}) {
@@ -61,7 +61,7 @@ export default async function MyImages({params}: {params: any}) {
   const regions = await listRegions()
   const {locale} = params;
   const { t } = await initTranslations(locale, ["common"])
-  const {result:{token}} = await fetchCloudflareBatchToken();
+//   const {result:{token}} = await fetchCloudflareBatchToken();
   if (!customer || !regions) {
     notFound()
   }
@@ -73,7 +73,7 @@ export default async function MyImages({params}: {params: any}) {
         <Text size="large">{t("upload-manage-images")}.</Text>
       </div>
       <div className="flex flex-col gap-y-8 w-full">
-      <MyImagesComponent locale={locale} customer={customer} token={token}></MyImagesComponent>
+      <MyImagesComponent locale={locale} customer={customer}></MyImagesComponent>
       </div>
     </div>
   )
