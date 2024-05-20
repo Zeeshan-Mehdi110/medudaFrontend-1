@@ -75,7 +75,7 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
 
   const getMedusaSession = async () => {
     try {
-      const session = await getSession()
+      const session = await getSession().catch(() => null)
       return session
     } catch (error) {
       console.error(error)
@@ -84,7 +84,7 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
 
   const getCarts = async () => {
     try {
-      let cart = await retrieveCart()
+      let cart = await retrieveCart().catch(() => null)
       if (cart) {
         setCart(cart)
       }
@@ -128,7 +128,8 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
   const fetchData = useCallback(async () => {
     setInitialLoading(true)
     const newImages = []
-    const ids = Object.values(customer.metadata.userImages)
+    const ids = Object.values(customer.metadata.userImages || null)
+    if(ids){
     for (const id of ids) {
       const url = `https://imagedelivery.net/${process.env.NEXT_PUBLIC_CLOUDFLARE_ACCOUNT_HASH}/${id}/public`
       const exists = await checkImageExists(id as string)
@@ -141,9 +142,10 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
         })
       }
     }
+  } 
     setImages(newImages)
     setInitialLoading(false)
-  }, [customer.metadata.userImages])
+  }, [])
 
   useEffect(() => {
     fetchData().catch(console.error)
