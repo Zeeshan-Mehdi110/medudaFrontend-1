@@ -65,11 +65,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function CollectionPage({ params, searchParams }: Props) {
   const { sortBy, page } = searchParams
   const {locale} = params;
-  const collection = await getCollectionByHandle(params.handle).then(
+  let collection = await getCollectionByHandle(params.handle).then(
     (collection) => collection
   )
 
-  if (!collection) {
+  if (!collection || collection.handle === "custom-print") {
     notFound()
   }
 

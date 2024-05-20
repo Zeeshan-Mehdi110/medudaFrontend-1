@@ -9,8 +9,9 @@ export default function HeroProducts({locale}:{locale:string}) {
 
     const getProducts = async () => {
       try {
-        const results = await medusaClient.products.list();
-        setProducts(results.products)
+        let {products} = await medusaClient.products.list();
+        products = products.filter((product:any) => product.handle !== "custom-print")
+        setProducts(products)
       } catch (error) {
         console.log(error)
       }

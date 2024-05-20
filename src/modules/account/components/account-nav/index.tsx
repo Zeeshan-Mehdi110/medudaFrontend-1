@@ -61,6 +61,20 @@ const {locale} = useParams()
                 </li>
                 <li>
                   <LocalizedClientLink
+                    href="/account/my-images"
+                    className="flex items-center justify-between py-4 border-b border-gray-200 px-8"
+                  >
+                    <>
+                      <div className="flex items-center gap-x-2">
+                        <MapPin size={20} />
+                        <span>{t("my-images")}</span>
+                      </div>
+                      <ChevronDown className="transform -rotate-90" />
+                    </>
+                  </LocalizedClientLink>
+                </li>
+                <li>
+                  <LocalizedClientLink
                     href="/account/addresses"
                     className="flex items-center justify-between py-4 border-b border-gray-200 px-8"
                   >
@@ -118,6 +132,11 @@ const {locale} = useParams()
               <li>
                 <AccountNavLink href="/account/profile" route={route!}>
                 {t("profile")}
+                </AccountNavLink>
+              </li>
+              <li>
+                <AccountNavLink href="/account/my-images" route={route!}>
+                {t("my-images")}
                 </AccountNavLink>
               </li>
               <li>

@@ -20,19 +20,17 @@ export async function generateMetadata(
   const { t } = await initTranslations(params.locale, ['common']);
  
   return {
-    title: t("sign-in"),
-    description: t("sign-in-to-view-your-pixels-journey-account"),
+    title: t("shipping-addresses"),
+    description: t("update-shipping-addresses"),
   }
 }
 
 export default async function Addresses({params}: {params: any}) {
-  const nextHeaders = headers()
-  const countryCode = nextHeaders.get("next-url")?.split("/")[1] || ""
+  const {countryCode} = params;
   const customer = await getCustomer()
   const region = await getRegion(countryCode)
   const {locale} = params;
   const { t } = await initTranslations(locale, ['common']);
-
   if (!customer || !region) {
     notFound()
   }

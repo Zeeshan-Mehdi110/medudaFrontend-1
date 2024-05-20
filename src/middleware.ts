@@ -249,6 +249,15 @@ async function listCountries() {
   }
 }
 
+// const getCountryFromIP = async () => {
+//   try {
+//     const response = await axios.get('https://ipapi.co/json/');
+//     return response.data.country.toLowerCase(); // or response.data.country_code
+//   } catch (error) {
+//     console.error('Error fetching geolocation data:', error);
+//     return null;
+//   }
+// };
 /**
  * Middleware to handle region selection and onboarding status.
  */

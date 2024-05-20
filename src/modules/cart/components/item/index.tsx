@@ -27,6 +27,7 @@ const Item =  ({ item,locale ,region, type = "full" }: ItemProps) => {
   const [error, setError] = useState<string | null>(null)
   const rtl = locale === "ar" || locale === "he";
   const { handle } = item.variant.product
+  const {metadata:{image}} = item;
 
   const changeQuantity = async (quantity: number) => {
     setError(null)
@@ -56,7 +57,7 @@ const Item =  ({ item,locale ,region, type = "full" }: ItemProps) => {
             "small:w-24 w-12": type === "full",
           })}
         >
-          <Thumbnail thumbnail={item.thumbnail} size="square" />
+          <Thumbnail thumbnail={image ? image as string : item.thumbnail} size="square" />
         </LocalizedClientLink>
       </Table.Cell>
 

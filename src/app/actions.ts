@@ -62,7 +62,6 @@ export async function updateRegion(countryCode: string, currentPath: string) {
   } catch (e) {
     return "Error updating region"
   }
-console.log('currentPath', currentPath);
   redirect(`/${countryCode}${currentPath}`)
 }
 
