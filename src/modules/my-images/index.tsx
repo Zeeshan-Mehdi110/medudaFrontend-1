@@ -368,7 +368,7 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
                       if (!response.ok) {
                         throw new Error(t("failed-to-delete-the-image"))
                       }
-                      let item = cart.items.find(
+                      let item = cart?.items?.find(
                         (item: any) => extractImageId(item.metadata?.image) === extractImageId(selectedImage)
                       )
                       let itemId = item?.id
