@@ -16,11 +16,13 @@ import React, {
 import { Button, Text } from "@medusajs/ui"
 import { Toaster, toast } from "react-hot-toast"
 import CustomSpinner from "@modules/common/icons/custom-spinner"
-import { deleteLineItem, retrieveCart } from "@modules/cart/actions"
+import { deleteLineItem, getOrSetCart, retrieveCart } from "@modules/cart/actions"
 import { formatAmount } from "@lib/util/prices"
 import { addToCart as addToCartMedusaFn } from "@modules/cart/actions"
 import { getSession } from "@lib/data"
 import { useRouter } from "next/navigation"
+import { set } from "lodash"
+import { getRegion } from "app/actions"
 
 interface MyImagesComponentProps {
   customer: any
@@ -51,6 +53,7 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
   const [inputKey, setInputKey] = useState(Date.now())
   const isRtl = locale === "he" || locale === "ar"
   const [loadedImages, setLoadedImages] = useState({});
+  const [region, setRegion] = useState<string>("")
 
   const handleImageLoad = (index : any) => {
     setLoadedImages((prev) => ({ ...prev, [index]: true }));
@@ -98,6 +101,8 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
         if (!session) router.push(`/${countryCode}/${locale}/account`)
         await getCarts()
         await getProducts()
+        let region = await getRegion(countryCode as string).catch((err) => {console.error(err)})
+        region ? setRegion(region.id) : setRegion("")
       } catch (error) {
         console.error(error)
       }
@@ -182,6 +187,21 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
       })
       getCarts()
     } else {
+        try{
+            let newlyCreatedCart = await getOrSetCart(countryCode as string);
+            setCart(newlyCreatedCart);
+            await addToCartMedusaFn({
+                variantId: variant.id,
+                quantity: 1,
+                metadata: { variant: variant.title, image: image } as any,
+                countryCode: countryCode as string,
+              })
+        }
+        catch(error){
+            console.error(error)
+            toast.error(t("failed-to-add-item-to-cart"))
+        }
+        
     }
   }
 
@@ -438,7 +458,7 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
                         (price: any) =>
                           price.currency_code === cart?.region?.currency_code
                       )?.amount || 0,
-                    region: cart.region,
+                    region: cart?.region ?? region,
                     includeTaxes: true,
                   })}{" "}
                   <Text>{`(${t("prices-are-tax-inclusive")})`}</Text>
