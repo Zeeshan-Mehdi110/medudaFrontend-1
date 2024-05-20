@@ -187,6 +187,7 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
 
 
   const extractImageId = (url: string) => {
+    if (!url) return ""
     const parts = url.split("/")
     return parts[parts.length - 2]
   }
@@ -369,7 +370,7 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
                         throw new Error(t("failed-to-delete-the-image"))
                       }
                       let item = cart?.items?.find(
-                        (item: any) => extractImageId(item.metadata?.image) === extractImageId(selectedImage)
+                        (item: any) => extractImageId(item?.metadata?.image) === extractImageId(selectedImage)
                       )
                       let itemId = item?.id
                       if (itemId) {
