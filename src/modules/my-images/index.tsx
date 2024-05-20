@@ -435,7 +435,7 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
                     amount:
                       selectedVariant.prices.find(
                         (price: any) =>
-                          price.currency_code === cart.region.currency_code
+                          price.currency_code === cart?.region?.currency_code
                       )?.amount || 0,
                     region: cart.region,
                     includeTaxes: true,
