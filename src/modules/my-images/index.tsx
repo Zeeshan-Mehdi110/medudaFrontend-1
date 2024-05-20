@@ -24,14 +24,17 @@ import { useRouter } from "next/navigation"
 import { set } from "lodash"
 import { getRegion } from "app/actions"
 
+
 interface MyImagesComponentProps {
   customer: any
-  locale: string
+  locale: string,
+  countryCode: string
 }
 
 const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
   customer,
   locale,
+  countryCode,
 }) => {
   const router = useRouter()
   const [file, setFile] = useState<File | null>(null)
@@ -47,7 +50,6 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
   const [isVariantModalOpen, setIsVariantModalOpen] = useState(false)
   const [selectedVariant, setSelectedVariant] = useState<any>(null)
   const [currentImageForVariant, setCurrentImageForVariant] = useState("")
-  const { countryCode } = useParams()
   const { t } = useTranslation()
   const [variants, setVariants] = useState<any[]>([])
   const [inputKey, setInputKey] = useState(Date.now())
@@ -196,6 +198,7 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
                 metadata: { variant: variant.title, image: image } as any,
                 countryCode: countryCode as string,
               })
+              getCarts()
         }
         catch(error){
             console.error(error)

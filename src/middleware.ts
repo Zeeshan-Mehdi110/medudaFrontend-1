@@ -81,6 +81,15 @@
 //   }
 // }
 
+// // const getCountryFromIP = async () => {
+// //   try {
+// //     const response = await axios.get('https://ipapi.co/json/');
+// //     return response.data.country.toLowerCase(); // or response.data.country_code
+// //   } catch (error) {
+// //     console.error('Error fetching geolocation data:', error);
+// //     return null;
+// //   }
+// // };
 // /**
 //  * Middleware to handle region selection and onboarding status.
 //  */
@@ -91,7 +100,6 @@
 //   const onboardingCookie = request.cookies.get("_medusa_onboarding")
 
 //   const regionMap = await listCountries()
-
 //   let countryCode = regionMap && (await getCountryCode(request, regionMap))
 //   const isDiffCountryCode = request.nextUrl.pathname
 //     .split("/")
@@ -103,7 +111,8 @@
 //     isDiffCountryCode !== countryCode
 //       ? isDiffCountryCode
 //       : countryCode
-//   const locale = request.cookies.get("NEXT_LOCALE")?.value ?? "he"
+      
+//   const locale = (request.cookies.get("NEXT_LOCALE")?.value && locales.includes(request.cookies.get("NEXT_LOCALE")?.value as string)) ? request.cookies.get("NEXT_LOCALE")?.value as string :  "he";
 //   const urlHasCountryCode =
 //     countryCode && request.nextUrl.pathname.split("/")[1].includes(countryCode)
 //   const urlHasLocale = locale && request.nextUrl.pathname?.split("/")[2]?.length
@@ -113,7 +122,9 @@
 //     urlHasLocale &&
 //     (!isOnboarding || onboardingCookie)
 //   ) {
-//     return NextResponse.next()
+//     let response = NextResponse.next()
+//     response.cookies.set("countryCode", countryCode, { maxAge: 60 * 60 * 24 })
+//     return 
 //   }
 
 //   let response = NextResponse.redirect(request.nextUrl, 307)
@@ -137,7 +148,10 @@
 //       // If extra locale or countryCode are present beyond their initial correct positions, consider removing or adjusting the logic to prevent duplication
 
 //       // Reconstruct the pathname
-//       const newPathname = `/${pathSegments.join("/")}`
+//       const queryParamsString = searchParams.toString();
+
+//       // Reconstruct the pathname with the query parameters
+//       const newPathname = `/${pathSegments.join("/")}${queryParamsString ? `?${queryParamsString}` : ''}`;
 
 //       // Redirect to the new URL with correct countryCode and locale
 //       response = NextResponse.redirect(
@@ -161,10 +175,10 @@
 //     // "/((?!api|_next/static|favicon.ico).*)",
 //     "/((?!api|static|.*\\..*|_next).*)",
 //     // Include root and paths starting with specific locales
-//      "/"
 //     // "/(en|he|ru)/:path*"
 //   ],
 // }
+
 
 import { Region } from "@medusajs/medusa"
 import { NextRequest, NextResponse } from "next/server"
@@ -249,6 +263,11 @@ async function listCountries() {
   }
 }
 
+/**
+ * Middleware to handle region selection and onboarding status.
+ */
+
+
 // const getCountryFromIP = async () => {
 //   try {
 //     const response = await axios.get('https://ipapi.co/json/');
@@ -258,14 +277,12 @@ async function listCountries() {
 //     return null;
 //   }
 // };
-/**
- * Middleware to handle region selection and onboarding status.
- */
 export async function middleware(request: NextRequest) {
   let t = nextIntl(request)
   const searchParams = request.nextUrl.searchParams
   const isOnboarding = searchParams.get("onboarding") === "true"
   const onboardingCookie = request.cookies.get("_medusa_onboarding")
+  const countryCodeCookie = request.cookies.get("countryCode")?.value
 
   const regionMap = await listCountries()
   let countryCode = regionMap && (await getCountryCode(request, regionMap))
@@ -283,17 +300,19 @@ export async function middleware(request: NextRequest) {
   const urlHasCountryCode =
     countryCode && request.nextUrl.pathname.split("/")[1].includes(countryCode)
   const urlHasLocale = locale && request.nextUrl.pathname?.split("/")[2]?.length
-
+  const isCookieCountrieCodeSame = countryCodeCookie === countryCode;
   if (
     urlHasCountryCode &&
     urlHasLocale &&
     (!isOnboarding || onboardingCookie)
   ) {
-    return NextResponse.next()
+    let response = NextResponse.next()
+    !isCookieCountrieCodeSame && response.cookies.set("countryCode", countryCode, { maxAge: 60 * 60 * 24 })
+    return response;
   }
 
   let response = NextResponse.redirect(request.nextUrl, 307)
-
+  !isCookieCountrieCodeSame && response.cookies.set("countryCode", countryCode, { maxAge: 60 * 60 * 24 })
   if (!urlHasLocale || !urlHasCountryCode) {
     const pathSegments = request.nextUrl.pathname.split("/").filter(Boolean)
 

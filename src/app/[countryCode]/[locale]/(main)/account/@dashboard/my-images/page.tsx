@@ -59,7 +59,7 @@ export async function generateMetadata(
 export default async function MyImages({params}: {params: any}) {
   const customer = await getCustomer().catch(() => null)
   const regions = await listRegions()
-  const {locale} = params;
+  const {locale, countryCode} = params;
   const { t } = await initTranslations(locale, ["common"])
 //   const {result:{token}} = await fetchCloudflareBatchToken();
   if (!customer || !regions) {
@@ -73,7 +73,7 @@ export default async function MyImages({params}: {params: any}) {
         <Text size="large">{t("upload-manage-images")}.</Text>
       </div>
       <div className="flex flex-col gap-y-8 w-full">
-      <MyImagesComponent locale={locale} customer={customer}></MyImagesComponent>
+      <MyImagesComponent countryCode={countryCode} locale={locale} customer={customer}></MyImagesComponent>
       </div>
     </div>
   )
