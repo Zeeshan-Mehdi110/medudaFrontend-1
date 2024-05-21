@@ -16,7 +16,11 @@ import React, {
 import { Button, Text } from "@medusajs/ui"
 import { Toaster, toast } from "react-hot-toast"
 import CustomSpinner from "@modules/common/icons/custom-spinner"
-import { deleteLineItem, getOrSetCart, retrieveCart } from "@modules/cart/actions"
+import {
+  deleteLineItem,
+  getOrSetCart,
+  retrieveCart,
+} from "@modules/cart/actions"
 import { formatAmount } from "@lib/util/prices"
 import { addToCart as addToCartMedusaFn } from "@modules/cart/actions"
 import { getSession } from "@lib/data"
@@ -24,10 +28,9 @@ import { useRouter } from "next/navigation"
 import { set } from "lodash"
 import { getRegion } from "app/actions"
 
-
 interface MyImagesComponentProps {
   customer: any
-  locale: string,
+  locale: string
   countryCode: string
 }
 
@@ -54,12 +57,12 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
   const [variants, setVariants] = useState<any[]>([])
   const [inputKey, setInputKey] = useState(Date.now())
   const isRtl = locale === "he" || locale === "ar"
-  const [loadedImages, setLoadedImages] = useState({});
+  const [loadedImages, setLoadedImages] = useState({})
   const [region, setRegion] = useState<string>("")
 
-  const handleImageLoad = (index : any) => {
-    setLoadedImages((prev) => ({ ...prev, [index]: true }));
-  };
+  const handleImageLoad = (index: any) => {
+    setLoadedImages((prev) => ({ ...prev, [index]: true }))
+  }
   const openModal = (image: string) => {
     setSelectedImage(image)
     setIsOpen(true)
@@ -103,7 +106,9 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
         if (!session) router.push(`/${countryCode}/${locale}/account`)
         await getCarts()
         await getProducts()
-        let region = await getRegion(countryCode as string).catch((err) => {console.error(err)})
+        let region = await getRegion(countryCode as string).catch((err) => {
+          console.error(err)
+        })
         region ? setRegion(region.id) : setRegion("")
       } catch (error) {
         console.error(error)
@@ -128,28 +133,30 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
         return false
       }
     } catch (error) {
-      return false 
+      return false
     }
   }
 
   const fetchData = useCallback(async () => {
     setInitialLoading(true)
     const newImages = []
-    const ids = customer.metadata?.userImages ? Object.values(customer.metadata.userImages) : [];
-    if(ids.length > 0){
-    for (const id of ids) {
-      const url = `https://imagedelivery.net/${process.env.NEXT_PUBLIC_CLOUDFLARE_ACCOUNT_HASH}/${id}/public`
-      const exists = await checkImageExists(id as string)
-      if (exists) {
-        newImages.push(url)
-      } else {
-        delete customer.metadata.userImages[id as string]
-        await medusaClient.customers.update({
-          metadata: customer.metadata,
-        })
+    const ids = customer.metadata?.userImages
+      ? Object.values(customer.metadata.userImages)
+      : []
+    if (ids.length > 0) {
+      for (const id of ids) {
+        const url = `https://imagedelivery.net/${process.env.NEXT_PUBLIC_CLOUDFLARE_ACCOUNT_HASH}/${id}/public`
+        const exists = await checkImageExists(id as string)
+        if (exists) {
+          newImages.push(url)
+        } else {
+          delete customer.metadata.userImages[id as string]
+          await medusaClient.customers.update({
+            metadata: customer.metadata,
+          })
+        }
       }
     }
-  } 
     setImages(newImages)
     setInitialLoading(false)
   }, [])
@@ -188,7 +195,7 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
         countryCode: countryCode as string,
       })
     }
-      getCarts()
+    getCarts()
     // } else {
     //     try{
     //         let newlyCreatedCart = await getOrSetCart(countryCode as string);
@@ -205,10 +212,9 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
     //         console.error(error)
     //         toast.error(t("failed-to-add-item-to-cart"))
     //     }
-        
+
     // }
   }
-
 
   const extractImageId = (url: string) => {
     if (!url) return ""
@@ -292,58 +298,66 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
             textAlign: isRtl ? "right" : "left",
           },
         }}
-        position={`bottom-${
-          isRtl ? "right" : "left"
-        }`}
+        position={`bottom-${isRtl ? "right" : "left"}`}
       />
       {images.length > 0 ? (
         <div>
           <ul className="flex flex-wrap gap-4 justify-center sm:justify-normal">
-          {images.map((image, index) => (
-        <div key={index} className="relative group">
-          <a href={image} className="block relative z-10">
-            <img
-              className="max-w-[250px] max-h-[250px] shadow-md"
-              src={image}
-              alt={`User image ${index}`}
-              onLoad={() => handleImageLoad(index)}
-            />
-          </a>
-          {loadedImages[index as keyof typeof loadedImages] && (
-            <div className="flex gap-2 absolute top-1 right-1 z-20">
-              <Button
-              variant={"transparent"}
-                onClick={(event) => {
-                  event.stopPropagation();
-                  openModal(image);
-                }}
-                className="bg-gray rounded-sm"
-                style={{ opacity: 0.7, transition: "opacity 0.3s ease" }}
-                onMouseOver={(e) => (e.currentTarget.style.opacity = "1")}
-                onMouseOut={(e) => (e.currentTarget.style.opacity = "0.5")}
-              >
-                <Trash className="opacity-100" />
-              </Button>
-              <Button
-                className="bg-gray rounded-sm"
-                variant={"transparent"}
-                style={{ opacity: 0.7, transition: "opacity 0.3s ease" }}
-                onMouseOver={(e) => (e.currentTarget.style.opacity = "1")}
-                onMouseOut={(e) => (e.currentTarget.style.opacity = "0.5")}
-                onClick={async (event) => {
-                  event.stopPropagation(); // Prevents triggering other click events
-                  let newlyCreatedCart = await getOrSetCart(countryCode as string);
-                  setCart(newlyCreatedCart);
-                  setCurrentImageForVariant(image);
-                  setIsVariantModalOpen(true);
-                }}
-              >
-                {isVariantModalOpen ? <ShoppingBag className="opacity-100" /> : <CustomSpinner/>}
-              </Button>
-            </div>
-          )}
-        </div>
-      ))}
+            {images.map((image, index) => (
+              <div key={index} className="relative group">
+                <a href={image} className="block relative z-10">
+                  <img
+                    className="max-w-[250px] max-h-[250px] shadow-md"
+                    src={image}
+                    alt={`User image ${index}`}
+                    onLoad={() => handleImageLoad(index)}
+                  />
+                </a>
+                {loadedImages[index as keyof typeof loadedImages] && (
+                  <div className="flex gap-2 absolute top-1 right-1 z-20">
+                    <Button
+                      variant={"transparent"}
+                      onClick={(event) => {
+                        event.stopPropagation()
+                        openModal(image)
+                      }}
+                      className="bg-gray rounded-sm"
+                      style={{ opacity: 0.7, transition: "opacity 0.3s ease" }}
+                      onMouseOver={(e) => (e.currentTarget.style.opacity = "1")}
+                      onMouseOut={(e) =>
+                        (e.currentTarget.style.opacity = "0.5")
+                      }
+                    >
+                      <Trash className="opacity-100" />
+                    </Button>
+                    <Button
+                      className="bg-gray rounded-sm"
+                      variant={"transparent"}
+                      style={{ opacity: 0.7, transition: "opacity 0.3s ease" }}
+                      onMouseOver={(e) => (e.currentTarget.style.opacity = "1")}
+                      onMouseOut={(e) =>
+                        (e.currentTarget.style.opacity = "0.5")
+                      }
+                      onClick={async (event) => {
+                        event.stopPropagation() // Prevents triggering other click events
+                        let newlyCreatedCart = await getOrSetCart(
+                          countryCode as string
+                        )
+                        setCart(newlyCreatedCart)
+                        setCurrentImageForVariant(image)
+                        setIsVariantModalOpen(true)
+                      }}
+                    >
+                      {isVariantModalOpen ? (
+                        <CustomSpinner className="opacity-100" />
+                      ) : (
+                        <ShoppingBag className="opacity-100" />
+                      )}
+                    </Button>
+                  </div>
+                )}
+              </div>
+            ))}
           </ul>
         </div>
       ) : (
@@ -354,7 +368,14 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
           />
         )
       )}
-      {images.length === 0 && !initialLoading && <div className="w-full flex justify-center"><Text weight="plus" size="xlarge">{t("prompt-upload-first-image")}<b>{" :) "}</b> </Text></div>}
+      {images.length === 0 && !initialLoading && (
+        <div className="w-full flex justify-center">
+          <Text weight="plus" size="xlarge">
+            {t("prompt-upload-first-image")}
+            <b>{" :) "}</b>{" "}
+          </Text>
+        </div>
+      )}
       {
         <Dialog
           open={isOpen}
@@ -396,11 +417,15 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
                         throw new Error(t("failed-to-delete-the-image"))
                       }
                       let item = cart?.items?.find(
-                        (item: any) => extractImageId(item?.metadata?.image) === extractImageId(selectedImage)
+                        (item: any) =>
+                          extractImageId(item?.metadata?.image) ===
+                          extractImageId(selectedImage)
                       )
                       let itemId = item?.id
                       if (itemId) {
-                        await deleteLineItem(itemId).catch((err) => {toast.error(t( "failed-to-delete-item-from-cart"))})
+                        await deleteLineItem(itemId).catch((err) => {
+                          toast.error(t("failed-to-delete-item-from-cart"))
+                        })
                       }
 
                       delete customer.metadata.userImages[imageId]
@@ -438,7 +463,7 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
 
             <div className="relative bg-white p-6 rounded-lg shadow-lg max-w-md w-full mx-auto z-50">
               <Dialog.Title className="font-bold text-lg">
-              {t("please-select-a-variant")}
+                {t("please-select-a-variant")}
               </Dialog.Title>
               <div className="mt-4 flex gap-2">
                 {variants.map((variant, index) => (
@@ -487,7 +512,7 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
                     toast.success(`${t("added-to-cart")}!`)
                   }}
                 >
-                   {t("confirm")}
+                  {t("confirm")}
                 </Button>
               </div>
             </div>
@@ -525,9 +550,9 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
           >
             {uploadFileLoading ? (
               <CustomSpinner loading={uploadFileLoading} />
-            ) : 
+            ) : (
               t("upload-image")
-            }
+            )}
           </Button>
         </div>
       </form>
