@@ -2,7 +2,7 @@
 
 import { Customer } from "@medusajs/medusa"
 import { clx } from "@medusajs/ui"
-import { ArrowRightOnRectangle } from "@medusajs/icons"
+import { ArrowRightOnRectangle, Photo } from "@medusajs/icons"
 import { useParams, usePathname } from "next/navigation"
 
 import ChevronDown from "@modules/common/icons/chevron-down"
@@ -66,7 +66,7 @@ const {locale} = useParams()
                   >
                     <>
                       <div className="flex items-center gap-x-2">
-                        <MapPin size={20} />
+                        <Photo/>
                         <span>{t("my-images")}</span>
                       </div>
                       <ChevronDown className="transform -rotate-90" />
