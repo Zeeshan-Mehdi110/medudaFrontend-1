@@ -187,25 +187,26 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
         metadata: { variant: variant.title, image: image } as any,
         countryCode: countryCode as string,
       })
-      getCarts()
-    } else {
-        try{
-            let newlyCreatedCart = await getOrSetCart(countryCode as string);
-            setCart(newlyCreatedCart);
-            await addToCartMedusaFn({
-                variantId: variant.id,
-                quantity: 1,
-                metadata: { variant: variant.title, image: image } as any,
-                countryCode: countryCode as string,
-              })
-              getCarts()
-        }
-        catch(error){
-            console.error(error)
-            toast.error(t("failed-to-add-item-to-cart"))
-        }
-        
     }
+      getCarts()
+    // } else {
+    //     try{
+    //         let newlyCreatedCart = await getOrSetCart(countryCode as string);
+    //         setCart(newlyCreatedCart);
+    //         await addToCartMedusaFn({
+    //             variantId: variant.id,
+    //             quantity: 1,
+    //             metadata: { variant: variant.title, image: image } as any,
+    //             countryCode: countryCode as string,
+    //           })
+    //           getCarts()
+    //     }
+    //     catch(error){
+    //         console.error(error)
+    //         toast.error(t("failed-to-add-item-to-cart"))
+    //     }
+        
+    // }
   }
 
 
@@ -331,6 +332,8 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
                 onMouseOut={(e) => (e.currentTarget.style.opacity = "0.5")}
                 onClick={async (event) => {
                   event.stopPropagation(); // Prevents triggering other click events
+                  let newlyCreatedCart = await getOrSetCart(countryCode as string);
+                  setCart(newlyCreatedCart);
                   setCurrentImageForVariant(image);
                   setIsVariantModalOpen(true);
                 }}
