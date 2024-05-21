@@ -338,7 +338,7 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
                   setIsVariantModalOpen(true);
                 }}
               >
-                <ShoppingBag className="opacity-100" />
+                {isVariantModalOpen ? <ShoppingBag className="opacity-100" /> : <CustomSpinner/>}
               </Button>
             </div>
           )}
