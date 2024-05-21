@@ -321,7 +321,7 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
                         event.stopPropagation()
                         openModal(image)
                       }}
-                      className="bg-gray rounded-sm"
+                      className="bg-gray rounded-sm min-w-12"
                       style={{ opacity: 0.7, transition: "opacity 0.3s ease" }}
                       onMouseOver={(e) => (e.currentTarget.style.opacity = "1")}
                       onMouseOut={(e) =>
@@ -331,7 +331,7 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
                       <Trash className="opacity-100" />
                     </Button>
                     <Button
-                      className="bg-gray rounded-sm"
+                      className="bg-gray rounded-sm min-w-12"
                       variant={"transparent"}
                       style={{ opacity: 0.7, transition: "opacity 0.3s ease" }}
                       onMouseOver={(e) => (e.currentTarget.style.opacity = "1")}
