@@ -339,17 +339,18 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
                         (e.currentTarget.style.opacity = "0.5")
                       }
                       onClick={async (event) => {
-                        event.stopPropagation() 
+                        event.stopPropagation()
                         setCurrentImageForVariant(image)
-                        setIsVariantModalOpen(true)// Prevents triggering other click events
-                        let newlyCreatedCart = await getOrSetCart(
-                          countryCode as string
-                        )
-                        setCart(newlyCreatedCart)
-                        
+                        setIsVariantModalOpen(true) // Prevents triggering other click events
+                        if (!cart) {
+                          let newlyCreatedCart = await getOrSetCart(
+                            countryCode as string
+                          )
+                          setCart(newlyCreatedCart)
+                        }
                       }}
                     >
-                       <ShoppingBag className="opacity-100" />
+                      <ShoppingBag className="opacity-100" />
                     </Button>
                   </div>
                 )}
