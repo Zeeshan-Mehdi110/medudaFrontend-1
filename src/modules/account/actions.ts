@@ -303,7 +303,7 @@ export async function updateCustomerBillingAddress(
 //   redirect(`/${countryCode}/${locale}/account`);
 // }
 
-export function signOut() {
+export async function signOut(): Promise<void> {
 
   // Delete the cookie with the specified options by setting its expiry date in the past
   cookies().set("_medusa_jwt", "", {

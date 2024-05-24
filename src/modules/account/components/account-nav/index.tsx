@@ -22,7 +22,7 @@ const AccountNav = ({
 const { t } = useTranslation()
 const {locale} = useParams()
   const handleLogout = async () => {
-     signOut()
+    await signOut()
   }
 
   return (
