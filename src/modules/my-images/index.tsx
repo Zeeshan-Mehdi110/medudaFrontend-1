@@ -4,7 +4,6 @@ import { medusaClient } from "@lib/config"
 import { Dialog } from "@headlessui/react"
 import { ArrowUpMini, FaceSmile, ShoppingBag, Trash } from "@medusajs/icons"
 import { useTranslation } from "react-i18next"
-import { useParams } from "next/navigation"
 import React, {
   useState,
   ChangeEvent,
@@ -23,9 +22,9 @@ import {
 } from "@modules/cart/actions"
 import { formatAmount } from "@lib/util/prices"
 import { addToCart as addToCartMedusaFn } from "@modules/cart/actions"
-import { getSession } from "@lib/data"
 import { useRouter } from "next/navigation"
-import { set } from "lodash"
+import { signOut } from "@modules/account/actions"
+
 import { getRegion } from "app/actions"
 
 interface MyImagesComponentProps {
@@ -59,6 +58,7 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
   const isRtl = locale === "he" || locale === "ar"
   const [loadedImages, setLoadedImages] = useState({})
   const [region, setRegion] = useState<string>("")
+  const [current, setCurrent] = useState<string>("")
 
   const handleImageLoad = (index: any) => {
     setLoadedImages((prev) => ({ ...prev, [index]: true }))
@@ -82,12 +82,24 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
   }
 
   const getMedusaSession = async () => {
+    let session = false
     try {
-      const session = await getSession().catch(() => null)
-      return session
-    } catch (error) {
-      console.error(error)
+      const response = await medusaClient.customers.retrieve()
+      if (response && response.customer) {
+        session = true
+      }
+    } catch (error: any) {
+      if (error.response && error.response.status === 401) {
+        // toast.error("No session found, please login again, redirected to login...",{duration:3000});
+        setTimeout(() => {
+          alert("No session found, please login again, please login again")
+          signOut()
+        }, 3000)
+      } else {
+        console.error(error)
+      }
     }
+    return session
   }
 
   const getCarts = async () => {
@@ -99,17 +111,35 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
     } catch (error) {}
   }
 
+  //   useEffect(() => {
+  //     const fetchData = async () => {
+  //       try {
+  //         const session = await getMedusaSession()
+  //         if (!session) router.push(`/${countryCode}/${locale}/account`)
+  //         await getCarts()
+  //         await getProducts()
+  //         let region = await getRegion(countryCode as string).catch((err) => {
+  //           console.error(err)
+  //         })
+  //         region ? setRegion(region.id) : setRegion("")
+  //       } catch (error) {
+  //         console.error(error)
+  //       }
+  //     }
+
+  //     fetchData()
+  //   }, [])
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const session = await getMedusaSession()
-        if (!session) router.push(`/${countryCode}/${locale}/account`)
-        await getCarts()
-        await getProducts()
-        let region = await getRegion(countryCode as string).catch((err) => {
-          console.error(err)
-        })
-        region ? setRegion(region.id) : setRegion("")
+          await getCarts()
+          await getProducts()
+          let region = await getRegion(countryCode as string).catch((err) => {
+            console.error(err)
+          })
+          region ? setRegion(region.id) : setRegion("")
+        
       } catch (error) {
         console.error(error)
       }
@@ -139,27 +169,26 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
 
   const fetchData = useCallback(async () => {
     setInitialLoading(true)
+    const session = await getMedusaSession().catch(() => null)
+    if(session){
     const newImages = []
-    const ids = customer.metadata?.userImages
-      ? Object.values(customer.metadata.userImages)
-      : []
-    if (ids.length > 0) {
-      for (const id of ids) {
-        const url = `https://imagedelivery.net/${process.env.NEXT_PUBLIC_CLOUDFLARE_ACCOUNT_HASH}/${id}/public`
-        const exists = await checkImageExists(id as string)
-        if (exists) {
-          newImages.push(url)
-        } else {
-          delete customer.metadata.userImages[id as string]
-          await medusaClient.customers.update({
-            metadata: customer.metadata,
-          })
-        }
+    const ids = Object.values(customer.metadata.userImages)
+    for (const id of ids) {
+      const url = `https://imagedelivery.net/${process.env.NEXT_PUBLIC_CLOUDFLARE_ACCOUNT_HASH}/${id}/public`
+      const exists = await checkImageExists(id as string)
+      if (exists) {
+        newImages.push(url)
+      } else {
+        delete customer.metadata.userImages[id as string]
+        await medusaClient.customers.update({
+          metadata: customer.metadata,
+        })
       }
     }
     setImages(newImages)
     setInitialLoading(false)
-  }, [])
+  }
+  }, [customer.metadata.userImages])
 
   useEffect(() => {
     fetchData().catch(console.error)
@@ -224,12 +253,13 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
 
   const uploadImage = async (event: FormEvent) => {
     event.preventDefault()
-
     if (!base64String) {
       alert(`${t("please-select-a-file-first")}!`)
       return
     }
     setUploadFileLoading(true)
+    const session = await getMedusaSession().catch(() => null)
+    if(session){
     try {
       const body = {
         image: base64String,
@@ -262,19 +292,27 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
         }
         customer.metadata.userImages[id] = id
 
-        medusaClient.customers
+       await medusaClient.customers
           .update({
             metadata: customer.metadata,
           })
-          .then(({ customer }) => {})
-          .catch((error) => {
-            toast.error(t("failed-to-update-customer"))
+          .then(({ customer }) => {
+            const newImageUrl = `https://imagedelivery.net/${process.env.NEXT_PUBLIC_CLOUDFLARE_ACCOUNT_HASH}/${id}/public`
+            setImages([...images, newImageUrl])
+            setFile(null)
+            toast.success(`${t("image-uploaded-successfully")}!`)
           })
-
-        const newImageUrl = `https://imagedelivery.net/${process.env.NEXT_PUBLIC_CLOUDFLARE_ACCOUNT_HASH}/${id}/public`
-        setImages([...images, newImageUrl])
-        setFile(null)
-        toast.success(`${t("image-uploaded-successfully")}!`)
+          .catch((error) => {
+            if (error.response && error.response.status === 401) {
+              toast.error(
+                "No session found, please login again, redirected to login..."
+              ) // Customize the message as needed
+               signOut()
+            } else {
+              // Handle other errors
+              toast.error(t("failed-to-update-customer"))
+            }
+          })
       }
       setUploadFileLoading(false)
     } catch (error) {
@@ -282,6 +320,7 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
       toast.error(t("failed-upload-image"))
       setUploadFileLoading(false)
     }
+  }
   }
 
   return (
@@ -315,23 +354,33 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
                 </a>
                 {loadedImages[index as keyof typeof loadedImages] && (
                   <div className="flex gap-2 absolute top-1 right-1 z-20">
-                    <Button
+                  <Button
+                     id="delete-image-button"
                       variant={"transparent"}
-                      onClick={(event) => {
+                      onClick={async(event) => {
                         event.stopPropagation()
-                        openModal(image)
+                        const session = await getMedusaSession().catch(() => null)
+                        if(session){
+                          
+                          openModal(image)
+                        }else{
+                          let currentButton = event.target as HTMLButtonElement;
+                          setCurrent(currentButton.id);
+                        }
+                        
                       }}
-                      className="bg-gray rounded-sm min-w-12"
+                      className="bg-gray rounded-sm min-w-11 min-h-7"
                       style={{ opacity: 0.7, transition: "opacity 0.3s ease" }}
                       onMouseOver={(e) => (e.currentTarget.style.opacity = "1")}
                       onMouseOut={(e) =>
                         (e.currentTarget.style.opacity = "0.5")
                       }
                     >
-                      <Trash className="opacity-100" />
+                     { current !== "delete-image-button" ?  <Trash className="opacity-100 pointer-events-none" /> : <CustomSpinner/>}
                     </Button>
                     <Button
-                      className="bg-gray rounded-sm min-w-12"
+                      id="add-to-cart"
+                      className="bg-gray rounded-sm min-w-11 min-h-7"
                       variant={"transparent"}
                       style={{ opacity: 0.7, transition: "opacity 0.3s ease" }}
                       onMouseOver={(e) => (e.currentTarget.style.opacity = "1")}
@@ -339,18 +388,20 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
                         (e.currentTarget.style.opacity = "0.5")
                       }
                       onClick={async (event) => {
-                        event.stopPropagation()
-                        setCurrentImageForVariant(image)
-                        setIsVariantModalOpen(true) // Prevents triggering other click events
-                        if (!cart) {
-                          let newlyCreatedCart = await getOrSetCart(
-                            countryCode as string
-                          )
-                          setCart(newlyCreatedCart)
+                        event.stopPropagation() // Prevents triggering other click events
+                        const session = await getMedusaSession().catch(() => null)
+                        if(session){
+                          setCurrentImageForVariant(image)
+                          setIsVariantModalOpen(true)
                         }
+                        else{
+                          let currentButton = event.target as HTMLButtonElement;
+                          setCurrent(currentButton.id);
+                        }
+                       
                       }}
                     >
-                      <ShoppingBag className="opacity-100" />
+                      {current !== "add-to-cart" ? <ShoppingBag className="opacity-100 pointer-events-none" /> :  <CustomSpinner/>}
                     </Button>
                   </div>
                 )}

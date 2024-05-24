@@ -267,7 +267,8 @@ export async function signOut() {
     maxAge: -1,
   })
   const countryCode = headers().get("next-url")?.split("/")[1] || ""
+  const locale = headers().get("next-url")?.split("/")[2] || ""
   revalidateTag("auth")
   revalidateTag("customer")
-  redirect(`/${countryCode}/account`)
+  redirect(`/${countryCode}/${locale}/account`)
 }
