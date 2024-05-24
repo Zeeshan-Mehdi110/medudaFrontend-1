@@ -304,22 +304,13 @@ export async function updateCustomerBillingAddress(
 // }
 
 export async function signOut(): Promise<void> {
-  // Specify the same domain and path as when the cookie was set
-  const cookieOptions = {
-    domain: ".pixelsjourney.com", // Use the common root domain
-    path: "/", // Ensure the cookie is valid for all paths
-    secure: true, // Ensure the cookie is only sent over HTTPS
-    sameSite: "strict" as "strict" | "lax" | "none", // Adjust SameSite attribute as needed
-  };
 
   // Delete the cookie with the specified options by setting its expiry date in the past
   cookies().set("_medusa_jwt", "", {
-    ...cookieOptions,
-    expires: new Date(0), // Expire the cookie immediately
-  });
+        maxAge: -1,
+      })
 
-  // Alternatively, use the delete method with the specified options
-  cookies().delete("_medusa_jwt");
+
 
   const nextUrl = headers().get("next-url");
   const countryCode = nextUrl?.split("/")[1] || "";
