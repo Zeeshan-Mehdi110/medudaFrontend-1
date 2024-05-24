@@ -252,6 +252,23 @@ export async function addShippingMethod({
 }
 
 // Authentication actions
+// export async function getToken(credentials: StorePostAuthReq) {
+//   return medusaClient.auth
+//     .getToken(credentials, {
+//       next: {
+//         tags: ["auth"],
+//       },
+//     })
+//     .then(({ access_token }) => {
+    
+//       access_token && cookies().set("_medusa_jwt", access_token)
+//       return access_token
+//     })
+//     .catch((err) => {
+//       throw new Error("Wrong email or password.")
+//     })
+// }
+
 export async function getToken(credentials: StorePostAuthReq) {
   return medusaClient.auth
     .getToken(credentials, {
@@ -260,13 +277,21 @@ export async function getToken(credentials: StorePostAuthReq) {
       },
     })
     .then(({ access_token }) => {
-    
-      access_token && cookies().set("_medusa_jwt", access_token)
-      return access_token
+      if (access_token) {
+        const expiryDate = new Date();
+        expiryDate.setTime(expiryDate.getTime() + 24 * 60 * 60 * 1000); // 24 hours in milliseconds
+        cookies().set("_medusa_jwt", access_token, {
+          domain: ".pixelsjourney.com", // Use the common root domain
+          path: "/", // Ensure the cookie is valid for all paths
+          secure: true, // Ensure the cookie is only sent over HTTPS
+          sameSite: "strict" // Set the SameSite attribute
+        });
+      }
+      return access_token;
     })
     .catch((err) => {
-      throw new Error("Wrong email or password.")
-    })
+      throw new Error("Wrong email or password.");
+    });
 }
 
 export async function authenticate(credentials: StorePostAuthReq) {
