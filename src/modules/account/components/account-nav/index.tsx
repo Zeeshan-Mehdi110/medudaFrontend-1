@@ -12,6 +12,7 @@ import MapPin from "@modules/common/icons/map-pin"
 import Package from "@modules/common/icons/package"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import{ useTranslation } from "react-i18next"
+import { cookies } from "next/headers"
 const AccountNav = ({
   customer,
 }: {
@@ -22,6 +23,7 @@ const AccountNav = ({
 const { t } = useTranslation()
 const {locale} = useParams()
   const handleLogout = async () => {
+     
     await signOut()
   }
 

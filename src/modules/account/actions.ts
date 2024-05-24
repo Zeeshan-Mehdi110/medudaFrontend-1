@@ -304,13 +304,13 @@ export async function updateCustomerBillingAddress(
 // }
 
 export async function signOut(): Promise<void> {
-
+console.log("removing cookie" , cookies().get("_medusa_jwt"));
   // Delete the cookie with the specified options by setting its expiry date in the past
   cookies().set("_medusa_jwt", "", {
         maxAge: -1,
       })
 
-
+      console.log("removed cookie" , cookies().get("_medusa_jwt"));
 
   const nextUrl = headers().get("next-url");
   const countryCode = nextUrl?.split("/")[1] || "";
