@@ -6,7 +6,7 @@ import { logCustomerIn } from "@modules/account/actions"
 import ErrorMessage from "@modules/checkout/components/error-message"
 import { SubmitButton } from "@modules/checkout/components/submit-button"
 import { useTranslation } from "react-i18next"
-import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
+
 type Props = {
   setCurrentView: (view: LOGIN_VIEW) => void
 }
@@ -16,7 +16,6 @@ const Login = ({ setCurrentView }: Props) => {
 const {t} = useTranslation()
 
   return (
-    <GoogleReCaptchaProvider reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? "undefined"}>
     <div className="max-w-sm w-full flex flex-col items-center">
       <h1 className="text-large-semi uppercase mb-6">{t("profile:title")}</h1>
       <p className="text-center text-base-regular text-ui-fg-base mb-8">
@@ -50,7 +49,7 @@ const {t} = useTranslation()
         className="text-white w-full justify-center ml-0 mr-0 mt-4 bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mb-2"
       >
         <svg
-          className="mr-2 ml-2 w-4 h-4"
+          className="mr-2 -ml-1 w-4 h-4"
           aria-hidden="true"
           focusable="false"
           data-prefix="fab"
@@ -87,7 +86,6 @@ const {t} = useTranslation()
         .
       </span>
     </div>
-    </GoogleReCaptchaProvider>
   )
 }
 
