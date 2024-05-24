@@ -261,7 +261,7 @@ export async function getToken(credentials: StorePostAuthReq) {
     })
     .then(({ access_token }) => {
     
-      access_token && cookies().set("_medusa_jwt", access_token)
+      access_token && cookies().set("_medusa_jwt", access_token,{httpOnly:false})
       return access_token
     })
     .catch((err) => {
