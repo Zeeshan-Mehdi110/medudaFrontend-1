@@ -6,7 +6,7 @@ import { logCustomerIn } from "@modules/account/actions"
 import ErrorMessage from "@modules/checkout/components/error-message"
 import { SubmitButton } from "@modules/checkout/components/submit-button"
 import { useTranslation } from "react-i18next"
-
+import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 type Props = {
   setCurrentView: (view: LOGIN_VIEW) => void
 }
@@ -16,6 +16,7 @@ const Login = ({ setCurrentView }: Props) => {
 const {t} = useTranslation()
 
   return (
+    <GoogleReCaptchaProvider reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? "undefined"}>
     <div className="max-w-sm w-full flex flex-col items-center">
       <h1 className="text-large-semi uppercase mb-6">{t("profile:title")}</h1>
       <p className="text-center text-base-regular text-ui-fg-base mb-8">
@@ -86,6 +87,7 @@ const {t} = useTranslation()
         .
       </span>
     </div>
+    </GoogleReCaptchaProvider>
   )
 }
 
