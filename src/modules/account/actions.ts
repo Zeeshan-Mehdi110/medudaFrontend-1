@@ -307,7 +307,7 @@ export async function signOut() {
   cookies().set("_medusa_jwt", "", {
     maxAge: -1,
   })
-  cookies().delete("_medusa_jwt");
+  // cookies().delete("_medusa_jwt");
   const countryCode = headers().get("next-url")?.split("/")[1] || ""
   
   revalidateTag("auth")
