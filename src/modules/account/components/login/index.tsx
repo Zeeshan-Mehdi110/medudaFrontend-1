@@ -305,7 +305,7 @@ const DummyReCaptcha: React.FC<DummyReCaptchaProps> = ({ onVerify }) => {
         <div style={{ position: 'absolute', width: '100%', height: '100%', top: 0, left: 0, background: '#fff', border: '1px solid #ccc', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }} onClick={handleVerify}>
           <div style={{ display: 'flex', alignItems: 'center',gap:'17px' }}>
             <input type="checkbox" style={{ marginRight: '10px',width:'1rem',height:'1rem' }} />
-            <span style={{ color: '#555', fontSize: '14px' }}>I'm not a robot</span>
+            <span style={{ color: '#555', fontSize: '14px' }}>I&apos;m not a robot</span>
             <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" alt="reCAPTCHA logo" style={{ marginLeft: '10px' }} />
           </div>
         </div>
