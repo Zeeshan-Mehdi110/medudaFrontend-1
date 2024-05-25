@@ -19,6 +19,7 @@ import {
   StorePostCustomersCustomerReq,
   StorePostCustomersReq,
 } from "@medusajs/medusa"
+import axios from "axios"
 
 export async function signUp(_currentState: unknown, formData: FormData) {
   const customer = {
@@ -41,19 +42,63 @@ export async function signUp(_currentState: unknown, formData: FormData) {
   }
 }
 
+// export async function logCustomerIn(
+//   _currentState: unknown,
+//   formData: FormData
+// ) {
+//   const email = formData.get("email") as string
+//   const password = formData.get("password") as string
+
+//   try {
+//     await getToken({ email, password }).then(() => {
+//       revalidateTag("customer")
+//     })
+//   } catch (error: any) {
+//     return error.toString()
+//   }
+// }
+
+
 export async function logCustomerIn(
   _currentState: unknown,
-  formData: FormData
+  formData: FormData,
 ) {
+
   const email = formData.get("email") as string
   const password = formData.get("password") as string
+  const gRecaptchaToken = formData.get("gRecaptchaToken") as any
 
-  try {
-    await getToken({ email, password }).then(() => {
-      revalidateTag("customer")
-    })
-  } catch (error: any) {
-    return error.toString()
+
+  if (gRecaptchaToken) {
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/store/contactUs`,
+        {
+          gRecaptchaToken: gRecaptchaToken,
+        },
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      )
+
+      if (response.data.status === "success") {
+        try {
+          await getToken({ email, password }).then(() => {
+            revalidateTag("customer")
+          })
+        } catch (error: any) {
+          console.log(error.toString())
+          return error.toString()
+        }
+      } else {
+        console.error(`Registration failure with score: ${response.data.score}`)
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error)
+    }
   }
 }
 
