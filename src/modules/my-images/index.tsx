@@ -505,7 +505,7 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
                         }
                       })
                       setDeleteFileLoading(false)
-                      toast.success(`${t("image-deleted")}!`)
+                    //   toast.success(`${t("image-deleted")}!`)
                       closeModal() // Close the modal
                     } catch (error) {
                       console.error("Error deleting image:", error)
