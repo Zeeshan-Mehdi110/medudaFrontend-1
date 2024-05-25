@@ -23,8 +23,8 @@ export default async function Nav(params:any) {
 
   return (
     <div className="sticky top-0 inset-x-0 z-50 group ">
-      <header className="relative dark:bg-black bg-ui-bg-subtle h-16 mx-auto border-b duration-200  border-ui-border-base">
-        <nav className="content-container txt-xsmall-plus text-ui-fg-subtle flex items-center justify-between w-full p-[3px] h-full text-small-regular gap-[2px]">
+      <header className="relative  dark:bg-black bg-ui-bg-subtle h-16 mx-auto border-b duration-200  border-ui-border-base">
+      <nav className="content-container overflow-x-hidden overflow-y-hidden txt-xsmall-plus text-ui-fg-subtle flex items-center justify-between w-full  h-full text-small-regular gap-[2px] pr-2 pl-2">
         <div className="flex-1 basis-0 h-full flex items-center sm:justify-between gap-4">
             <div className="h-full">
               <SideMenu regions={regions} />
@@ -32,14 +32,14 @@ export default async function Nav(params:any) {
             <div className="sm:hidden"><Theme/></div>
           </div>
 
-          <div className={`flex items-center h-full ${isRtl ? 'pr-[13px]' : 'pl-[13px]'} sm:pl-0 scale-100 sm:scale-90`}>
+          <div className={`flex items-center h-full sm:pl-0 w-[140px] scale-100 sm:scale-90`}>
           
           <h1 className="text-center w-min sm:w-fit">
             <LocalizedClientLink
               href="/"
               className={`txt-compact-xlarge-plus hover:text-ui-fg-base uppercase ${merienda.className} text-lg sm:text-xl`}
             >
-            <img className="pb-[25px] sm:scale-100 scale-80 max-w-[150px] min-w-[150px]" id="nav-logo" src="/rr.svg"></img>
+            <img className="pb-[25px] sm:scale-100 scale-80 max-w-[150px] min-w-[150px]" alt='navigation bar logo' id="nav-logo" src="/rr.svg"></img>
               {/* <Image width={60} height={65}  src="/logo.png" alt='Pixels Journey Logo'></Image> */}
               {/* Pixels Journey */}
             </LocalizedClientLink>
@@ -79,7 +79,7 @@ export default async function Nav(params:any) {
             <div className="hidden sm:block">
               <Theme/>
             </div>
-            <LanguageToggle/>
+            <LanguageToggle locale={locale}/>
           </div>
         </nav>
       </header>

@@ -55,31 +55,29 @@ const getCollectionsWithProducts = async (
 }
 
 export default async function Home({
-  params: { countryCode, locale},
+  params: { countryCode, locale },
 }: {
-  params: { countryCode: string, locale: string}
+  params: { countryCode: string; locale: string }
 }) {
-  const collections = await getCollectionsWithProducts(countryCode)
+  let collections = await getCollectionsWithProducts(countryCode)
+  collections = collections?.filter(
+    (collection) => collection.handle !== "custom-print"
+  ) as ProductCollectionWithPreviews[]
   const region = await getRegion(countryCode)
   if (!collections || !region) {
     return null
   }
-  const theme = getTheme();
-  const backgroundImageStyle = {
-    backgroundImage: theme ==='dark' ? `url('/2363.jpg')` : `url('/lightTheme.jpg')`,
-    backgroundPosition: 'center',
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    minHeight: '100vh', // Ensures the background covers the full viewport height
-  };
   return (
     <>
-      <Hero />
-      <div id="background-image" style={backgroundImageStyle}>
-        <ul className="flex flex-col gap-x-6">
-          <FeaturedProducts locale={locale} collections={collections} region={region} />
-        </ul>
-      </div>
+      <Hero locale={locale} />
+
+      <ul className="flex flex-col gap-x-6">
+        <FeaturedProducts
+          locale={locale}
+          collections={collections}
+          region={region}
+        />
+      </ul>
     </>
   )
 }

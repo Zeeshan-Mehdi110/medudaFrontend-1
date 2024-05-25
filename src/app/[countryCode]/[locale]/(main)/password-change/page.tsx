@@ -1,24 +1,23 @@
 "use client"
-import { Metadata } from "next"
-import { useRouter } from 'next/navigation';
-import LoginTemplate from "@modules/account/templates/login-template"
 import React, { useState } from 'react';
 import UnderlineLink from "@modules/common/components/interactive-link"
 import Input from "@modules/common/components/input"
-import { useParams } from "next/navigation";
 import { SubmitButton } from "@modules/checkout/components/submit-button";
 import { useTranslation } from "react-i18next";
+import { useSearchParams, useRouter } from 'next/navigation'
+import { Button } from '@medusajs/ui';
 
-export default function ChangePassword() {
+export default function PasswordChange() {
   const { t } = useTranslation();
-  const params = useParams();
-  const token = params.token;
+  const searchParams = useSearchParams() 
+  const token = searchParams.get('token')
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
   const [isErr, setIsErr] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const router = useRouter();
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 
     event.preventDefault();
@@ -61,7 +60,7 @@ export default function ChangePassword() {
 
   return (
     <>
-    <div className="w-full flex justify-center lg:mr-60">
+    <div className="w-full flex justify-center">
     <form onSubmit={handleSubmit} className="flex flex-col gap-3 mt-4 mb-6">
       <h1 className="text-xl font-semibold mt-9">{t("password_choose")}:</h1>
       <label htmlFor="email">{t("email")}:</label>
@@ -104,9 +103,11 @@ export default function ChangePassword() {
   <p className={isErr ? "text-red-500" : "text-green-500"} style={{maxWidth:'224px',textAlign:'center'}}>{message}</p>
 )}
       {isSuccess ? (
-        <a className="bg-black text-white w-full mt-6 pt-3 pb-3 rounded-md text-center" href='/account'>Go to Homepage</a>
+        // <a className="bg-black text-white w-full mt-6 pt-3 pb-3 rounded-md text-center" href='/account'>Go to Homepage</a>
+       
+        <Button onClick={() => router.push('/account')} className="w-full" variant={"primary"}>{t("back-to-login-page")}</Button>
       ) : (
-        <SubmitButton onClick={() => setMessage('')} disabled={isSuccess} className="w-full mt-6">Reset Password</SubmitButton>
+        <SubmitButton variant={"primary"} onClick={() => setMessage('')} disabled={isSuccess} className="w-full mt-6">{t("reset-password")}</SubmitButton>
       )}
     </form>
  

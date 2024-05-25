@@ -27,13 +27,13 @@ export default function CustomerServiceComponent() {
   return (
     <div className="w-full px-4 pt-8">
 
-      <div className="mx-auto w-full max-w-xl rounded-2xl bg-white p-2">
+      <div className="mx-auto w-full max-w-xl rounded-2xl bg-white-smoke dark:bg-black p-2 ">
      
         {faqs.map((faq) => (
-          <Disclosure key={faq.id} as="div" className="mt-2">
+          <Disclosure key={faq.id} as="div" className="mt-2 ">
             {({ open }) => (
               <>
-                <Disclosure.Button className="flex w-full justify-between rounded-lg bg-gray-100 text-gray-900 px-4 py-2 text-left text-sm font-medium text-blue-gray hover:bg-gray-200 focus:outline-none focus-visible:ring focus-visible:ring-gray-500 focus-visible:ring-opacity-75">
+                <Disclosure.Button className="flex w-full justify-between underline rounded-lg dark:text-black shadow-md dark:bg-white-smoke bg-gray-100 text-gray-900 px-4 py-2 text-left text-sm font-medium text-blue-gray hover:bg-gray-200 focus:outline-none focus-visible:ring focus-visible:ring-gray-500 focus-visible:ring-opacity-75">
                   {faq.question}
                   <ArrowUpMini
                     className={`${open ? "rotate-180" : ""} transform transition duration-400 ease-in-out w-5 h-5 text-gray-500`}

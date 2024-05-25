@@ -218,7 +218,7 @@ export default function ProductActions({
   const [isAdding, setIsAdding] = useState(false)
 
   const countryCode = useParams().countryCode as string
-
+  const metadata = product.metadata;
   const variants = product.variants
   const titles = variants.map(variant => variant.title);
   const imageToRescale = document.getElementById('scalable-image');
@@ -336,6 +336,7 @@ export default function ProductActions({
       variantId: variant.id,
       quantity: 1,
       countryCode: countryCode,
+      metadata : metadata
     })
     setIsAdding(false)
   }

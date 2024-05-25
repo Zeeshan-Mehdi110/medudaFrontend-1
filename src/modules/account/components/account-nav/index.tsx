@@ -2,7 +2,7 @@
 
 import { Customer } from "@medusajs/medusa"
 import { clx } from "@medusajs/ui"
-import { ArrowRightOnRectangle } from "@medusajs/icons"
+import { ArrowRightOnRectangle, Photo } from "@medusajs/icons"
 import { useParams, usePathname } from "next/navigation"
 
 import ChevronDown from "@modules/common/icons/chevron-down"
@@ -12,6 +12,7 @@ import MapPin from "@modules/common/icons/map-pin"
 import Package from "@modules/common/icons/package"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import{ useTranslation } from "react-i18next"
+import { cookies } from "next/headers"
 const AccountNav = ({
   customer,
 }: {
@@ -22,6 +23,7 @@ const AccountNav = ({
 const { t } = useTranslation()
 const {locale} = useParams()
   const handleLogout = async () => {
+     
     await signOut()
   }
 
@@ -54,6 +56,20 @@ const {locale} = useParams()
                       <div className="flex items-center gap-x-2">
                         <User size={20} />
                         <span>{t("profile")}</span>
+                      </div>
+                      <ChevronDown className="transform -rotate-90" />
+                    </>
+                  </LocalizedClientLink>
+                </li>
+                <li>
+                  <LocalizedClientLink
+                    href="/account/my-images"
+                    className="flex items-center justify-between py-4 border-b border-gray-200 px-8"
+                  >
+                    <>
+                      <div className="flex items-center gap-x-2">
+                        <Photo/>
+                        <span>{t("my-images")}</span>
                       </div>
                       <ChevronDown className="transform -rotate-90" />
                     </>
@@ -118,6 +134,11 @@ const {locale} = useParams()
               <li>
                 <AccountNavLink href="/account/profile" route={route!}>
                 {t("profile")}
+                </AccountNavLink>
+              </li>
+              <li>
+                <AccountNavLink href="/account/my-images" route={route!}>
+                {t("my-images")}
                 </AccountNavLink>
               </li>
               <li>

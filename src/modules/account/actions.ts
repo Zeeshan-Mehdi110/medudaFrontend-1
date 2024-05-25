@@ -266,8 +266,88 @@ export async function signOut() {
   cookies().set("_medusa_jwt", "", {
     maxAge: -1,
   })
+  
   const countryCode = headers().get("next-url")?.split("/")[1] || ""
+  const locale = headers().get("next-url")?.split("/")[2] || ""
   revalidateTag("auth")
   revalidateTag("customer")
-  redirect(`/${countryCode}/account`)
+  redirect(`/${countryCode}/${locale}/account`)
 }
+// export async function signOut(): Promise<void> {
+//   // Specify the same domain and path as when the cookie was set
+//   const cookieOptions = {
+//     domain: ".pixelsjourney.com", // Use the common root domain
+//     path: "/", // Ensure the cookie is valid for all paths
+//     secure: true, // Ensure the cookie is only sent over HTTPS
+//     sameSite: "strict" as "strict" | "lax" | "none", // Adjust SameSite attribute to lowercase
+//   };
+
+//   // Delete the cookie with the specified options by setting its expiry date in the past
+//   cookies().set("_medusa_jwt", "", {
+//     ...cookieOptions,
+//     expires: new Date(0), // Expire the cookie immediately
+//   });
+
+//   // Alternatively, use the delete method with the specified options
+//   cookies().delete("_medusa_jwt");
+
+//   const nextUrl = headers().get("next-url");
+//   const countryCode = nextUrl?.split("/")[1] || "";
+//   const locale = nextUrl?.split("/")[2] || "";
+
+//   // Revalidate tags related to authentication and customer
+//   revalidateTag("auth");
+//   revalidateTag("customer");
+
+//   // Redirect the user to the account page
+//   redirect(`/${countryCode}/${locale}/account`);
+// }
+
+// export async function signOut(): Promise<void> {
+// console.log("removing cookie" , cookies().get("_medusa_jwt"));
+//   // Delete the cookie with the specified options by setting its expiry date in the past
+//   cookies().set("_medusa_jwt", "", {
+//         maxAge: -1,
+//       })
+
+//       console.log("removed cookie" , cookies().get("_medusa_jwt"));
+
+//   const nextUrl = headers().get("next-url");
+//   const countryCode = nextUrl?.split("/")[1] || "";
+//   const locale = nextUrl?.split("/")[2] || "";
+
+//   // Revalidate tags related to authentication and customer
+//   revalidateTag("auth");
+//   revalidateTag("customer");
+
+//   // Redirect the user to the account page
+//   redirect(`/${countryCode}/${locale}/account`);
+// }
+
+// export async function signOut(): Promise<void> {
+//   const cookieOptions = {
+//     domain: ".pixelsjourney.com", // Ensure the domain matches
+//     path: "/", // Ensure the path matches
+//     secure: true, // Ensure the secure attribute matches
+//     sameSite: "strict" as "strict" | "lax" | "none", // Ensure the SameSite attribute matches
+//   };
+
+//   console.log("Removing cookie:", cookies().get("_medusa_jwt"));
+
+//   // Expire the cookie immediately
+//   cookies().set("_medusa_jwt", "", {
+//     ...cookieOptions,
+//     expires: new Date(0), // Set the expiry date to a past date to remove the cookie
+//   });
+
+//   console.log("Removed cookie:", cookies().get("_medusa_jwt"));
+
+//   const nextUrl = headers().get("next-url");
+//   const countryCode = nextUrl?.split("/")[1] || "";
+//   const locale = nextUrl?.split("/")[2] || "";
+
+//   revalidateTag("auth");
+//   revalidateTag("customer");
+
+//   redirect(`/${countryCode}/${locale}/account`);
+// }

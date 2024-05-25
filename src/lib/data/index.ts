@@ -101,15 +101,17 @@ export async function addItem({
   cartId,
   variantId,
   quantity,
+  metadata,
 }: {
   cartId: string
   variantId: string
-  quantity: number
+  quantity: number,
+  metadata: any
 }) {
   const headers = getMedusaHeaders(["cart"])
 
   return medusaClient.carts.lineItems
-    .create(cartId, { variant_id: variantId, quantity }, headers)
+    .create(cartId, { variant_id: variantId, quantity, metadata:metadata }, headers)
     .then(({ cart }) => cart)
     .catch((err) => {
       console.log(err)
@@ -267,6 +269,33 @@ export async function getToken(credentials: StorePostAuthReq) {
     })
 }
 
+// export async function getToken(credentials: StorePostAuthReq) {
+//   return medusaClient.auth
+//     .getToken(credentials, {
+//       next: {
+//         tags: ["auth"],
+//       },
+//     })
+//     .then(({ access_token }) => {
+//       if (access_token) {
+//         const expiryDate = new Date();
+//         expiryDate.setTime(expiryDate.getTime() + 24 * 60 * 60 * 1000); // 24 hours in milliseconds
+
+//         cookies().set("_medusa_jwt", access_token, {
+//           expires: expiryDate.toUTCString(),
+//           domain: ".pixelsjourney.com",
+//           path: "/",
+//           secure: true,
+//           sameSite: "strict",
+//           httpOnly: false // Assuming you do not need httpOnly for client-side access
+//         });
+//       }
+//       return access_token;
+//     })
+//     .catch((err) => {
+//       throw new Error("Wrong email or password.");
+//     });
+// }
 export async function authenticate(credentials: StorePostAuthReq) {
   const headers = getMedusaHeaders(["auth"])
 
@@ -428,55 +457,6 @@ export async function getProductByHandle(
 
   return { product }
 }
-
-// export async function getProductsList({
-//   pageParam = 0,
-//   queryParams,
-//   countryCode,
-// }: {
-//   pageParam?: number
-//   queryParams?: StoreGetProductsParams
-//   countryCode: string
-// }): Promise<{
-//   response: { products: ProductPreviewType[]; count: number }
-//   nextPage: number | null
-//   queryParams?: StoreGetProductsParams
-// }> {
-//   const limit = queryParams?.limit || 12
-
-//   const region = await getRegion(countryCode)
-
-//   if (!region) {
-//     return emptyResponse
-//   }
-
-//   const { products, count } = await medusaClient.products
-//     .list(
-//       {
-//         limit,
-//         offset: pageParam,
-//         region_id: region.id,
-//         ...queryParams,
-//       },
-//       { next: { tags: ["products"] } }
-//     )
-//     .then((res) => res)
-//     .catch((err) => {
-//       throw err
-//     })
-
-//   const transformedProducts = products.map((product) => {
-//     return transformProductPreview(product, region!)
-//   })
-
-//   const nextPage = count > pageParam + 1 ? pageParam + 1 : null
-
-//   return {
-//     response: { products: transformedProducts, count },
-//     nextPage,
-//     queryParams,
-//   }
-// }
 
 export async function getProductsList({
   pageParam = 0,

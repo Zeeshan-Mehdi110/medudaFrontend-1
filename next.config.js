@@ -6,7 +6,7 @@ const store = require("./store.config.json")
  */
 const nextConfig = withStoreConfig({
   features: store.features,
-  reactStrictMode: true,
+  reactStrictMode: false,
   images: {
     remotePatterns: [
       {
@@ -31,7 +31,7 @@ const nextConfig = withStoreConfig({
       // },
     ],
     domains: [
-      'pixelsjourney.fra1.digitaloceanspaces.com'
+      'pixelsjourney.fra1.digitaloceanspaces.com','res.cloudinary.com' , 'imagedelivery.net'
     ],
   },
 })
