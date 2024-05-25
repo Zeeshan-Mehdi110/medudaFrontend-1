@@ -26,6 +26,7 @@ import { useRouter } from "next/navigation"
 import { signOut } from "@modules/account/actions"
 
 import { getRegion } from "app/actions"
+import { getCustomer } from "@lib/data"
 
 interface MyImagesComponentProps {
   customer: any
@@ -84,8 +85,9 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
   const getMedusaSession = async () => {
     let session = false
     try {
-      const response = await medusaClient.customers.retrieve()
-      if (response && response.customer) {
+    //   const response = await medusaClient.customers.retrieve()
+     const response = await getCustomer().catch(() => null)
+      if (response) {
         session = true
       }
     } catch (error: any) {
@@ -182,7 +184,17 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
         delete customer.metadata.userImages[id as string]
         await medusaClient.customers.update({
           metadata: customer.metadata,
-        })
+        }).then(({ customer }) => {
+            toast.error("Customer updated successfully")
+          }).catch((error) => {
+            if (error.response && error.response.status === 401) {
+              toast.error("No session found, please login again, redirected to login...") // Customize the message as needed
+              signOut()
+            } else {
+              // Handle other errors
+              toast.error("Failed to update customer")
+            }
+          })
       }
     }
     setImages(newImages)
@@ -481,6 +493,16 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
                       setImages(images.filter((img) => !img.includes(imageId)))
                       await medusaClient.customers.update({
                         metadata: customer.metadata,
+                      }).then(({ customer }) => {
+                        toast.success(`${t("image-deleted")}!`)
+                      }).catch((error) => {
+                        if (error.response && error.response.status === 401) {
+                          toast.error("No session found, please login again, redirected to login...") // Customize the message as needed
+                          signOut()
+                        } else {
+                          // Handle other errors
+                          toast.error("Failed to update customer")
+                        }
                       })
                       setDeleteFileLoading(false)
                       toast.success(`${t("image-deleted")}!`)
