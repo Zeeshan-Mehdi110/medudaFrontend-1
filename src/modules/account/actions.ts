@@ -262,17 +262,17 @@ export async function updateCustomerBillingAddress(
   }
 }
 
-// export async function signOut() {
-//   // cookies().set("_medusa_jwt", "", {
-//   //   maxAge: -1,
-//   // })
-//   cookies().delete("_medusa_jwt");
-//   const countryCode = headers().get("next-url")?.split("/")[1] || ""
-//   const locale = headers().get("next-url")?.split("/")[2] || ""
-//   revalidateTag("auth")
-//   revalidateTag("customer")
-//   redirect(`/${countryCode}/${locale}/account`)
-// }
+export async function signOut() {
+  cookies().set("_medusa_jwt", "", {
+    maxAge: -1,
+  })
+  
+  const countryCode = headers().get("next-url")?.split("/")[1] || ""
+  const locale = headers().get("next-url")?.split("/")[2] || ""
+  revalidateTag("auth")
+  revalidateTag("customer")
+  redirect(`/${countryCode}/${locale}/account`)
+}
 // export async function signOut(): Promise<void> {
 //   // Specify the same domain and path as when the cookie was set
 //   const cookieOptions = {
@@ -324,30 +324,30 @@ export async function updateCustomerBillingAddress(
 //   redirect(`/${countryCode}/${locale}/account`);
 // }
 
-export async function signOut(): Promise<void> {
-  const cookieOptions = {
-    domain: ".pixelsjourney.com", // Ensure the domain matches
-    path: "/", // Ensure the path matches
-    secure: true, // Ensure the secure attribute matches
-    sameSite: "strict" as "strict" | "lax" | "none", // Ensure the SameSite attribute matches
-  };
+// export async function signOut(): Promise<void> {
+//   const cookieOptions = {
+//     domain: ".pixelsjourney.com", // Ensure the domain matches
+//     path: "/", // Ensure the path matches
+//     secure: true, // Ensure the secure attribute matches
+//     sameSite: "strict" as "strict" | "lax" | "none", // Ensure the SameSite attribute matches
+//   };
 
-  console.log("Removing cookie:", cookies().get("_medusa_jwt"));
+//   console.log("Removing cookie:", cookies().get("_medusa_jwt"));
 
-  // Expire the cookie immediately
-  cookies().set("_medusa_jwt", "", {
-    ...cookieOptions,
-    expires: new Date(0), // Set the expiry date to a past date to remove the cookie
-  });
+//   // Expire the cookie immediately
+//   cookies().set("_medusa_jwt", "", {
+//     ...cookieOptions,
+//     expires: new Date(0), // Set the expiry date to a past date to remove the cookie
+//   });
 
-  console.log("Removed cookie:", cookies().get("_medusa_jwt"));
+//   console.log("Removed cookie:", cookies().get("_medusa_jwt"));
 
-  const nextUrl = headers().get("next-url");
-  const countryCode = nextUrl?.split("/")[1] || "";
-  const locale = nextUrl?.split("/")[2] || "";
+//   const nextUrl = headers().get("next-url");
+//   const countryCode = nextUrl?.split("/")[1] || "";
+//   const locale = nextUrl?.split("/")[2] || "";
 
-  revalidateTag("auth");
-  revalidateTag("customer");
+//   revalidateTag("auth");
+//   revalidateTag("customer");
 
-  redirect(`/${countryCode}/${locale}/account`);
-}
+//   redirect(`/${countryCode}/${locale}/account`);
+// }
