@@ -21,6 +21,26 @@ import {
 } from "@medusajs/medusa"
 import axios from "axios"
 
+// export async function signUp(_currentState: unknown, formData: FormData) {
+//   const customer = {
+//     email: formData.get("email"),
+//     password: formData.get("password"),
+//     first_name: formData.get("first_name"),
+//     last_name: formData.get("last_name"),
+//     phone: formData.get("phone"),
+//   } as StorePostCustomersReq
+
+//   try {
+//     await createCustomer(customer)
+//     await getToken({ email: customer.email, password: customer.password }).then(
+//       () => {
+//         revalidateTag("customer")
+//       }
+//     )
+//   } catch (error: any) {
+//     return error.toString()
+//   }
+// }
 export async function signUp(_currentState: unknown, formData: FormData) {
   const customer = {
     email: formData.get("email"),
@@ -30,18 +50,43 @@ export async function signUp(_currentState: unknown, formData: FormData) {
     phone: formData.get("phone"),
   } as StorePostCustomersReq
 
-  try {
-    await createCustomer(customer)
-    await getToken({ email: customer.email, password: customer.password }).then(
-      () => {
-        revalidateTag("customer")
+  const gRecaptchaToken = formData.get("gRecaptchaToken") as any
+
+
+  if (gRecaptchaToken) {
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/store/contactUs`,
+        {
+          gRecaptchaToken: gRecaptchaToken,
+        },
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      )
+
+      if (response.data.status === "success") {
+        try {
+          await createCustomer(customer)
+          await getToken({ email: customer.email, password: customer.password }).then(
+            () => {
+              revalidateTag("customer")
+            }
+          )
+        } catch (error: any) {
+          return error.toString()
+        }
+      } else {
+        console.error(`Registration failure with score: ${response.data.score}`)
       }
-    )
-  } catch (error: any) {
-    return error.toString()
+    } catch (error) {
+      console.error("Error submitting form:", error)
+    }
   }
 }
-
 // export async function logCustomerIn(
 //   _currentState: unknown,
 //   formData: FormData
