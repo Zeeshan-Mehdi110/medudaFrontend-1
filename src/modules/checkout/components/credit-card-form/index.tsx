@@ -250,7 +250,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault()
   if (validate()) {
     try {
-      const response = await fetch("http://localhost:9000/store/tranzilla", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/store/tranzilla`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
