@@ -479,7 +479,7 @@ const Payment = ({
   const searchParams = useSearchParams()
   const router = useRouter()
   const pathname = usePathname()
-
+  const [providerId, setProviderId] = useState<string | null>(null)
   const isOpen = searchParams.get("step") === "payment" && !isPaidSuccessfully
 
   const isStripe = cart?.payment_session?.provider_id === "stripe"
@@ -522,20 +522,42 @@ const Payment = ({
     [searchParams]
   )
 
-  const set = async (providerId: string) => {
-    setIsLoading(true)
-    await setPaymentMethod(providerId)
-      .catch((err) => setError(err.toString()))
-      .finally(() => {
-        if (providerId === "paypal") return
-        setIsLoading(false)
-      })
-  }
+  // const set = async (providerId: string) => {
+  //   setIsLoading(true)
+  //   await setPaymentMethod(providerId)
+  //     .catch((err) => setError(err.toString()))
+  //     .finally(() => {
+  //       if (providerId === "paypal") return
+  //       setIsLoading(false)
+  //     })
+  // }
+
+  // const handleChange = (providerId: string) => {
+  //   setError(null)
+  //   console.log(providerId)
+  //   set(providerId)
+  // }
+
+  useEffect(() => {
+    const setPayment = async () => {
+      if (providerId) {
+        setIsLoading(true)
+        await setPaymentMethod(providerId)
+          .catch((err) => setError(err.toString()))
+          .finally(() => {
+            if (providerId !== "paypal") {
+              setIsLoading(false)
+            }
+          })
+      }
+    }
+
+    setPayment()
+  }, [providerId])
 
   const handleChange = (providerId: string) => {
     setError(null)
-    console.log(providerId)
-    set(providerId)
+    setProviderId(providerId)
   }
 
   const handleEdit = () => {
