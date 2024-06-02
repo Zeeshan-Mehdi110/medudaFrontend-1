@@ -216,7 +216,6 @@ const ResetPasswordForm = ({ setCurrentView }: Props) => {
                   credentials: "include",
                   headers: {
                     "Content-Type": "application/json",
-                    "locale": locale as string,
                   },
                   body: JSON.stringify({ email }),
                 })
