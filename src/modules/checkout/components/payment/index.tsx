@@ -546,6 +546,7 @@ const Payment = ({
           .catch((err) => setError(err.toString()))
           .finally(() => {
             if (providerId !== "paypal") {
+             setIsLoading(false)
              return;
             }
             setIsLoading(false)
