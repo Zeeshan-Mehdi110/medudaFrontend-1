@@ -11,7 +11,7 @@ import {
   InputLabel,
   FormHelperText,
 } from "@mui/material"
-import { SelectChangeEvent } from '@mui/material/Select';
+import { SelectChangeEvent } from "@mui/material/Select"
 
 interface CardFormState {
   cardNumber: string
@@ -141,7 +141,7 @@ interface CreditCardFormProps {
 const CreditCardForm: React.FC<CreditCardFormProps> = ({
   items,
   shippingTotal,
-  onTransactionComplete
+  onTransactionComplete,
 }) => {
   const [cardDetails, setCardDetails] = useState<CardFormState>({
     cardNumber: "",
@@ -185,43 +185,48 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({
     return formIsValid
   }
 
-  const handleChange = (e : any) => {
+  const handleChange = (e: any) => {
     const { name, value } = e.target as {
-      name: keyof CardFormState;
-      value: string; // Assuming all inputs are expected to be string types for simplicity.
-    };
-  
+      name: keyof CardFormState
+      value: string // Assuming all inputs are expected to be string types for simplicity.
+    }
+
     if (name === "expDate") {
       // Automatically add a slash for expiration date inputs.
-      let formattedValue = value.replace(
-        /[^0-9]/g, ''  // Remove non-numeric characters.
-      ).substring(0, 4);  // Limit length to 4 characters (MMYY).
-      
+      let formattedValue = value
+        .replace(
+          /[^0-9]/g,
+          "" // Remove non-numeric characters.
+        )
+        .substring(0, 4) // Limit length to 4 characters (MMYY).
+
       // Insert slash after the first two digits (MM) if more digits are typed.
       if (formattedValue.length > 2) {
-        formattedValue = `${formattedValue.substring(0, 2)}/${formattedValue.substring(2)}`;
+        formattedValue = `${formattedValue.substring(
+          0,
+          2
+        )}/${formattedValue.substring(2)}`
       }
-      
-      setCardDetails(prev => ({
+
+      setCardDetails((prev) => ({
         ...prev,
-        [name]: formattedValue  // Update specifically the expDate field.
-      }));
+        [name]: formattedValue, // Update specifically the expDate field.
+      }))
     } else if (name === "cvc") {
       // Limiting CVC input to 3 digits
-      const formattedCVC = value.replace(/[^0-9]/g, '').substring(0, 3);
-      setCardDetails(prev => ({
+      const formattedCVC = value.replace(/[^0-9]/g, "").substring(0, 3)
+      setCardDetails((prev) => ({
         ...prev,
-        [name]: formattedCVC
-      }));
+        [name]: formattedCVC,
+      }))
     } else {
       // Handle other inputs normally.
-      setCardDetails(prev => ({
+      setCardDetails((prev) => ({
         ...prev,
-        [name]: value
-      }));
+        [name]: value,
+      }))
     }
-  };
-
+  }
 
   let itemsArray = items.map((item: Item) => {
     return {
@@ -235,59 +240,65 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({
       currency_code: "ILS",
     }
   })
-itemsArray.push({
-  code: "shipping",
-  name: "shipping",
-  unit_price: shippingTotal ?? 0 / 100,
-  type: "I",
-  units_number: 1,
-  unit_type: 1,
-  price_type: "G",
-  currency_code: "ILS",
-})
+  itemsArray.push({
+    code: "shipping",
+    name: "shipping",
+    unit_price: shippingTotal ?? 0 / 100,
+    type: "I",
+    units_number: 1,
+    unit_type: 1,
+    price_type: "G",
+    currency_code: "ILS",
+  })
 
-const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault()
-  if (validate()) {
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/store/tranzilla`, {
-        method: "POST",
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          terminal_name: "artifex",
-          txn_currency_code: "ILS",
-          txn_type: "debit",
-          card_number: cardDetails.cardNumber,
-          expire_month: parseInt(cardDetails.expDate.split("/")[0], 10),
-          expire_year: parseInt(cardDetails.expDate.split("/")[1], 10),
-          payment_plan: cardDetails.payments,
-          cvv: cardDetails.cvc,
-          items: itemsArray,
-        }),
-      })
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (validate()) {
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/store/tranzilla`,
+          {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              terminal_name: "artifex",
+              txn_currency_code: "ILS",
+              txn_type: "debit",
+              verify_mode: 5,
+              reference_txn_id: null,
+              authorization_number: null,
+              card_number: cardDetails.cardNumber,
+              expire_month: parseInt(cardDetails.expDate.split("/")[0], 10),
+              expire_year: parseInt(cardDetails.expDate.split("/")[1], 10),
+              payment_plan: cardDetails.payments,
+              cvv: cardDetails.cvc,
+              items: itemsArray,
+            }),
+          }
+        )
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+
+        const { data } = await response.json()
+
+        if (Number(data.error_code) === 0) {
+          onTransactionComplete({ success: true, data })
+        } else {
+          onTransactionComplete({ success: false, data })
+        }
+      } catch (e) {
+        console.error(e)
+        onTransactionComplete({ success: false, data: e })
       }
-
-      const {data} = await response.json()
-
-      if (Number(data.error_code) === 0) {
-        onTransactionComplete({ success: true, data })
-      } else {
-        onTransactionComplete({ success: false, data })
-      }
-    } catch (e) {
-      console.error(e)
-      onTransactionComplete({ success: false, data: e })
+    } else {
+      console.log("Form is invalid")
     }
-  } else {
-    console.log("Form is invalid")
   }
-}
 
   return (
     <Container style={{ margin: 0 }}>
