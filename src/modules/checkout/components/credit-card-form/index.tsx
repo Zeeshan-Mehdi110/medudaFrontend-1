@@ -288,60 +288,6 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   }
 }
 
-  // const handleSubmit1 = async (e:any) => {
-  //     e.preventDefault();
-  //     setIsLoading(true);
-  //     setError(null);
-
-  //     try {
-
-  //       const response = await fetch("http://localhost:9000/store/tranzilla"
-  //       , {
-  //         method: 'POST',
-  //         headers: headers,
-  //         mode:'cors',
-  //         redirect:'follow',
-  //         body: JSON.stringify({
-
-  //             "terminal_name": "artifex",
-  //             "txn_currency_code": "ILS",
-  //             "txn_type": "debit",
-  //             "card_number" : "12312312",
-  //             "expire_month" : 3,
-  //             "expire_year": 24,
-  //             "payment_plan": 1,
-  //             "items": [
-  //             {
-  //             "code": "1",
-  //             "name": "",
-  //             "unit_price": 1,
-  //             "type": "I",
-  //             "units_number": 1,
-  //             "unit_type": 1,
-  //             "price_type": "G",
-  //             "currency_code": "ILS"
-  //             }
-  //             ]
-
-  //         }),
-  //       });
-
-  //       if (!response.ok) {
-  //         console.log(response)
-  //         throw new Error('Payment failed');
-
-  //       }
-
-  //       // Handle successful payment response
-  //       console.log('Payment successful:', await response.json());
-  //     } catch (error) {
-  //       console.log(error)
-  //       setError('Payment failed: Please check your details and try again.');
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   };
-
   return (
     <Container style={{ margin: 0 }}>
       <Typography variant="h6" gutterBottom>

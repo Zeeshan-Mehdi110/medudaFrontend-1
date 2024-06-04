@@ -183,7 +183,6 @@ const ResetPasswordForm = ({ setCurrentView }: Props) => {
     const [isSent, setIsSent] = useState(false);
     const [error, setError] = useState(false);
     const { t } = useTranslation()
-    const locale = useParams().locale;
     const { executeRecaptcha } = useGoogleReCaptcha();
 
     if (!executeRecaptcha) {

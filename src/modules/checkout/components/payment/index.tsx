@@ -491,9 +491,6 @@ const Payment = ({
   const paymentReady =
     (cart?.payment_session && cart?.shipping_methods.length !== 0) ||
     paidByGiftcard
-
-    console.log(cart)
-    console.log(paymentReady)
     
   const useOptions: StripeCardElementOptions = useMemo(() => {
     return {
