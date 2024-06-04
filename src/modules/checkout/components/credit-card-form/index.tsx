@@ -253,6 +253,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       const response = await fetch(`${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/store/tranzilla`, {
         method: "POST",
         headers: {
+          "Accept": "application/json",
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
