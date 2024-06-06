@@ -453,7 +453,7 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({
         </Grid>
       </form>
       {transactionMessage && (
-        <Typography variant="body1" color={isProcessingError ? "error" : "textPrimary"} style={{ marginTop: '16px' }}>
+        <Typography variant="body1" className={`text-center font-bold bg-${isProcessingError ? "red" :"green"}-200`} color={isProcessingError ? "error" : "textPrimary"} style={{ marginTop: '16px' }}>
           {transactionMessage}
         </Typography>
       )}
