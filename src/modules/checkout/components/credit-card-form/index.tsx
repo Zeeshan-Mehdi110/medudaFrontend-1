@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import {
   TextField,
-  Button,
   Grid,
   Typography,
   Container,
@@ -11,7 +10,8 @@ import {
   InputLabel,
   FormHelperText,
 } from "@mui/material"
-import { SelectChangeEvent } from "@mui/material/Select"
+import { Button } from "@medusajs/ui"
+import CustomSpinner from "@modules/common/icons/custom-spinner"
 
 interface CardFormState {
   cardNumber: string
@@ -152,7 +152,7 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({
   })
 
   const [errors, setErrors] = useState<Partial<CardFormState>>({})
-
+  const [isLoading, setIsLoading] = useState(false)
   const validate = () => {
     let tempErrors: Partial<CardFormState> = {}
     let formIsValid = true
@@ -254,6 +254,7 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (validate()) {
+      setIsLoading(true)
       try {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/store/tranzilla`,
@@ -298,6 +299,7 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({
     } else {
       console.log("Form is invalid")
     }
+    setIsLoading(false)
   }
 
   return (
@@ -381,8 +383,8 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({
             </FormControl>
           </Grid>
           <Grid item xs={12}>
-            <Button type="submit" variant="contained" color="primary" fullWidth>
-              Submit
+            <Button type="submit" variant="primary" className="w-full">
+              {isLoading ? <CustomSpinner/> : "Pay Now"}
             </Button>
           </Grid>
         </Grid>
