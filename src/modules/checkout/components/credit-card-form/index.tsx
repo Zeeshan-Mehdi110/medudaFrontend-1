@@ -383,7 +383,7 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({
             </FormControl>
           </Grid>
           <Grid item xs={12}>
-            <Button type="submit" variant="primary" className="w-full">
+            <Button type="submit" variant="primary" className="w-full h-9">
               {isLoading ? <CustomSpinner/> : "Pay Now"}
             </Button>
           </Grid>
