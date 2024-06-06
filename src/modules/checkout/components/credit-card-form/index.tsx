@@ -153,6 +153,10 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({
 
   const [errors, setErrors] = useState<Partial<CardFormState>>({})
   const [isLoading, setIsLoading] = useState(false)
+  const [isProcessingError, setIsProcessingError] = useState(false)
+  const [transactionMessage, setTransactionMessage] = useState<string | null>(null) // New state for transaction message
+
+
   const validate = () => {
     let tempErrors: Partial<CardFormState> = {}
     let formIsValid = true
@@ -250,11 +254,11 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({
     price_type: "G",
     currency_code: "ILS",
   })
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (validate()) {
       setIsLoading(true)
+      setTransactionMessage(null) // Clear previous messages
       try {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/store/tranzilla`,
@@ -282,17 +286,23 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({
         )
 
         if (!response.ok) {
+          setIsProcessingError(true)
           throw new Error(`HTTP error! status: ${response.status}`)
         }
 
         const { data } = await response.json()
 
         if (Number(data.error_code) === 0) {
+          setTransactionMessage("Payment successful!")
           onTransactionComplete({ success: true, data })
         } else {
+          setIsProcessingError(true)
+          setTransactionMessage(`Payment failed: ${data.error_message}`)
           onTransactionComplete({ success: false, data })
         }
       } catch (e) {
+        setIsProcessingError(true)
+        setTransactionMessage("An error occurred during the transaction.")
         console.error(e)
         onTransactionComplete({ success: false, data: e })
       }
@@ -301,6 +311,59 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({
     }
     setIsLoading(false)
   }
+  // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault()
+  //   if (validate()) {
+  //     setIsLoading(true)
+  //     try {
+  //       const response = await fetch(
+  //         `${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/store/tranzilla`,
+  //         {
+  //           method: "POST",
+  //           headers: {
+  //             Accept: "application/json",
+  //             "Content-Type": "application/json",
+  //           },
+  //           body: JSON.stringify({
+  //             terminal_name: "artifex",
+  //             txn_currency_code: "ILS",
+  //             txn_type: "debit",
+  //             verify_mode: 5,
+  //             reference_txn_id: null,
+  //             authorization_number: null,
+  //             card_number: cardDetails.cardNumber,
+  //             expire_month: parseInt(cardDetails.expDate.split("/")[0], 10),
+  //             expire_year: parseInt(cardDetails.expDate.split("/")[1], 10),
+  //             payment_plan: cardDetails.payments,
+  //             cvv: cardDetails.cvc,
+  //             items: itemsArray,
+  //           }),
+  //         }
+  //       )
+
+  //       if (!response.ok) {
+  //         setIsProcessingError(true)
+  //         throw new Error(`HTTP error! status: ${response.status}`)
+  //       }
+
+  //       const { data } = await response.json()
+
+  //       if (Number(data.error_code) === 0) {
+  //         onTransactionComplete({ success: true, data })
+  //       } else {
+  //         setIsProcessingError(true)
+  //         onTransactionComplete({ success: false, data })
+  //       }
+  //     } catch (e) {
+  //       setIsProcessingError(true)
+  //       console.error(e)
+  //       onTransactionComplete({ success: false, data: e })
+  //     }
+  //   } else {
+  //     console.log("Form is invalid")
+  //   }
+  //   setIsLoading(false)
+  // }
 
   return (
     <Container style={{ margin: 0 }}>
@@ -389,6 +452,11 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({
           </Grid>
         </Grid>
       </form>
+      {transactionMessage && (
+        <Typography variant="body1" color={isProcessingError ? "error" : "textPrimary"} style={{ marginTop: '16px' }}>
+          {transactionMessage}
+        </Typography>
+      )}
     </Container>
   )
 }
