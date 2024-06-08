@@ -466,10 +466,11 @@ import { StripeContext } from "@modules/checkout/components/payment-wrapper"
 import Form from "../credit-card-form"
 import { medusaClient } from "@lib/config"
 import Paypal from "../paypal"
+import { useTranslation } from "react-i18next"
 const Payment = ({
   cart,
 }: {
-  cart: Omit<Cart, "refundable_amount" | "refunded_total"> | null
+  cart: Omit<Cart, "refundable_amount" | "refunded_total"> | null,
 }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -481,7 +482,7 @@ const Payment = ({
   const pathname = usePathname()
   const [providerId, setProviderId] = useState<string | null>(null)
   const isOpen = searchParams.get("step") === "payment" && !isPaidSuccessfully
-
+  const {t} = useTranslation()
   const isStripe = cart?.payment_session?.provider_id === "stripe"
   const stripeReady = useContext(StripeContext)
 
@@ -600,7 +601,7 @@ const Payment = ({
 
 
   return (
-    <div className="bg-white">
+    <div className="bg-white  dark:bg-black dark:text-white">
       <div className="flex flex-row items-center justify-between mb-6">
         <Heading
           level="h2"
@@ -612,7 +613,7 @@ const Payment = ({
             }
           )}
         >
-          Payment
+          {t("payment")}
           {!isOpen && paymentReady && <CheckCircleSolid />}
         </Heading>
         {!isOpen && paymentReady && (
@@ -622,7 +623,7 @@ const Payment = ({
               className="text-ui-fg-interactive hover:text-ui-fg-interactive-hover"
               data-testid="edit-payment-button"
             >
-              Edit
+              {t("edit")}
             </button>
           </Text>
         )}
@@ -685,13 +686,13 @@ const Payment = ({
           ) : paidByGiftcard ? (
             <div className="flex flex-col w-1/3">
               <Text className="txt-medium-plus text-ui-fg-base mb-1">
-                Payment method
+                {t("payment-method")}
               </Text>
               <Text
                 className="txt-medium text-ui-fg-subtle"
                 data-testid="payment-method-summary"
               >
-                Gift card
+                 {t("gift-card")}
               </Text>
             </div>
           ) 
@@ -717,7 +718,7 @@ const Payment = ({
             }
             data-testid="submit-payment-button"
           >
-            Continue to review
+            {t("continue-to-review")}
           </Button>
         </div>
 

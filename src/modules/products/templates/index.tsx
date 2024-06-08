@@ -44,7 +44,7 @@ const ProductTemplate: React.FC<ProductTemplateProps> = async({
         <div className="flex flex-col small:sticky small:top-48 small:py-0 small:max-w-[300px] w-full py-8 gap-y-12">
           <ProductOnboardingCta />
           <Suspense
-            fallback={<ProductActions product={product} region={region} />}
+            fallback={<ProductActions locale={locale} product={product} region={region} />}
           >
             <ProductActionsWrapper id={product.id} region={region} />
           </Suspense>

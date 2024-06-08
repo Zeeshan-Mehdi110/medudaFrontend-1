@@ -12,12 +12,14 @@ const ShippingAddress = ({
   checked,
   onChange,
   countryCode,
+  locale,
 }: {
   customer: Omit<Customer, "password_hash"> | null
   cart: Omit<Cart, "refundable_amount" | "refunded_total"> | null
   checked: boolean
   onChange: () => void
-  countryCode: string
+  countryCode: string,
+  locale: string
 }) => {
   const [formData, setFormData] = useState({
     "shipping_address.first_name": cart?.shipping_address?.first_name || "",
@@ -79,9 +81,9 @@ const { t } = useTranslation()
       {customer && (addressesInRegion?.length || 0) > 0 && (
         <Container className="mb-6 flex flex-col gap-y-4 p-5">
           <p className="text-small-regular">
-            {`Hi ${customer.first_name}, do you want to use one of your saved addresses?`}
+            {`${t("hi")} ${customer.first_name}, ${t("do-you-want-to-use-one-of-your-saved-addresses")}`}
           </p>
-          <AddressSelect addresses={customer.shipping_addresses} cart={cart} />
+          <AddressSelect locale={locale} addresses={customer.shipping_addresses} cart={cart} />
         </Container>
       )}
       <div className="grid grid-cols-2 gap-4">

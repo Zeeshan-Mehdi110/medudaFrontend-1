@@ -1,4 +1,4 @@
-const Radio = ({ checked }: { checked: boolean }) => {
+const Radio = ({ checked, className }: { checked: boolean, className?:string }) => {
   return (
     <>
       <button
@@ -12,7 +12,7 @@ const Radio = ({ checked }: { checked: boolean }) => {
           {checked && (
             <span
               data-state={checked ? "checked" : "unchecked"}
-              className="group flex items-center justify-center"
+              className={`${className ? className : ""} group flex items-center justify-center`}
             >
               <div className="bg-ui-bg-base shadow-details-contrast-on-bg-interactive group-disabled:bg-ui-fg-disabled rounded-full group-disabled:shadow-none h-1.5 w-1.5"></div>
             </span>

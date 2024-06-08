@@ -6,7 +6,7 @@ import CartTotals from "@modules/common/components/cart-totals"
 import Divider from "@modules/common/components/divider"
 import { retrieveCart } from "@modules/cart/actions"
 import initTranslations from "app/i18n"
-import { getLang } from "@lib/data"
+
 
 const CheckoutSummary = async ({locale} : {locale:string}) => {
   const cart = await retrieveCart().then((cart) => cart)

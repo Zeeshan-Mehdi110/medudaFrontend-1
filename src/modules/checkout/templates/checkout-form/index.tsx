@@ -11,9 +11,8 @@ import { cookies } from "next/headers"
 import { CartWithCheckoutStep } from "types/global"
 import { getCheckoutStep } from "@lib/util/get-checkout-step"
 
-export default async function CheckoutForm() {
+export default async function CheckoutForm({locale}: {locale: string}) {
   const cartId = cookies().get("_medusa_cart_id")?.value
-
   if (!cartId) {
     return null
   }
@@ -45,7 +44,7 @@ export default async function CheckoutForm() {
     <div>
       <div className="w-full grid grid-cols-1 gap-y-8  dark:text-white dark:bg-black">
         <div>
-          <Addresses cart={cart} customer={customer} />
+          <Addresses locale={locale} cart={cart} customer={customer} />
         </div>
 
         <div>

@@ -1,7 +1,9 @@
 import { getLang } from "@lib/data"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import ChevronDown from "@modules/common/icons/chevron-down"
+import LanguageToggle from "@modules/layout/components/language-toggle"
 import MedusaCTA from "@modules/layout/components/medusa-cta"
+import Theme from "@modules/layout/components/theme-toggle"
 import initTranslations from "app/i18n"
 export default async function CheckoutLayout({
   children,
@@ -18,7 +20,7 @@ export default async function CheckoutLayout({
         <nav className="flex h-full items-center content-container justify-between">
           <LocalizedClientLink
             href="/cart"
-            className="text-small-semi text-ui-fg-base flex items-center gap-x-2 uppercase flex-1 basis-0"
+            className="text-small-semi text-ui-fg-base flex items-center gap-x-2 uppercase"
           >
             <ChevronDown className="rotate-90" size={16} />
             <span className="mt-px hidden small:block txt-compact-plus text-ui-fg-subtle hover:text-ui-fg-base ">
@@ -32,9 +34,15 @@ export default async function CheckoutLayout({
             href="/"
             className="txt-compact-xlarge-plus text-ui-fg-subtle hover:text-ui-fg-base uppercase"
           >
-            Pixels Journey
+               <img className="pb-[25px] sm:scale-100 scale-80 max-w-[150px] min-w-[150px]" alt='navigation bar logo' id="nav-logo" src="/rr.svg"></img>
           </LocalizedClientLink>
-          <div className="flex-1 basis-0" />
+         
+          {/* <div className="flex-1 basis-0" /> */}
+          <div className="flex gap-2">
+          <Theme/>
+          <LanguageToggle locale={locale} />
+          </div>
+   
         </nav>
       </div>
       <div className="relative">{children}</div>

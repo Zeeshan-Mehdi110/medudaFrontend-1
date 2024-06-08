@@ -12,6 +12,7 @@ import {
 } from "@mui/material"
 import { Button } from "@medusajs/ui"
 import CustomSpinner from "@modules/common/icons/custom-spinner"
+import { useTranslation } from "react-i18next"
 
 interface CardFormState {
   cardNumber: string
@@ -155,7 +156,7 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({
   const [isLoading, setIsLoading] = useState(false)
   const [isProcessingError, setIsProcessingError] = useState(false)
   const [transactionMessage, setTransactionMessage] = useState<string | null>(null) // New state for transaction message
-
+  const { t } = useTranslation()
 
   const validate = () => {
     let tempErrors: Partial<CardFormState> = {}
@@ -366,8 +367,8 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({
   // }
 
   return (
-    <Container style={{ margin: 0 }}>
-      <Typography variant="h6" gutterBottom>
+    <Container style={{ margin: 0 }} className="dark:text-white">
+      <Typography variant="h6" gutterBottom >
         Credit Card Details
       </Typography>
       <form onSubmit={handleSubmit}>
@@ -375,64 +376,109 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({
           <Grid item xs={12}>
             <TextField
               required
-              label="Card Number"
+              label={t("card-number")}
               name="cardNumber"
               fullWidth
               variant="outlined"
               value={cardDetails.cardNumber}
               onChange={handleChange}
               error={!!errors.cardNumber}
-              helperText={errors.cardNumber || "Enter the 16-digit card number"}
+              helperText={errors.cardNumber || t("enter-the-16-digit-card-number")}
+              sx={{
+                '& .MuiInputLabel-root': { color: 'white' }, // Label color
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': { borderColor: 'white' }, // Border color
+                  '&:hover fieldset': { borderColor: 'white' }, // Border color on hover
+                  '&.Mui-focused fieldset': { borderColor: 'white' }, // Border color when focused
+                },
+                '& .MuiInputBase-input': { color: 'white' }, // Text color
+              }}
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
               required
-              label="Card Name"
+              label={t("card-name")}
               name="cardName"
               fullWidth
               variant="outlined"
               value={cardDetails.cardName}
               onChange={handleChange}
               error={!!errors.cardName}
-              helperText={errors.cardName || "Enter the name on the card"}
+              helperText={errors.cardName || t("enter-the-name-on-the-card")}
+              sx={{
+                '& .MuiInputLabel-root': { color: 'white' }, // Label color
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': { borderColor: 'white' }, // Border color
+                  '&:hover fieldset': { borderColor: 'white' }, // Border color on hover
+                  '&.Mui-focused fieldset': { borderColor: 'white' }, // Border color when focused
+                },
+                '& .MuiInputBase-input': { color: 'white' }, // Text color
+              }}
             />
           </Grid>
           <Grid item xs={6}>
             <TextField
               required
-              label="Expiration Date (MM/YY)"
+              label={`${t("expiration-date")} (MM/YY)`}
               name="expDate"
               fullWidth
               variant="outlined"
               value={cardDetails.expDate}
               onChange={handleChange}
               error={!!errors.expDate}
-              helperText={errors.expDate || "Enter expiration date as MM/YY"}
+              helperText={errors.expDate || `${t("enter-expiration-date-as")} MM/YY`}
+              sx={{
+                '& .MuiInputLabel-root': { color: 'white' }, // Label color
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': { borderColor: 'white' }, // Border color
+                  '&:hover fieldset': { borderColor: 'white' }, // Border color on hover
+                  '&.Mui-focused fieldset': { borderColor: 'white' }, // Border color when focused
+                },
+                '& .MuiInputBase-input': { color: 'white' }, // Text color
+              }}
             />
           </Grid>
           <Grid item xs={6}>
             <TextField
               required
-              label="CVC"
+              label={t("cvc")}
               name="cvc"
               fullWidth
               variant="outlined"
               value={cardDetails.cvc}
               onChange={handleChange}
               error={!!errors.cvc}
-              helperText={errors.cvc || "Enter the 3-digit CVC"}
+              helperText={errors.cvc || `${t("enter-the-3-digit-CVC")}`}
+              sx={{
+                '& .MuiInputLabel-root': { color: 'white' }, // Label color
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': { borderColor: 'white' }, // Border color
+                  '&:hover fieldset': { borderColor: 'white' }, // Border color on hover
+                  '&.Mui-focused fieldset': { borderColor: 'white' }, // Border color when focused
+                },
+                '& .MuiInputBase-input': { color: 'white' }, // Text color
+              }}
             />
           </Grid>
           <Grid item xs={12}>
-            <FormControl fullWidth error={!!errors.payments}>
-              <InputLabel id="payments-label">Number of Payments</InputLabel>
+            <FormControl fullWidth error={!!errors.payments} sx={{
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': { borderColor: 'white' }, // Border color
+                    '&:hover fieldset': { borderColor: 'white' }, // Border color on hover
+                    '&.Mui-focused fieldset': { borderColor: 'white' }, // Border color when focused
+                  },
+                  '& .MuiInputBase-input': { color: 'white' }, // Text color
+                  '& .MuiInputLabel-root': { color: 'white' }, // Label color
+                }}>
+              <InputLabel id="payments-label">{t("number-of-payments")}</InputLabel>
               <Select
                 labelId="payments-label"
                 value={cardDetails.payments}
-                label="Number of Payments"
+                label={t("number-of-payments")}
                 name="payments"
                 onChange={handleChange}
+                
               >
                 {[1, 2, 3, 4, 5, 6].map((option) => (
                   <MenuItem key={option} value={option}>
@@ -441,13 +487,13 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({
                 ))}
               </Select>
               <FormHelperText>
-                {errors.payments || "Select the number of payments (up to 6)"}
+                {errors.payments || t("select-the-number-of-payments")}
               </FormHelperText>
             </FormControl>
           </Grid>
           <Grid item xs={12}>
             <Button type="submit" variant="primary" className="w-full h-9">
-              {isLoading ? <CustomSpinner/> : "Pay Now"}
+              {isLoading ? <CustomSpinner/> : t("pay-now")}
             </Button>
           </Grid>
         </Grid>
