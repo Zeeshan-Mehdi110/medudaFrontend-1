@@ -8,9 +8,11 @@ import ProductActions from "@modules/products/components/product-actions"
 export default async function ProductActionsWrapper({
   id,
   region,
+  locale
 }: {
   id: string
-  region: Region
+  region: Region,
+  locale: string
 }) {
   const product = await retrievePricedProductById({ id, regionId: region.id })
 
@@ -18,5 +20,5 @@ export default async function ProductActionsWrapper({
     return null
   }
 
-  return <ProductActions product={product} region={region} />
+  return <ProductActions locale={locale} product={product} region={region} />
 }

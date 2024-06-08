@@ -46,7 +46,7 @@ const ProductTemplate: React.FC<ProductTemplateProps> = async({
           <Suspense
             fallback={<ProductActions locale={locale} product={product} region={region} />}
           >
-            <ProductActionsWrapper id={product.id} region={region} />
+            <ProductActionsWrapper locale={locale} id={product.id} region={region} />
           </Suspense>
           <div className="">
             <h3 className={`text-lg dark:text-white font-semibold mb-4 ${rtl ? "text-right" : "text-left"}`}>{t("share-with-friends-on")}:</h3>
