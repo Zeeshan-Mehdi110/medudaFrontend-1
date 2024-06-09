@@ -601,7 +601,7 @@ const Payment = ({
 
 
   return (
-    <div className="bg-white  dark:bg-black dark:text-white">
+    <div className="bg-white-smoke  dark:bg-black dark:text-white">
       <div className="flex flex-row items-center justify-between mb-6">
         <Heading
           level="h2"
