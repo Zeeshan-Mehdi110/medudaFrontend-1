@@ -14,6 +14,7 @@ export default async function CheckoutLayout({
 }) {
   const {locale} = params;
   const { t} = await initTranslations(locale, ['common']);
+  const isRtl = locale === 'ar' || locale === 'he';
   return (
     <div className="w-full bg-white dark:text-white dark:bg-black relative small:min-h-screen ">
       <div className="h-16 bg-white dark:text-white dark:bg-black border-b ">
@@ -32,13 +33,13 @@ export default async function CheckoutLayout({
           </LocalizedClientLink>
           <LocalizedClientLink
             href="/"
-            className="flex justify-center t-compact-xlarge-plus text-ui-fg-subtle hover:text-ui-fg-base uppercase w-1/3"
+            className={`flex justify-center ${isRtl ? "pr-2" : "pl-2"} t-compact-xlarge-plus text-ui-fg-subtle hover:text-ui-fg-base uppercase w-1/3`}
           >
                <img className="pb-[25px] sm:scale-100 scale-80 max-w-[150px] min-w-[150px]" alt='navigation bar logo' id="nav-logo" src="/rr.svg"></img>
           </LocalizedClientLink>
          
           {/* <div className="flex-1 basis-0" /> */}
-          <div className="flex justify-end gap-2 w-1/3">
+          <div className="flex justify-end gap-2 w-1/3 sm:scale-100 scale-80">
           <Theme/>
           <LanguageToggle locale={locale} />
           </div>
