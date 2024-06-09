@@ -126,7 +126,7 @@ const Addresses = ({
                     </Text>
                   </div>
 
-                  <div className="flex flex-col w-1/3 ">
+                  <div className="flex flex-col w-1/3 break-words break-all">
                     <Text className="txt-medium-plus text-ui-fg-base mb-1">
                     {t("contact")}
                     </Text>
@@ -138,7 +138,7 @@ const Addresses = ({
                     </Text>
                   </div>
 
-                  <div className="flex flex-col w-1/3">
+                  <div className="flex flex-col w-1/3 break-words break-all">
                     <Text className="txt-medium-plus text-ui-fg-base mb-1">
                     {t("billing-address")}
                     </Text>
