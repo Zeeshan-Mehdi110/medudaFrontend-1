@@ -254,5 +254,7 @@
   "all": "הכל",
   "share-with-friends-on": "שתפו עם חברים",
   "the-hottest": "הכי חמים",
+  "payment-successful!": "התשלום בוצע בהצלחה!",
+  "payment-failed": "התשלום נכשל",
   "contact-us-success-message": "ההודעה שלך נשלחה בהצלחה. נחזור אליך בהקדם האפשרי."
 }

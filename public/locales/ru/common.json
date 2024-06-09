@@ -254,5 +254,7 @@
   "all": "Все",
   "choose-language": "Выберите язык",
   "the-hottest": "Самые горячие",
+  "payment-successful!": "Оплата прошла успешно!",
+  "payment-failed": "Оплата не прошла",
   "contact-us-success-message": "Ваше сообщение успешно отправлено"
 }
