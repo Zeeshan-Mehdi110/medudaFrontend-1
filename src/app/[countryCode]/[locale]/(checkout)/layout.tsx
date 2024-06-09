@@ -18,7 +18,7 @@ export default async function CheckoutLayout({
   return (
     <div className="w-full bg-white dark:text-white dark:bg-black relative small:min-h-screen ">
       <div className="h-16 bg-white dark:text-white dark:bg-black border-b ">
-        <nav className="flex h-full items-center content-container justify-between gap-4">
+        <nav className="flex h-full items-center content-container justify-between gap-4 !pl-1 !pr-1">
           <LocalizedClientLink
             href="/cart"
             className="text-small-semi text-ui-fg-base flex items-center gap-x-2 uppercase w-1/3"
