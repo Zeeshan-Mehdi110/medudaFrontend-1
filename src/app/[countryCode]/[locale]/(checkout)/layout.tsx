@@ -32,13 +32,13 @@ export default async function CheckoutLayout({
           </LocalizedClientLink>
           <LocalizedClientLink
             href="/"
-            className="txt-compact-xlarge-plus text-ui-fg-subtle hover:text-ui-fg-base uppercase w-1/3"
+            className="flex justify-center t-compact-xlarge-plus text-ui-fg-subtle hover:text-ui-fg-base uppercase w-1/3"
           >
                <img className="pb-[25px] sm:scale-100 scale-80 max-w-[150px] min-w-[150px]" alt='navigation bar logo' id="nav-logo" src="/rr.svg"></img>
           </LocalizedClientLink>
          
           {/* <div className="flex-1 basis-0" /> */}
-          <div className="flex gap-2 w-1/3">
+          <div className="flex justify-end gap-2 w-1/3">
           <Theme/>
           <LanguageToggle locale={locale} />
           </div>
