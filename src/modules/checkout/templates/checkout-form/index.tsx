@@ -42,7 +42,7 @@ export default async function CheckoutForm({locale}: {locale: string}) {
 
   return (
     <div>
-      <div className="w-full grid grid-cols-1 gap-y-8  dark:text-white dark:bg-black">
+      <div className="w-full grid grid-cols-1 gap-y-8 bg-white-smoke  dark:text-white dark:bg-black">
         <div>
           <Addresses locale={locale} cart={cart} customer={customer} />
         </div>
