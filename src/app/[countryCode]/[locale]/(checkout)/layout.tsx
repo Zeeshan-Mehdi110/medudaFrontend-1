@@ -17,10 +17,10 @@ export default async function CheckoutLayout({
   return (
     <div className="w-full bg-white dark:text-white dark:bg-black relative small:min-h-screen ">
       <div className="h-16 bg-white dark:text-white dark:bg-black border-b ">
-        <nav className="flex h-full items-center content-container justify-between">
+        <nav className="flex h-full items-center content-container justify-between gap-4">
           <LocalizedClientLink
             href="/cart"
-            className="text-small-semi text-ui-fg-base flex items-center gap-x-2 uppercase"
+            className="text-small-semi text-ui-fg-base flex items-center gap-x-2 uppercase w-1/3"
           >
             <ChevronDown className="rotate-90" size={16} />
             <span className="mt-px hidden small:block txt-compact-plus text-ui-fg-subtle hover:text-ui-fg-base ">
@@ -32,13 +32,13 @@ export default async function CheckoutLayout({
           </LocalizedClientLink>
           <LocalizedClientLink
             href="/"
-            className="txt-compact-xlarge-plus text-ui-fg-subtle hover:text-ui-fg-base uppercase"
+            className="txt-compact-xlarge-plus text-ui-fg-subtle hover:text-ui-fg-base uppercase w-1/3"
           >
                <img className="pb-[25px] sm:scale-100 scale-80 max-w-[150px] min-w-[150px]" alt='navigation bar logo' id="nav-logo" src="/rr.svg"></img>
           </LocalizedClientLink>
          
           {/* <div className="flex-1 basis-0" /> */}
-          <div className="flex gap-2">
+          <div className="flex gap-2 w-1/3">
           <Theme/>
           <LanguageToggle locale={locale} />
           </div>
