@@ -105,7 +105,7 @@ const Addresses = ({
             {cart && cart.shipping_address ? (
               <div className="flex items-start gap-x-8">
                 <div className="flex items-start gap-x-1 w-full">
-                  <div className="flex flex-col w-1/3">
+                  <div className="flex flex-col w-1/3 break-words break-all">
                     <Text className="txt-medium-plus text-ui-fg-base mb-1">
                     {t("shipping-address")}
                     </Text>
