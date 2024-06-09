@@ -60,7 +60,7 @@ const Addresses = ({
           {t("address")}
           {!isOpen && <CheckCircleSolid />}
         </Heading>
-        {!isOpen && cart?.shipping_address && (
+        {!isOpen && cart?.shipping_address && cart?.payment_session && (
           <Text>
             <button
               onClick={handleEdit}

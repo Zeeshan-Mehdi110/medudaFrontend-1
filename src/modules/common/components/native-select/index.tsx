@@ -8,21 +8,30 @@ import {
   useRef,
   useState,
 } from "react"
+import { useTranslation } from "react-i18next"
 
 export type NativeSelectProps = {
   placeholder?: string
   errors?: Record<string, unknown>
   touched?: Record<string, unknown>
+  isArrows?: boolean
 } & SelectHTMLAttributes<HTMLSelectElement>
 
 const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
   (
-    { placeholder = "Select...", defaultValue, className, children, ...props },
+    {
+      placeholder = "Select...",
+      defaultValue,
+      isArrows = true,
+      className,
+      children,
+      ...props
+    },
     ref
   ) => {
     const innerRef = useRef<HTMLSelectElement>(null)
     const [isPlaceholder, setIsPlaceholder] = useState(false)
-
+    const t = useTranslation()
     useImperativeHandle<HTMLSelectElement | null, HTMLSelectElement | null>(
       ref,
       () => innerRef.current
@@ -60,9 +69,11 @@ const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
             </option>
             {children}
           </select>
-          <span className="absolute right-4 inset-y-0 flex items-center pointer-events-none ">
-            <ChevronUpDown />
-          </span>
+          {isArrows && (
+            <span className="absolute right-4 inset-y-0 flex items-center pointer-events-none ">
+              <ChevronUpDown />
+            </span>
+          )}
         </div>
       </div>
     )

@@ -55,7 +55,7 @@ export default async function CheckoutForm({locale}: {locale: string}) {
         </div>
 
         <div>
-          <Payment cart={cart} />
+          <Payment locale={locale} cart={cart} />
         </div>
 
         <div>

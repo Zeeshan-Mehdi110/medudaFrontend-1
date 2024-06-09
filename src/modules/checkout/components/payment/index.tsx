@@ -469,8 +469,10 @@ import Paypal from "../paypal"
 import { useTranslation } from "react-i18next"
 const Payment = ({
   cart,
+  locale
 }: {
   cart: Omit<Cart, "refundable_amount" | "refunded_total"> | null,
+  locale: string
 }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -485,7 +487,6 @@ const Payment = ({
   const {t} = useTranslation()
   const isStripe = cart?.payment_session?.provider_id === "stripe"
   const stripeReady = useContext(StripeContext)
-
   const paidByGiftcard =
     cart?.gift_cards && cart?.gift_cards?.length > 0 && cart?.total === 0
 
@@ -616,7 +617,7 @@ const Payment = ({
           {t("payment")}
           {!isOpen && paymentReady && <CheckCircleSolid />}
         </Heading>
-        {!isOpen && paymentReady && (
+        {!isOpen && paymentReady && cart?.payment_session && (
           <Text>
             <button
               onClick={handleEdit}
@@ -649,6 +650,8 @@ const Payment = ({
                         selectedPaymentOptionId={
                           cart.payment_session?.provider_id || null
                         }
+                        paymentMethodsTranslations={cart?.region?.metadata}
+                        locale={locale}
                       />
                     )
                   })}

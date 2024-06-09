@@ -56,23 +56,25 @@
 //                 </Tooltip>
 //               )}
 
-//             {paymentSession.provider_id === "manual" && isDevelopment && (
+//             {/* {paymentSession.provider_id === "manual" && isDevelopment && (
 //               <PaymentTest className="hidden small:block" />
-//             )}
+//             )} */}
 //           </div>
 //           <span className="justify-self-end text-ui-fg-base">
 //             {paymentInfoMap[paymentSession.provider_id]?.icon}
 //           </span>
 //         </div>
-//         {paymentSession.provider_id === "manual" && isDevelopment && (
+//         {/* {paymentSession.provider_id === "manual" && isDevelopment && (
 //           <PaymentTest className="small:hidden text-[10px]" />
-//         )}
+//         )} */}
 //       </RadioGroup.Option>
 //     </>
 //   )
 // }
 
 // export default PaymentContainer
+
+
 
 
 import { RadioGroup } from "@headlessui/react"
@@ -84,12 +86,15 @@ import React from "react"
 import Radio from "@modules/common/components/radio"
 
 import PaymentTest from "../payment-test"
+import TextConvertor from "@modules/products/components/text-convertor"
 
 type PaymentContainerProps = {
   paymentSession: PaymentSession
   selectedPaymentOptionId: string | null
   disabled?: boolean
   paymentInfoMap: Record<string, { title: string; icon: JSX.Element }>
+  paymentMethodsTranslations: any,
+  locale: string
 }
 
 const PaymentContainer: React.FC<PaymentContainerProps> = ({
@@ -97,9 +102,13 @@ const PaymentContainer: React.FC<PaymentContainerProps> = ({
   selectedPaymentOptionId,
   paymentInfoMap,
   disabled = false,
+  paymentMethodsTranslations = null,
+  locale
 }) => {
   const isDevelopment = process.env.NODE_ENV === "development"
-
+  const tranlationObj = paymentMethodsTranslations[paymentInfoMap[paymentSession.provider_id]?.title?.toLowerCase()]
+  
+ 
   return (
     <>
       <RadioGroup.Option
@@ -120,7 +129,7 @@ const PaymentContainer: React.FC<PaymentContainerProps> = ({
               checked={selectedPaymentOptionId === paymentSession.provider_id}
             />
             <Text className="text-base-regular">
-              {paymentInfoMap[paymentSession.provider_id]?.title ||
+              {<TextConvertor locale={locale} title={paymentInfoMap[paymentSession.provider_id]?.title} metadata={tranlationObj ?? null}/> ||
                 paymentSession.provider_id}
             </Text>
             {process.env.NODE_ENV === "development" &&

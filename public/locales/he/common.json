@@ -21,6 +21,8 @@
   "payment-method": "אמצעי תשלום",
   "pay-now": "שלם עכשיו",
   "card-name": "שם על הכרטיס",
+  "credit-card-details": "פרטי כרטיס אשראי",
+  "select-number-of-payments": "בחר מספר תשלומים",
   "choose-an-address": "בחר כתובת",
   "failed-to-delete-the-image": "כישלון במחיקת התמונה",
   "confirm-deletion": "אישור מחיקה",
