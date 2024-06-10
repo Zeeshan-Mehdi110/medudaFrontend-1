@@ -6,6 +6,7 @@ import FeaturedProducts from "@modules/home/components/featured-products"
 import Hero from "@modules/home/components/hero"
 import { getRegion } from "app/actions"
 import { ProductCollectionWithPreviews } from "types/global"
+import GiftCardBanner from "@modules/home/components/gift-card-purchase"
 
 export const metadata: Metadata = {
   title: "Pixels Journey Store",
@@ -78,6 +79,7 @@ export default async function Home({
           region={region}
         />
       </ul>
+      <GiftCardBanner />
     </>
   )
 }
