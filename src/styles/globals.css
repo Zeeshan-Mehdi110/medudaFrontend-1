@@ -29,19 +29,21 @@
 
   .gift-card-banner-text {
     position: absolute;
-    top: -12px;
+    top: -5px;
     text-align: center;
     transform: scale(0.6);
-    width: 55%;
+    width: 60%;
+    right:-15px;
   }
   
   /* Small screens (min-width: 640px) */
   @media (min-width: 640px) {
     .gift-card-banner-text {
-      top: 30px;
+      top: 58px;
       transform: scale(1);
       width: 50%;
       max-width: 50%;
+      right:10px
     }
   }
   
@@ -49,9 +51,11 @@
   @media (min-width: 1024px) {
     .gift-card-banner-text {
       width: 60%;
-      top: 35%;
+      top: 26%;
+      right:13px;
     }
   }
+
 
   .animate-flicker {
     animation: flicker 2.5s infinite;
