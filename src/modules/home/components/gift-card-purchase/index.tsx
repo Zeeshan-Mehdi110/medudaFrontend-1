@@ -24,7 +24,7 @@ const GiftCardBanner = () => {
         quality={100}
         className="z-0 min-h-[15rem]"
       />
-      <div className="absolute sm:top-[30px] lg:w-[60%] lg:top-[35%] sm:max-w-1/2 max-w-1/4 top-[-12px] text-center scale-60 sm:scale-100 sm:w-1/2 w-[55%]">
+      <div className="gift-card-banner-text">
         <h2 className="text-4xl font-bold mb-4">Everyone loves gifts!</h2>
         <p className="text-lg mb-8">
           Surprise your loved ones with a gift card! Perfect for any occasion.

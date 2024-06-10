@@ -79,7 +79,7 @@ export default async function Home({
           region={region}
         />
       </ul>
-      {/* <GiftCardBanner /> */}
+      <GiftCardBanner />
     </>
   )
 }
