@@ -184,24 +184,5 @@ module.exports = {
       },
     },
   },
-  purge: {
-    content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
-    options: {
-      safelist: [
-        'absolute',
-        'sm:top-[30px]',
-        'lg:w-[60%]',
-        'lg:top-[35%]',
-        'sm:max-w-1/2',
-        'max-w-1/4',
-        'top-[-12px]',
-        'text-center',
-        'scale-60',
-        'sm:scale-100',
-        'sm:w-1/2',
-        'w-[55%]',
-      ],
-    }
-  },
   plugins: [require("tailwindcss-radix")()],
 }
