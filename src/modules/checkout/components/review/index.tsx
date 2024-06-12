@@ -17,7 +17,7 @@ const { t } = useTranslation()
 
   const previousStepsCompleted =
     cart.shipping_address &&
-    cart.shipping_methods.length > 0 &&
+    (cart.items.every((item) => item.is_giftcard) || cart.shipping_methods.length > 0)  &&
     cart.payment_session
 
   return (
