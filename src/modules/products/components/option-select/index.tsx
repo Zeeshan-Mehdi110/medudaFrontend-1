@@ -7,15 +7,13 @@ import { useTranslation } from "react-i18next"
 import { PricedVariant } from "@medusajs/medusa/dist/types/pricing"
 import TextConvertor from "../text-convertor"
 
-
-
 type OptionSelectProps = {
   option: ProductOption
   current: string
   updateOption: (option: Record<string, string>) => void
-  title: string,
-  locale: string,
-  productVariants: PricedVariant[];
+  title: string
+  locale: string
+  productVariants: PricedVariant[]
 }
 
 const OptionSelect: React.FC<OptionSelectProps> = ({
@@ -24,23 +22,24 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
   updateOption,
   title,
   locale,
-  productVariants
+  productVariants,
 }) => {
   productVariants.forEach((pv) => {
     if (pv.metadata != null) {
       //@ts-ignore
-      pv.options[0].metadata = pv.metadata;
+      pv.options[0].metadata = pv.metadata
     }
-  });
+  })
   const filteredOptions = option.values.map((v) => v.value).filter(onlyUnique)
-   //@ts-ignore
-   const options = productVariants.map(pv => pv.options[0]);
-   option.values = options;
+  //@ts-ignore
+  const options = productVariants.map((pv) => pv.options[0])
 
- const { t } = useTranslation()
+  const { t } = useTranslation()
   return (
     <div className="flex flex-col gap-y-3">
-      <span className="text-sm">{t("select")} {title}</span>
+      <span className="text-sm">
+        {t("select")} {title}
+      </span>
       <div className="flex flex-wrap justify-between gap-2">
         {filteredOptions.map((v) => {
           return (
@@ -56,8 +55,18 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
                 }
               )}
             >
-              {/* <TextConvertor locale={locale} title={v} metadata={ options.find((o) => o.value === v)?.metadata && options.find((o) => o.value === v)?.metadata["name"] ? JSON.stringify(options.find((o) => o.value === v)?.metadata["name"]) as any : null} ></TextConvertor> */}
-              {v}
+              <TextConvertor
+                locale={locale}
+                title={v}
+                metadata={
+                  options.find((o) => o.value === v)?.metadata &&
+                  options.find((o) => o.value === v)?.metadata["name"]
+                    ? (JSON.stringify(
+                        options.find((o) => o.value === v)?.metadata["name"]
+                      ) as any)
+                    : null
+                }
+              ></TextConvertor>
             </button>
           )
         })}
