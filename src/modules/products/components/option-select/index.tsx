@@ -55,7 +55,7 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
                 }
               )}
             >
-              <TextConvertor locale={locale} title={v.value} metadata={JSON.stringify(v.metadata["name"]) as any ?? null} ></TextConvertor>
+              <TextConvertor locale={locale} title={v.value} metadata={v.metadata && v.metadata["name"] ? JSON.stringify(v.metadata["name"]) as any : null} ></TextConvertor>
             </button>
           )
         })}
