@@ -174,6 +174,7 @@ const MobileActions: React.FC<MobileActionsProps> = ({
                                 updateOption={updateOptions}
                                 title={option.title}
                                 locale={locale}
+                                productVariants={product.variants}
                               />
                             </div>
                           )

@@ -12,7 +12,7 @@ const GiftCardBanner = () => {
   const router = useRouter()
 
   const handleRedirect = () => {
-    router.push("/account/gift-cards")
+    router.push("/products/pixels-journey-gift-card")
   }
 
   return (
