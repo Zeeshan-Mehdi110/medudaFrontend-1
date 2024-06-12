@@ -21,6 +21,7 @@ export default function OrderCompletedTemplate({
 }: OrderCompletedTemplateProps) {
   const isOnboarding = cookies().get("_medusa_onboarding")?.value === "true"
 const { locale } = params;
+ const isGiftCardOnly= order.items.every((item) => item.is_giftcard) 
   return (
     <div className="py-6 min-h-[calc(100vh-64px)]">
       <div className="content-container flex flex-col justify-center items-center gap-y-10 max-w-4xl h-full w-full">
@@ -39,7 +40,7 @@ const { locale } = params;
           </Heading>
           <Items locale={locale} items={order.items} region={order.region} />
           <CartTotals data={order} />
-          <ShippingDetails order={order} />
+          {!isGiftCardOnly &&  <ShippingDetails order={order} />}
           <PaymentDetails order={order} />
           <Help />
         </div>
