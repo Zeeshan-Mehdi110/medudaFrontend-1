@@ -50,6 +50,7 @@ const transformProductPreview = (
       : undefined,
       metadata: product.metadata,
       categories: product.categories ?? null,
+      is_giftcard: product.is_giftcard ?? false,
   }
 }
 
