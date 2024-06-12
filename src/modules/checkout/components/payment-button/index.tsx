@@ -243,15 +243,22 @@ type PaymentButtonProps = {
 }
 
 const PaymentButton: React.FC<PaymentButtonProps> = ({ cart }) => {
+  // const notReady =
+  //   !cart ||
+  //   !cart.shipping_address ||
+  //   !cart.billing_address ||
+  //   !cart.email ||
+  //   cart.shipping_methods.length < 1
+  //     ? true
+  //     : false
   const notReady =
-    !cart ||
-    !cart.shipping_address ||
-    !cart.billing_address ||
-    !cart.email ||
-    cart.shipping_methods.length < 1
-      ? true
-      : false
-
+  !cart ||
+  !cart.shipping_address ||
+  !cart.billing_address ||
+  !cart.email ||
+  (!cart.items.every((item) => item.is_giftcard) && cart.shipping_methods.length < 1)
+    ? true
+    : false;
       
   const paymentSession = cart.payment_session as PaymentSession
 
