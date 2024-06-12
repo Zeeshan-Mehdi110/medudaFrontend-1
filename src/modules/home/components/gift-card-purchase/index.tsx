@@ -5,12 +5,12 @@ import silverGiftBox from "/public/silverGiftBox.jpg"
 import Image from "next/image"
 import { Poppins } from 'next/font/google'
 import { Button } from "@medusajs/ui"
- 
+ import { useTranslation } from "react-i18next" 
 // If loading a variable font, you don't need to specify the font weight
 const inter = Poppins({subsets:["latin"], weight: "600"})
 const GiftCardBanner = () => {
   const router = useRouter()
-
+const { t } = useTranslation()
   const handleRedirect = () => {
     router.push("/products/pixels-journey-gift-card")
   }
@@ -25,11 +25,11 @@ const GiftCardBanner = () => {
         className="z-0 min-h-[15rem]"
       />
       <div className="gift-card-banner-text">
-        <h2 className="text-4xl font-bold mb-4">Everyone loves gifts!</h2>
+        <h2 className="text-4xl font-bold mb-4">{t("gift-voucher-title")}</h2>
         <p className="text-lg mb-8">
-          Surprise your loved ones with a gift card! Perfect for any occasion.
+          {t("gift-voucher-description")}
         </p>
-        <Button variant={"secondary"} className="min-w-[12rem]" onClick={handleRedirect}>Buy A Gift Card</Button>
+        <Button variant={"secondary"} className="min-w-[12rem]" onClick={handleRedirect}>{t("gift-voucher-button-text")}</Button>
       </div>
     </div>
   )
