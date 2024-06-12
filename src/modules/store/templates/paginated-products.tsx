@@ -65,7 +65,7 @@ export default async function PaginatedProducts({
     sortBy,
     countryCode,
   });
-  products = products.filter((p) => p.handle !== "custom-print");
+  products = products.filter((p) => (p.handle !== "custom-print" && p.is_giftcard == false));
 
   const totalPages = Math.ceil(count / PRODUCT_LIMIT);
 
