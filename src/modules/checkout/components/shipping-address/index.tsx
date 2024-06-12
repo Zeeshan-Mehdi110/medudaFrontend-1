@@ -18,7 +18,7 @@ const ShippingAddress = ({
   cart: Omit<Cart, "refundable_amount" | "refunded_total"> | null
   checked: boolean
   onChange: () => void
-  countryCode: string,
+  countryCode: string
   locale: string
 }) => {
   const [formData, setFormData] = useState({
@@ -33,6 +33,9 @@ const ShippingAddress = ({
     "shipping_address.province": cart?.shipping_address?.province || "",
     email: cart?.email || "",
     "shipping_address.phone": cart?.shipping_address?.phone || "",
+    isGiftCardOnly: cart?.items.every((item) => item.is_giftcard)
+      ? "true"
+      : "false" || "false",
   })
 
   const countriesInRegion = useMemo(
@@ -48,7 +51,7 @@ const ShippingAddress = ({
       ),
     [customer?.shipping_addresses, countriesInRegion]
   )
-const { t } = useTranslation()
+  const { t } = useTranslation()
   useEffect(() => {
     setFormData({
       "shipping_address.first_name": cart?.shipping_address?.first_name || "",
@@ -62,6 +65,9 @@ const { t } = useTranslation()
       "shipping_address.province": cart?.shipping_address?.province || "",
       email: cart?.email || "",
       "shipping_address.phone": cart?.shipping_address?.phone || "",
+      isGiftCardOnly: cart?.items.every((item) => item.is_giftcard)
+        ? "true"
+        : "false" || "false",
     })
   }, [cart?.shipping_address, cart?.email])
 
@@ -81,9 +87,15 @@ const { t } = useTranslation()
       {customer && (addressesInRegion?.length || 0) > 0 && (
         <Container className="mb-6 flex flex-col gap-y-4 p-5">
           <p className="text-small-regular">
-            {`${t("hi")} ${customer.first_name}, ${t("do-you-want-to-use-one-of-your-saved-addresses")}`}
+            {`${t("hi")} ${customer.first_name}, ${t(
+              "do-you-want-to-use-one-of-your-saved-addresses"
+            )}`}
           </p>
-          <AddressSelect locale={locale} addresses={customer.shipping_addresses} cart={cart} />
+          <AddressSelect
+            locale={locale}
+            addresses={customer.shipping_addresses}
+            cart={cart}
+          />
         </Container>
       )}
       <div className="grid grid-cols-2 gap-4">
@@ -175,6 +187,11 @@ const { t } = useTranslation()
           autoComplete="tel"
           value={formData["shipping_address.phone"]}
           onChange={handleChange}
+        />
+        <input
+          type="hidden"
+          name="isGiftCardOnly"
+          value={formData["isGiftCardOnly"]}
         />
       </div>
     </>
