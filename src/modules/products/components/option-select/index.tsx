@@ -32,10 +32,11 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
       pv.options[0].metadata = pv.metadata;
     }
   });
+  const filteredOptions = option.values.map((v) => v.value).filter(onlyUnique)
    //@ts-ignore
    const options = productVariants.map(pv => pv.options[0]);
    option.values = options;
-  const filteredOptions = option.values.map((v) => v.value).filter(onlyUnique)
+
  const { t } = useTranslation()
   return (
     <div className="flex flex-col gap-y-3">
