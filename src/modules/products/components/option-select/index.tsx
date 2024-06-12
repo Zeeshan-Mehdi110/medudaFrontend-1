@@ -56,7 +56,8 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
                 }
               )}
             >
-              <TextConvertor locale={locale} title={v} metadata={ options.find((o) => o.value === v)?.metadata && options.find((o) => o.value === v)?.metadata["name"] ? JSON.stringify(options.find((o) => o.value === v)?.metadata["name"]) as any : null} ></TextConvertor>
+              {/* <TextConvertor locale={locale} title={v} metadata={ options.find((o) => o.value === v)?.metadata && options.find((o) => o.value === v)?.metadata["name"] ? JSON.stringify(options.find((o) => o.value === v)?.metadata["name"]) as any : null} ></TextConvertor> */}
+              {v}
             </button>
           )
         })}
