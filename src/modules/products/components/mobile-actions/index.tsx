@@ -107,7 +107,7 @@ const MobileActions: React.FC<MobileActionsProps> = ({
                   <span>
                     {variant
                       ? Object.values(options).join(" / ")
-                      : "Select Options"}
+                      :t("select-options")}
                   </span>
                   <ChevronDown />
                 </div>
