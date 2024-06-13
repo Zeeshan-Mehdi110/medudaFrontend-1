@@ -17,10 +17,15 @@ const { t } = useTranslation()
   const paidByGiftcard =
     cart?.gift_cards && cart?.gift_cards?.length > 0 && cart?.total === 0
 
+  // const previousStepsCompleted =
+  //   cart.shipping_address &&
+  //   (paidByGiftcard ||cart.items.every((item) => item.is_giftcard) || cart.shipping_methods.length > 0)  &&
+  //   cart.payment_session
+
   const previousStepsCompleted =
-    cart.shipping_address &&
-    (paidByGiftcard ||cart.items.every((item) => item.is_giftcard) || cart.shipping_methods.length > 0)  &&
-    cart.payment_session
+  cart.shipping_address &&
+  (cart.items.every((item) => item.is_giftcard) || cart.shipping_methods.length > 0)  &&
+  (cart.payment_session || paidByGiftcard)
 
   return (
     <div className="bg-white dark:text-white dark:bg-black">
