@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, useEffect, useMemo } from "react"
 import { Address, Cart, Customer } from "@medusajs/medusa"
 import Checkbox from "@modules/common/components/checkbox"
