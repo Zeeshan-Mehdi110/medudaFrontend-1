@@ -106,7 +106,7 @@ const PaymentContainer: React.FC<PaymentContainerProps> = ({
   locale
 }) => {
   const isDevelopment = process.env.NODE_ENV === "development"
-  const tranlationObj = paymentMethodsTranslations[paymentInfoMap[paymentSession.provider_id]?.title?.toLowerCase()]
+  const tranlationObj = paymentMethodsTranslations !== null && paymentMethodsTranslations[paymentInfoMap[paymentSession.provider_id]?.title?.toLowerCase()]
   
  
   return (
