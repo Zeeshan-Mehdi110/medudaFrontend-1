@@ -238,6 +238,7 @@ import React, { useState } from "react"
 import ErrorMessage from "../error-message"
 import Spinner from "@modules/common/icons/spinner"
 import { useTranslation } from "react-i18next"
+import { medusaClient } from "@lib/config"
 type PaymentButtonProps = {
   cart: Omit<Cart, "refundable_amount" | "refunded_total">
 }
@@ -260,8 +261,16 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({ cart }) => {
     ? true
     : false;
       
-  const paymentSession = cart.payment_session as PaymentSession
+  // const paymentSession = cart.payment_session as PaymentSession
 
+  const paidByGiftcard =
+  cart?.gift_cards && cart?.gift_cards?.length > 0 && cart?.total === 0
+  if(paidByGiftcard && !cart.payment_session){
+    medusaClient.carts.setPaymentSession(cart.id, {
+      provider_id: "manual",
+    });
+  }  
+ const paymentSession = cart.payment_session as PaymentSession
   switch (paymentSession.provider_id) {
     case "stripe":
       return <StripePaymentButton notReady={notReady} cart={cart} />

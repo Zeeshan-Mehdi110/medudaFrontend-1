@@ -152,7 +152,10 @@ export async function setAddresses(currentState: unknown, formData: FormData) {
   } catch (error: any) {
     return error.toString()
   }
-  if(formData.get("isGiftCardOnly") === "true"){
+  if(formData.get("isGiftCardOnly") === "true" && formData.get("paidByGiftcard") === "true"){
+    redirect(`/${formData.get("shipping_address.country_code")}/${locale}/checkout?step=review`)
+  }
+  if(formData.get("isGiftCardOnly") === "true" && formData.get("paidByGiftcard") === "false"){
     redirect(`/${formData.get("shipping_address.country_code")}/${locale}/checkout?step=payment`)
   }
   else{
