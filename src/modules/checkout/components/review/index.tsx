@@ -24,9 +24,9 @@ const { t } = useTranslation()
 
   const previousStepsCompleted =
   cart.shipping_address &&
-  (cart.items.every((item) => item.is_giftcard) || cart.shipping_methods.length > 0)  &&
-  (cart.payment_session || paidByGiftcard)
-
+  (paidByGiftcard ||cart.items.every((item) => item.is_giftcard) || cart.shipping_methods.length > 0)  &&
+  cart.payment_session
+  
   return (
     <div className="bg-white dark:text-white dark:bg-black">
       <div className="flex flex-row items-center justify-between mb-6">
