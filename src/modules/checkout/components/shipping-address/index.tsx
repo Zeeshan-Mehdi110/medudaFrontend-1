@@ -21,6 +21,8 @@ const ShippingAddress = ({
   countryCode: string
   locale: string
 }) => {
+  const paidByGiftcard =
+  cart?.gift_cards && cart?.gift_cards?.length > 0 && cart?.total === 0
   const [formData, setFormData] = useState({
     "shipping_address.first_name": cart?.shipping_address?.first_name || "",
     "shipping_address.last_name": cart?.shipping_address?.last_name || "",
@@ -34,8 +36,9 @@ const ShippingAddress = ({
     email: cart?.email || "",
     "shipping_address.phone": cart?.shipping_address?.phone || "",
     isGiftCardOnly: cart?.items.every((item) => item.is_giftcard)
-      ? "true"
-      : "false" || "false",
+        ? "true"
+        : "false" || "false",
+    paidByGiftcard: paidByGiftcard ? "true" : "false" || "false",
   })
 
   const countriesInRegion = useMemo(
@@ -68,6 +71,7 @@ const ShippingAddress = ({
       isGiftCardOnly: cart?.items.every((item) => item.is_giftcard)
         ? "true"
         : "false" || "false",
+        paidByGiftcard: paidByGiftcard  ? "true" : "false" || "false",
     })
   }, [cart?.shipping_address, cart?.email])
 
@@ -192,6 +196,11 @@ const ShippingAddress = ({
           type="hidden"
           name="isGiftCardOnly"
           value={formData["isGiftCardOnly"]}
+        />
+           <input
+          type="hidden"
+          name="paidByGiftcard"
+          value={formData["paidByGiftcard"]}
         />
       </div>
     </>
