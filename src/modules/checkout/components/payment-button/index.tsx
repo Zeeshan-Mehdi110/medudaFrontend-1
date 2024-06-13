@@ -265,13 +265,9 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({ cart }) => {
 
   const paidByGiftcard =
   cart?.gift_cards && cart?.gift_cards?.length > 0 && cart?.total === 0
-  if(paidByGiftcard && !cart.payment_session){
-    medusaClient.carts.setPaymentSession(cart.id, {
-      provider_id: "manual",
-    });
-  }  
+
  const paymentSession = cart.payment_session as PaymentSession
-  switch (paymentSession.provider_id) {
+  switch (paymentSession?.provider_id !== null? paymentSession.provider_id : "manual") {
     case "stripe":
       return <StripePaymentButton notReady={notReady} cart={cart} />
     case "manual":
