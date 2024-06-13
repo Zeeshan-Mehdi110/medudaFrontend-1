@@ -266,7 +266,12 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({ cart }) => {
   const paidByGiftcard =
   cart?.gift_cards && cart?.gift_cards?.length > 0 && cart?.total === 0
   const paymentSession = cart.payment_session as PaymentSession
-const provider = paymentSession?.provider_id !== null? paymentSession.provider_id : "manual"
+  let provider;
+  if (paymentSession && paymentSession.provider_id !== null) {
+    provider = paymentSession.provider_id;
+  } else {
+    provider = "manual";
+  }
  
   switch (provider) {
     case "stripe":
