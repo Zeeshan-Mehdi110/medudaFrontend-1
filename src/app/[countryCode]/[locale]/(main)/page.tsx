@@ -8,11 +8,11 @@ import { getRegion } from "app/actions"
 import { ProductCollectionWithPreviews } from "types/global"
 import GiftCardBanner from "@modules/home/components/gift-card-purchase"
 
-export const metadata: Metadata = {
-  title: "Pixels Journey Store",
-  description:
-    "A performant frontend ecommerce starter template with Next.js 14 and Medusa.",
-}
+// export const metadata: Metadata = {
+//   title: "Pixels Journey Store",
+//   description:
+//     "A performant frontend ecommerce starter template with Next.js 14 and Medusa.",
+// }
 
 const getCollectionsWithProducts = async (
   countryCode: string

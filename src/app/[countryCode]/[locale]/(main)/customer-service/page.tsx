@@ -3,6 +3,27 @@ import Link from 'next/link';
 import initTranslations from 'app/i18n';
 import CustomerServiceComponent from '@modules/customer-service';
 import ContactUs from '@modules/contact-us';
+import { Metadata, ResolvingMetadata } from 'next';
+
+
+export async function generateMetadata(
+  { params }: { params: { locale: string } },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+
+  const { t } = await initTranslations(params.locale, ['common']);
+  const translatedKeywords = t("pixels-journey-customer-service-keywords").split(', ');
+
+  return {
+    title: t("pixels-journey-customer-service"),
+    description: t("pixels-journey-customer-service-description"),
+    keywords: translatedKeywords,
+    openGraph: {
+      images: ['/opengraph-image.png']
+    }
+  };
+}
+
 
 export default async function CustomerService({params}: {params: any}) {
   const {locale} = params;
