@@ -68,13 +68,12 @@ export async function generateMetadata(
   { params }: { params: { locale: string; id: string } },
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  
   const posts = await fetchBlogPosts(params.locale, null);
   const post = posts.find((post: any) => post.attributes.uniqueId === params.id);
   return {
-    title: post.attributes.title,
-    description: post.attributes.title,
-    keywords: post.attributes[`tags_${params.locale}` as keyof PostAttributes],
+    title: post?.attributes?.title || "Blog Post Title not found",
+    description: post?.attributes?.title || "Blog Post not found",
+    keywords: post?.attributes[`tags_${params.locale}` as keyof PostAttributes || []],
     openGraph: { images: ["/blog-hero-image.jpg"] },
   }
 }

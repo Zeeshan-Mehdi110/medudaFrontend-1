@@ -6,7 +6,7 @@ import { convertToDDMMYYYY, fetchBlogPosts } from '@modules/blog';
 import { useParams } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 // Assuming fetchBlogPosts and BlogPostBody are imported correctly
-
+import { Poppins } from 'next/font/google';
 type PostAttributes = {
   uniqueId: string;
   blogBody: any; // Specify the correct type for blogBody
@@ -21,7 +21,7 @@ type BlogPost = {
   id: number;
   attributes: PostAttributes;
 };
-
+const poppins = Poppins({ subsets: ['latin'], weight: '600' });
 const BlogPostPage: React.FC<{params:any}> = ({params}: {params: any}) => {
   const [post, setPost] = useState<BlogPost | null>(null);
   const uniqueId = useParams().id;
@@ -44,7 +44,9 @@ const { t } = useTranslation();
   }, [uniqueId, locale]); // Dependency array includes uniqueId and locale to refetch if these change
 
   if (!post) {
-    return <div>Loading...</div>;
+    return <div className="h-96 flex flex-col justify-center text-center">
+      <h1 className={`${poppins.className} text-2xl`}>{t("no-posts-found")}</h1>
+     </div>;
   }
 
   return (
