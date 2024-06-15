@@ -35,7 +35,6 @@ const { t } = useTranslation();
         const matchedPost = fetchedPosts.find(post => post.attributes.uniqueId === uniqueId);
 
         if (matchedPost) {
-          console.log(matchedPost);
           setPost(matchedPost);
         }
       }
