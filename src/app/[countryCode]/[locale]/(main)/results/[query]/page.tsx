@@ -31,8 +31,8 @@ export default async function SearchResults({ params, searchParams }: Params) {
   const { query } = params
   const { sortBy, page } = searchParams
 
-  const hits = await search(query).then((data) => data)
-
+  let hits = await search(query).then((data) => data)
+  hits = hits.filter((h) => h.handle !== "custom-print" && h.is_giftcard === false)
   const ids = hits
     .map((h) => h.objectID || h.id)
     .filter((id): id is string => {
