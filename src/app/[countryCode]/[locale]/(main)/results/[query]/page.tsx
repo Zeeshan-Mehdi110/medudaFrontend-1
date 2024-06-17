@@ -4,10 +4,19 @@ import SearchResultsTemplate from "@modules/search/templates/search-results-temp
 
 import { search } from "@modules/search/actions"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
+import initTranslations from "app/i18n";
 
-export const metadata: Metadata = {
-  title: "Search",
-  description: "Explore all of our products.",
+export async function generateMetadata({ params }: Params): Promise<Metadata> {
+  const { locale, query, countryCode } = params;
+  const { t } = await initTranslations(locale, ['common']);
+  return {
+    title: `${t("search-results-for")} ${query}`,
+    description: t("pixels-journey-store-page-seo-description"),
+    alternates: {
+      canonical: `${countryCode}/${locale}/search/${query}`,
+    }
+  }
+
 }
 
 type Params = {
