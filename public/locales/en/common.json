@@ -270,5 +270,11 @@
   "payment-failed": "Payment failed",
   "sign-in-to-view-your-pixels-journey-account": "Sign in to view your Pixels Journey account",
   "overview-of-your-account-activity": "Overview of your account activity",
-  "contact-us-success-message": "Your message has been sent successfully. We will get back to you as soon as possible."
+  "contact-us-success-message": "Your message has been sent successfully. We will get back to you as soon as possible.",
+  "fast-delivery": "Fast delivery",
+  "fast-delivery-description": "Your package will arrive in 3-5 business days at your pick up location or in the comfort of your home.",
+  "simple-exchanges": "Simple exchanges",
+  "simple-exchanges-description": "Is the fit not quite right? No worries - we'll exchange your product for a new one.",
+  "easy-returns": "Easy returns",
+  "easy-returns-description": "Just return your product and we'll refund your money. No questions asked – we'll do our best to make sure your return is hassle-free."
 }
