@@ -24,7 +24,7 @@ const SideMenuItems = {
   Search: "/search",
   GiftCards: "products/pixels-journey-gift-card",
   Blog: "/blog",
-  Contact: "/customer-service",
+  CustomerService: "/customer-service",
 }
 
 
