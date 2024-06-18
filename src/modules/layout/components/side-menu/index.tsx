@@ -18,11 +18,13 @@ const { t } = useTranslation()
 
 const SideMenuItems = {
   Home: "/",
-  Store: "/store",
-  Search: "/search",
   Account: "/account",
   Cart: "/cart",
+  Store: "/store",
+  Search: "/search",
+  GiftCards: "products/pixels-journey-gift-card",
   Blog: "/blog",
+  Contact: "/customer-service",
 }
 
 
