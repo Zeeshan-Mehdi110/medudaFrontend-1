@@ -22,7 +22,7 @@ const SideMenuItems = {
   Cart: "/cart",
   Store: "/store",
   Search: "/search",
-  GiftCards: "products/pixels-journey-gift-card",
+  GiftCards: "/products/pixels-journey-gift-card",
   Blog: "/blog",
   CustomerService: "/customer-service",
 }
