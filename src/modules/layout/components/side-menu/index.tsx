@@ -72,7 +72,7 @@ const SideMenu = ({ regions }: { regions: Region[] | null }) => {
                             >
                               <LocalizedClientLink
                                 href={href}
-                                className={`text-3xl leading-10 hover:text-ui-fg-disabled`}
+                                className={`text-2xl leading-10 hover:text-ui-fg-disabled`}
                                 onClick={close}
                               >
                                 {t(name.toLowerCase())}
