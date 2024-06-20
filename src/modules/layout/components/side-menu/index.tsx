@@ -53,10 +53,10 @@ const SideMenu = ({ regions }: { regions: Region[] | null }) => {
                         <XMark />
                       </button>
                     </div>
-                    <div className="w-full flex justify-center items-center">
+                    <div className="w-full flex justify-center items-center relative">
                       {" "}
                       <img
-                        className="sm:scale-100 scale-80 max-w-[150px] min-w-[150px]"
+                        className="absolute bottom-0 sm:scale-100 scale-80 max-w-[150px] min-w-[150px] "
                         alt="navigation bar logo"
                         id="nav-logo"
                         src="/rr.svg"
