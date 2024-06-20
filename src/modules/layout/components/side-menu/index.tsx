@@ -62,7 +62,7 @@ const SideMenu = ({ regions }: { regions: Region[] | null }) => {
                         src="/rr.svg"
                       ></img>
                     </div>
-                    <ul className="flex flex-col gap-6 items-start justify-start ">
+                    <ul className="flex flex-col gap-6 items-start justify-start pb-6 ">
                       {Object.entries(SideMenuItems).map(
                         ([name, href], ind) => {
                           return (
