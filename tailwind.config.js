@@ -40,6 +40,7 @@ module.exports = {
         // 'gold':'#FFE7E0',
         'gold':'#F8E8D8',
         'gray' : '#F0F0F0',
+        'gray-300':"#1f2937",
         scale: {
           '60': '0.6',
           '70': '0.7',
