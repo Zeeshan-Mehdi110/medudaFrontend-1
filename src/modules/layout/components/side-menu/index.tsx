@@ -15,13 +15,13 @@ const SideMenu = ({ regions }: { regions: Region[] | null }) => {
 
   const SideMenuItems = {
     Home: "/",
-    Store: "/store",
-    Search: "/search",
     Account: "/account",
     Cart: "/cart",
-    Blog: "/blog",
-    Contact: "/customer-service",
+    Store: "/store",
+    Search: "/search",
     GiftCards: "/products/pixels-journey-gift-card",
+    Blog: "/blog",
+    CustomerService: "/customer-service",
   }
 
   return (
