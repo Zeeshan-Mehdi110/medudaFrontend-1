@@ -1,18 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '.env.local') });
-const { localesJsVersion } = require('../newmedusastore-storefront/configJs/configJsVersion');
 
-
-// Check if the config file exists and assign locales accordingly
-let locales;
-if (localesJsVersion) {
-  locales = localesJsVersion;
-  console.log(`Loaded locales from config file: ${locales}`);
-} else {
-  locales = ['en', 'ru', 'he'];
-  console.log(`Config file not found. Using default locales: ${locales}`);
-}
+const locales = ['en', 'ru', 'he'];
 
 
 async function listRegions() {
