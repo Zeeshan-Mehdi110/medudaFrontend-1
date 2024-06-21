@@ -1,8 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '.env.local') });
-const { locales } = require('../newmedusastore-storefront/config/config');
+// const { locales } = require('../newmedusastore-storefront/config/config');
 
+const locales = ["en", "he", "ru"];
 
 
 async function listRegions() {
