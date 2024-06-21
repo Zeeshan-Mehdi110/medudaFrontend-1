@@ -1,15 +1,13 @@
 const fs = require('fs');
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '.env.local') });
-// const { locales } = require('../newmedusastore-storefront/config/config');
+const { localesJsVersion } = require('../newmedusastore-storefront/config/configJsVersion');
 
-const configPath = path.resolve(__dirname, '../newmedusastore-storefront/config/config');
-console.log('Resolved configPath:', configPath);
+
 // Check if the config file exists and assign locales accordingly
 let locales;
-if (fs.existsSync(configPath)) {
-  const config = require(configPath);
-  locales = config.locales;
+if (localesJsVersion) {
+  locales = localesJsVersion;
   console.log(`Loaded locales from config file: ${locales}`);
 } else {
   locales = ['en', 'ru', 'he'];
