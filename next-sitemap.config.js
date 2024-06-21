@@ -1,3 +1,5 @@
+/** @type {import('next-sitemap').IConfig} */
+
 const excludedPaths = ["/checkout", "/account/*"]
 
 module.exports = {
