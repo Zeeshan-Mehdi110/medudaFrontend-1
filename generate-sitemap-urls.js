@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '.env.local') });
-const { localesJsVersion } = require('../newmedusastore-storefront/config/configJsVersion');
+const { localesJsVersion } = require('../newmedusastore-storefront/configJs/configJsVersion');
 
 
 // Check if the config file exists and assign locales accordingly
