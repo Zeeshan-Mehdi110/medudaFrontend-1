@@ -4,7 +4,7 @@ require('dotenv').config({ path: path.resolve(__dirname, '.env.local') });
 // const { locales } = require('../newmedusastore-storefront/config/config');
 
 const configPath = path.resolve(__dirname, '../newmedusastore-storefront/config/config');
-
+console.log('Resolved configPath:', configPath);
 // Check if the config file exists and assign locales accordingly
 let locales;
 if (fs.existsSync(configPath)) {
