@@ -18,6 +18,20 @@ if (fs.existsSync(configPath)) {
 }
 
 
+async function fetchBlogPosts(locale) {
+  try {
+    const response = await fetch(`https://strapi-blog-m4go.onrender.com/api/blog-posts?locale=${locale}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const { data } = await response.json();
+    return data;
+  } catch (error) {
+    console.error(`Error fetching blog posts for locale ${locale}:`, error);
+    return [];
+  }
+}
+
 async function listRegions() {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/store/regions`);
@@ -49,6 +63,28 @@ async function generatePaths() {
       });
     });
   });
+
+
+  for (const locale of locales) {
+    const blogPosts = await fetchBlogPosts(locale);
+
+    if (blogPosts.length === 0) {
+      continue;
+    }
+
+    // Add blog post paths with countryCode and locale
+    blogPosts.forEach((post) => {
+      countryCodes.forEach((countryCode) => {
+        paths.push({
+          href: `${baseUrl}/${countryCode}/${locale}/blog/${post.attributes.uniqueId}`,
+          hreflang: locale,
+        });
+      });
+    });
+
+    console.log(`Fetched ${blogPosts.length} blog posts for locale ${locale}`);
+  }
+
 
   return paths;
 }
