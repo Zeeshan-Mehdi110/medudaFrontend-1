@@ -1,7 +1,7 @@
 "use client"
 import React from "react"
 import { useRouter } from "next/navigation"
-import silverGiftBox from "/public/silverGiftBox.jpg"
+import silverGiftBox from "/public/2148465527.jpg"
 import Image from "next/image"
 import { Poppins } from 'next/font/google'
 import { Button } from "@medusajs/ui"
@@ -29,7 +29,7 @@ const { t } = useTranslation()
         <p className="text-lg mb-8">
           {t("gift-voucher-description")}
         </p>
-        <Button variant={"secondary"} className="min-w-[12rem]" onClick={handleRedirect}>{t("gift-voucher-button-text")}</Button>
+        <Button type={"button"} className="min-w-[12rem] custom-button" onClick={handleRedirect}>{t("gift-voucher-button-text")}</Button>
       </div>
     </div>
   )

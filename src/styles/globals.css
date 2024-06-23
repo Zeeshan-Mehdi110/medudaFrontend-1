@@ -26,6 +26,24 @@
     }
   }
   
+  .custom-button {
+    padding: 0.5rem 1rem !important; /* py-2 px-4 */
+    min-height: 1.5rem !important; /* min-h-6 */
+    background-color: #5b21b6 !important; /* bg-violet-800 */
+    color: white !important; /* text-white */
+    font-weight: 600 !important; /* font-semibold */
+    border-radius: 0.5rem !important; /* rounded-lg */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important; /* shadow-md */
+}
+
+.custom-button:hover {
+    background-color: #4c1d95 !important; /* hover:bg-violet-900 */
+}
+
+.custom-button:focus {
+    outline: none !important; /* focus:outline-none */
+    box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.75) !important; /* focus:ring-2 focus:violet-blue-500 focus:ring-opacity-75 */
+}
 
   .gift-card-banner-text {
     position: absolute;
