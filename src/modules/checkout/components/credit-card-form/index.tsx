@@ -567,8 +567,8 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({
     return {
       code: item.id,
       name: item.title,
-      unit_price: (((cart?.total ?? 0) - (shippingTotal * 100 ?? 0)) / numberOfItems) / 100,
-      type: "I",
+      // unit_price: (((cart?.total ?? 0) - (shippingTotal * 100 ?? 0)) / numberOfItems) / 100,
+      unit_price: (item.total  - ((cart?.gift_card_total ?? 0) / numberOfItems)) / 100,
       units_number: item.quantity,
       unit_type: 1,
       price_type: "G",
