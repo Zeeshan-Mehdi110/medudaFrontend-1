@@ -36,7 +36,7 @@ module.exports = {
       },   
       colors: {
         'white-smoke': '#f5f5f5',
-        'dark-navy':'#3A3B48',
+        'dark-navy':'#030712',
         // 'gold':'#FFE7E0',
         'gold':'#F8E8D8',
         'gray' : '#F0F0F0',
