@@ -45,6 +45,36 @@
     box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.75) !important; /* focus:ring-2 focus:violet-blue-500 focus:ring-opacity-75 */
 }
 
+
+.marquee-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid #ddd; /* Light border */
+  padding: 3px 0;
+  box-sizing: border-box;
+}
+
+.marquee {
+  display: inline-block;
+  /* white-space: nowrap; */
+  /* animation: marquee 15s linear infinite; */
+}
+
+
+
+.marquee p {
+  display: inline;
+  font-size: 12px;
+  font-weight: bold;
+  color: 'white'; /* Dark text color */
+  margin: 0;
+}
+
+
+
+
   .gift-card-banner-text {
     position: absolute;
     top: -5px;
