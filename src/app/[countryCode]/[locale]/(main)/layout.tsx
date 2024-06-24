@@ -2,11 +2,8 @@ import { Metadata, ResolvingMetadata } from "next"
 import Footer from "@modules/layout/templates/footer"
 import Nav from "@modules/layout/templates/nav"
 import initTranslations from "app/i18n";
+import PromotionText from "@modules/home/components/promotion-text";
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://localhost:8000"
-
-// export const metadata: Metadata = {
-//   metadataBase: new URL(BASE_URL),
-// }
 
 
 export async function generateMetadata(
@@ -33,6 +30,7 @@ export default async function PageLayout(props: { children: React.ReactNode,para
   return (
     <>
       <Nav> {props.params.locale}</Nav>
+      <PromotionText></PromotionText>
       {props.children}
       <Footer locale={props.params.locale} />
     </>
