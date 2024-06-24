@@ -50,18 +50,13 @@
   display: flex;
   justify-content: center;
   width: 100%;
+  align-items: center;
   overflow: hidden;
-  border: 1px solid #ddd; /* Light border */
-  padding: 3px 0;
   box-sizing: border-box;
 }
 
 .marquee {
   display: inline-block;
-  width: 96%;
-  text-align: center;
-  /* white-space: nowrap; */
-  /* animation: marquee 15s linear infinite; */
 }
 
 
@@ -72,11 +67,8 @@
   font-weight: bold;
   color: 'white'; /* Dark text color */
   margin: 0;
-  padding-left: 5px;
-  padding-right: 5px;
+  
 }
-
-
 
 
   .gift-card-banner-text {
