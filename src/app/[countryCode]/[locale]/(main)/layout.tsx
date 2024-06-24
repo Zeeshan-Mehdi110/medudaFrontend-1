@@ -30,7 +30,6 @@ export default async function PageLayout(props: { children: React.ReactNode,para
   return (
     <>
       <Nav> {props.params.locale}</Nav>
-      <PromotionText></PromotionText>
       {props.children}
       <Footer locale={props.params.locale} />
     </>

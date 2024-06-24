@@ -10,6 +10,7 @@ import initTranslations from "app/i18n"
 import Image from "next/image"
 import { ShoppingCart } from "@medusajs/icons"
 import { Merienda } from 'next/font/google'
+import PromotionText from "@modules/home/components/promotion-text"
 const merienda = Merienda({
   fallback: ['sans-serif'],
   weight: "800",
@@ -83,6 +84,7 @@ export default async function Nav(params:any) {
           </div>
         </nav>
       </header>
+      <PromotionText></PromotionText>
     </div>
   )
 }

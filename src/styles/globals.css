@@ -58,6 +58,8 @@
 
 .marquee {
   display: inline-block;
+  width: 96%;
+  text-align: center;
   /* white-space: nowrap; */
   /* animation: marquee 15s linear infinite; */
 }
