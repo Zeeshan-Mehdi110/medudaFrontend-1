@@ -24,7 +24,7 @@ const handleClosePromotion = () => {
       {isHomePage && isPromotionTextVisible && (
         <>
           <div className="bg-violet-800 w-full flex items-center gap-3 rounded-sm">
-          <div className="w-fit"><a href="/" onClick={handleClosePromotion}><XCircle className="text-white"></XCircle></a></div>
+          <div className="w-fit"><a  onClick={handleClosePromotion}><XCircle className="text-white"></XCircle></a></div>
           
           <div className="marquee-container w-max">
           
