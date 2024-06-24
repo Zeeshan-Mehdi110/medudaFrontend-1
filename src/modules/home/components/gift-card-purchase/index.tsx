@@ -22,7 +22,7 @@ const { t } = useTranslation()
         alt="Gift Card Banner Background"
         objectFit="cover"
         quality={100}
-        className="z-0 lg:h-[33rem] md:h-[28rem]"
+        className="z-0 lg:h-[33rem] md:h-[28rem] xl:h-[38rem] 2xl:h-[40rem]"
       />
       <div className="gift-card-banner-text">
         <h2 className="text-4xl font-bold mb-4">{t("gift-voucher-title")}</h2>
