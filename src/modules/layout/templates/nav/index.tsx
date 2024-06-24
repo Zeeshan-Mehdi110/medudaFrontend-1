@@ -26,7 +26,7 @@ export default async function Nav(params:any) {
     <div className="sticky top-0 inset-x-0 z-50 group ">
        <PromotionText></PromotionText>
       <header className="relative  dark:bg-black bg-ui-bg-subtle h-16 mx-auto border-b duration-200  border-ui-border-base">
-      <nav className="content-container overflow-x-hidden overflow-y-hidden txt-xsmall-plus text-ui-fg-subtle flex items-center justify-between w-full  h-full text-small-regular gap-[2px] pr-2 pl-2">
+      <nav className="content-container overflow-x-hidden overflow-y-hidden txt-xsmall-plus text-ui-fg-subtle flex items-center justify-between w-full  h-full text-small-regular gap-[20px] pr-2 pl-2">
         <div className="flex-1 basis-0 h-full flex items-center sm:justify-between gap-4">
             <div className="h-full">
               <SideMenu regions={regions} />
@@ -48,7 +48,7 @@ export default async function Nav(params:any) {
             </h1>
           </div>
 
-          <div className="flex items-center gap-1 scale-90 sm:scale-100 sm:gap-x-6 h-full flex-1 basis-0 justify-end sm:pl-0">
+          <div className="flex items-center gap-[10px] scale-90 sm:scale-100 sm:gap-x-6 h-full flex-1 basis-0 justify-end sm:pl-0">
             <div className="hidden small:flex items-center gap-x-6 h-full">
               {process.env.FEATURE_SEARCH_ENABLED && (
              <LocalizedClientLink

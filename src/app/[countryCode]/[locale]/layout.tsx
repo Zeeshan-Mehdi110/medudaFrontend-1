@@ -5,6 +5,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://localhost:8000"
 import initTranslations from '../../i18n'
 import { locales } from "../../../../config/config";
 import { listRegions } from "@lib/data";
+import { Poppins } from "next/font/google";
 
 type Props = {
   params: {countryCode: string; locale: string }
@@ -39,7 +40,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: "Pixels Jourey Store",
   }
 }
-
+const inter = Poppins({subsets:["latin"], weight: "600"})
 const i18NameSpaces = ['common','profile',"en"];
 export default async function Layout(props: { children: React.ReactNode, params: { locale: string }}) {
   const { params:{locale} } = props;
@@ -51,7 +52,7 @@ export default async function Layout(props: { children: React.ReactNode, params:
   <TranslationsProvider resources={resources} locale={locale} namespaces={i18NameSpaces} >
     <html lang={locale} data-mode="light" dir={dir}>
       
-      <body className="dark:bg-black">
+    <body className={`dark:bg-black ${inter.className}`}>
         <main className="relative  bg-white-smoke dark:bg-black ">{props.children}
         </main>
       </body>
