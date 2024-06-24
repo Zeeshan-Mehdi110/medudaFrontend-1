@@ -70,6 +70,8 @@
   font-weight: bold;
   color: 'white'; /* Dark text color */
   margin: 0;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 
