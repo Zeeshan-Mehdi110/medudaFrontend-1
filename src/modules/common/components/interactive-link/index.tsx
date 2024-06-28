@@ -1,39 +1,9 @@
-// import { ArrowUpRightMini } from "@medusajs/icons"
-// import { Text } from "@medusajs/ui"
-// import LocalizedClientLink from "../localized-client-link"
-
-// type InteractiveLinkProps = {
-//   href: string
-//   children?: React.ReactNode
-//   onClick?: () => void
-// }
-
-// const InteractiveLink = ({
-//   href,
-//   children,
-//   onClick,
-//   ...props
-// }: InteractiveLinkProps) => {
-//   return (
-//     <LocalizedClientLink
-//       className="flex gap-x-1 items-center group"
-//       href={href}
-//       onClick={onClick}
-//       {...props}
-//     >
-//       <Text className="text-ui-fg-interactive">{children}</Text>
-//       <ArrowUpRightMini
-//         className="group-hover:rotate-45 ease-in-out duration-150"
-//         color="var(--fg-interactive)"
-//       />
-//     </LocalizedClientLink>
-//   )
-// }
-
-// export default InteractiveLink
-import { ArrowUpRightMini, ArrowDownLeftMini } from "@medusajs/icons"
+import { ArrowUpRightMini, ArrowDownLeftMini, ArrowDownCircle } from "@medusajs/icons"
 import { Text } from "@medusajs/ui"
 import LocalizedClientLink from "../localized-client-link"
+import { Poppins } from "next/font/google"
+
+const poppins = Poppins({subsets:["latin"], weight: "600"})
 
 type InteractiveLinkProps = {
   href: string
@@ -57,17 +27,18 @@ const InteractiveLink = ({
 
   return (
     <LocalizedClientLink
-      className={`flex gap-x-1 items-center group ${directionClass}`}
+      className={`flex gap-x-1 items-center group ${directionClass} custom-button `}
       href={href}
       onClick={onClick}
       {...props}
     >
-      <Text className={`text-ui-fg-interactive ${textColor}`}>{children}</Text>
+      <Text className={`${poppins.className} text-white`}>{children}</Text>
       
-      <span className={textColor}>
-        <ArrowUpRightMini
+      <span  className={`${isRtl ? "rotate-90" : "rotate-270"}`}>
+        {/* <ArrowUpRightMini
           className={`ease-in-out duration-150 rotate-on-hover ${isRtl ? "rotate-270" : ""}`}
-        />
+        /> */}
+        <ArrowDownCircle/>
       </span>
     </LocalizedClientLink>
   );
