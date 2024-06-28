@@ -146,6 +146,16 @@ const MySwiperComponent = ({ locale }: { locale: string }) => {
                 </div>
               )}
             </div> */}
+            <div className=" w-full flex justify-center absolute bottom-7">
+              <div className="button-wrapper w-full flex justify-center items-center">
+                <Button
+                  onClick={() => router.push("/store")}
+                  className="custom-button"
+                >
+                  {img.linkText}
+                </Button>
+              </div>
+            </div>
           </div>
         </SwiperSlide>
       ))}
