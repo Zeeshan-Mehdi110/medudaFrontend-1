@@ -64,25 +64,25 @@ const MySwiperComponent = ({ locale }: { locale: string }) => {
   }
 
   const extractData = (apiResponse: any) => {
-    return apiResponse.data.map((item: { attributes: any }) => {
+    return apiResponse?.data?.map((item: { attributes: any }) => {
       const { image, elementsPositions, title, subtitle, link, linkText } =
         item.attributes
       const imageUrl =
-        image.data.length > 0 ? image.data[0].attributes.url : null
+        (image && image.data) && image.data.length > 0 ? image.data[0].attributes.url : null
       const imageName =
-        image.data.length > 0 ? image.data[0].attributes.name : null
+      (image && image.data) && image.data.length > 0 ? image.data[0].attributes.name : null
 
       return {
         title,
         subtitle,
         link: link.replace(/"/g, ""), // Remove double quotes around the link
         elementsPositions: {
-          linkPosition: elementsPositions["link-position"],
-          titlePosition: elementsPositions["title-position"],
-          subtitlePosition: elementsPositions["subtitle-position"],
-          wrapperDivPosition: elementsPositions["wrapper-div-position"],
+          linkPosition: elementsPositions["link-position"] ?? null,
+          titlePosition: elementsPositions["title-position"] ?? null,
+          subtitlePosition: elementsPositions["subtitle-position"] ?? null,
+          wrapperDivPosition: elementsPositions["wrapper-div-position"] ?? null,
           wrapperDivPositionTailwind:
-            elementsPositions["wrapper-div-position-tailwind"],
+            elementsPositions["wrapper-div-position-tailwind"] ?? null,
         },
         imageName,
         imageUrl,
