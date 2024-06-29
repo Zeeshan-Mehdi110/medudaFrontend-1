@@ -11,26 +11,26 @@ import User from "@modules/common/icons/user"
 import MapPin from "@modules/common/icons/map-pin"
 import Package from "@modules/common/icons/package"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
-import{ useTranslation } from "react-i18next"
-import { cookies } from "next/headers"
+import { useTranslation } from "react-i18next"
+
 const AccountNav = ({
   customer,
+  locale,
 }: {
   customer: Omit<Customer, "password_hash"> | null
+  locale?: string
 }) => {
   const route = usePathname()
   const { countryCode } = useParams()
-const { t } = useTranslation()
-const {locale} = useParams()
+  const { t } = useTranslation()
   const handleLogout = async () => {
-     
     await signOut()
   }
 
   return (
     <div>
       <div className="small:hidden">
-        {route !== `/${countryCode}/${locale}/account` ?  (
+        {route !== `/${countryCode}/${locale}/account` ? (
           <LocalizedClientLink
             href="/account"
             className="flex items-center gap-x-2 text-small-regular py-2"
@@ -43,7 +43,7 @@ const {locale} = useParams()
         ) : (
           <>
             <div className="text-xl-semi mb-4 px-8">
-            {t("hello")} {customer?.first_name}
+              {t("hello")} {customer?.first_name}
             </div>
             <div className="text-base-regular">
               <ul>
@@ -68,7 +68,7 @@ const {locale} = useParams()
                   >
                     <>
                       <div className="flex items-center gap-x-2">
-                        <Photo/>
+                        <Photo />
                         <span>{t("my-images")}</span>
                       </div>
                       <ChevronDown className="transform -rotate-90" />
@@ -128,32 +128,32 @@ const {locale} = useParams()
             <ul className="flex mb-0 justify-start items-start flex-col gap-y-4">
               <li>
                 <AccountNavLink href="/account" route={route!}>
-                {t("overview")}
+                  {t("overview")}
                 </AccountNavLink>
               </li>
               <li>
                 <AccountNavLink href="/account/profile" route={route!}>
-                {t("profile")}
+                  {t("profile")}
                 </AccountNavLink>
               </li>
               <li>
                 <AccountNavLink href="/account/my-images" route={route!}>
-                {t("my-images")}
+                  {t("my-images")}
                 </AccountNavLink>
               </li>
               <li>
                 <AccountNavLink href="/account/addresses" route={route!}>
-                {t("addresses")}
+                  {t("addresses")}
                 </AccountNavLink>
               </li>
               <li>
                 <AccountNavLink href="/account/orders" route={route!}>
-                {t("orders")}
+                  {t("orders")}
                 </AccountNavLink>
               </li>
               <li className="text-grey-700">
                 <button type="button" onClick={handleLogout}>
-                {t("logout")}
+                  {t("logout")}
                 </button>
               </li>
             </ul>
