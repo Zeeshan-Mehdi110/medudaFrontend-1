@@ -119,6 +119,9 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
           alt={`Product image base`}
           layout="fill"
           objectFit="cover"
+          placeholder="blur"
+          blurDataURL={Buffer.from(displayImages[0].url).toString('base64')}
+          loading="lazy"
         />
         {displayImages[1] && (
           <div
@@ -144,7 +147,9 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
                 width: "100%",
                 boxShadow: "3px 3px 8px 0 rgba(0,0,0,0.5)",
               }}
-           
+              placeholder="blur"
+              blurDataURL={Buffer.from(displayImages[1].url).toString('base64')}
+              loading="lazy"
             />
           </div>
         )}
