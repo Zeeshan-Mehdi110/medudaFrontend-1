@@ -617,7 +617,7 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
         <div className="w-full flex justify-center items-center">
           <Button
             type="submit"
-            className="py-2 px-4 min-w-full min-h-6 bg-blue-800 text-white font-semibold rounded-lg shadow-md hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
+            className="custom-button py-2 px-4 min-w-full min-h-6 bg-blue-800 text-white font-semibold rounded-lg shadow-md hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
           >
             {uploadFileLoading ? (
               <CustomSpinner loading={uploadFileLoading} />
