@@ -4,15 +4,19 @@ import { Region } from "@medusajs/medusa"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import Thumbnail from "../thumbnail"
 import TextConvertor from "../text-convertor"
+import {Poppins} from "next/font/google"
+const poppins = Poppins({subsets:["latin"], weight: "600"})
 export default function ProductPreview({
   productPreview,
   isFeatured,
   locale,
+  textColor,
 }: {
   productPreview: ProductPreviewType
   isFeatured?: boolean
   region: Region
-  locale: string
+  locale: string,
+  textColor?: string
 }) {
 
 
@@ -28,7 +32,7 @@ export default function ProductPreview({
           isFeatured={isFeatured}
         />
         <div className="flex txt-compact-medium mt-4 justify-between">
-          <Text className="text-ui-fg-subtle"><TextConvertor locale={locale} title={productPreview.title} metadata={productPreview?.metadata?.title ?? null}/></Text>
+        <Text className={`text-ui-fg-subtlee ${textColor} ${poppins.className}`}><TextConvertor locale={locale} title={productPreview.title} metadata={productPreview?.metadata?.title ?? null}/></Text>
           <div className="flex items-center gap-x-2">
           </div>
         </div>

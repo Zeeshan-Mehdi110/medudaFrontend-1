@@ -93,6 +93,7 @@ export default async function ProductRail({
                 region={region}
                 isFeatured
                 locale={locale ?? "en"}
+                textColor={textColor}
               />
             </li>
           ))}
