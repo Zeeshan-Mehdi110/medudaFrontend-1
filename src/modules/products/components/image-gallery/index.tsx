@@ -149,7 +149,7 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
               }}
               placeholder="blur"
               blurDataURL={Buffer.from(displayImages[1].url).toString('base64')}
-              loading="lazy"
+              loading="eager"
             />
           </div>
         )}
