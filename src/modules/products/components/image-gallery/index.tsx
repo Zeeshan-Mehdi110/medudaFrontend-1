@@ -121,7 +121,7 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
           objectFit="cover"
           placeholder="blur"
           blurDataURL={Buffer.from(displayImages[0].url).toString('base64')}
-          loading="lazy"
+          loading="eager"
         />
         {displayImages[1] && (
           <div
