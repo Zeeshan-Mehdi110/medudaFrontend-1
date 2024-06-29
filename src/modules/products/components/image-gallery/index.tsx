@@ -134,9 +134,10 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
             id="scalable-image"
             {...(widthAttribute ? { "data-width": widthAttribute } : {})}
           >
-            <img
+            <Image
               src={displayImages[1].url}
               className="absolute"
+              layout="fill"
               alt={`Product image mockup`}
               style={{
                 height: "100%",
