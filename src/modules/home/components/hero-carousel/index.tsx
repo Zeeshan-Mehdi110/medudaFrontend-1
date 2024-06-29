@@ -40,7 +40,7 @@ const MySwiperComponent = ({ locale }: { locale: string }) => {
     )
       .then((response) => response.json())
       .then((data) => {
-        let items = extractData(data)
+        let items = extractData(data) || [];
         setImages(items)
       })
       .catch((error) => console.error("Error fetching images:", error))
