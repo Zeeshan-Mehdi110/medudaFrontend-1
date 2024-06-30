@@ -454,7 +454,7 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
                 {t("confirm-delete-image-action")}
               </Dialog.Description>
               <div className="flex justify-center gap-3">
-                <Button className="mt-4 mr-2" onClick={closeModal}>
+                <Button variant={"danger"} className="mt-4 mr-2" onClick={closeModal}>
                   {t("cancel")}
                 </Button>
                 <Button
