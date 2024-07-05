@@ -188,29 +188,29 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
     fetchData().catch(console.error)
   }, [fetchData])
 
-  // const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-  //   if (event.target.files && event.target.files[0]) {
-  //     const selectedFile = event.target.files[0]
-  //     setFile(selectedFile)
-  //     const reader = new FileReader()
-  //     reader.onloadend = () => {
-  //       if (reader.result) {
-  //         const base64 = reader.result
-  //           .toString()
-  //           .replace(/^data:.+;base64,/, "")
-  //         setBase64String(base64)
-  //       }
-  //     }
-  //     reader.readAsDataURL(selectedFile)
-  //   }
-  // }
-
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const selectedFile = event.target.files[0]
       setFile(selectedFile)
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        if (reader.result) {
+          const base64 = reader.result
+            .toString()
+            .replace(/^data:.+;base64,/, "")
+          setBase64String(base64)
+        }
+      }
+      reader.readAsDataURL(selectedFile)
     }
   }
+
+  // const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+  //   if (event.target.files && event.target.files[0]) {
+  //     const selectedFile = event.target.files[0]
+  //     setFile(selectedFile)
+  //   }
+  // }
 
   const handleSelectVariant = (variant: any) => {
     setSelectedVariant(variant)
@@ -252,99 +252,26 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
     return parts[parts.length - 2]
   }
 
-  // const uploadImage = async (event: FormEvent) => {
-  //   event.preventDefault()
-  //   if (!base64String) {
-  //     alert(`${t("please-select-a-file-first")}!`)
-  //     return
-  //   }
-  //   setUploadFileLoading(true)
-  //   const session = await getMedusaSession().catch(() => null)
-  //   if(session){
-  //   try {
-  //     const body = {
-  //       image: base64String,
-  //       metadata: JSON.stringify({ name: file?.name }),
-  //       requireSignedURLs: "false",
-  //     }
-  //     const response = await fetch(
-  //       `${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/store/post-images`,
-  //       {
-  //         method: "POST",
-  //         body: JSON.stringify(body),
-  //       }
-  //     )
-
-  //     if (!response.ok) {
-  //       throw new Error(`HTTP error! Status: ${response.status}`)
-  //     }
-  //     if (fileInputRef.current) {
-  //       ;(fileInputRef.current as HTMLInputElement).value = "" // Add type assertion to specify the type as HTMLInputElement
-  //     }
-  //     const data = await response.json()
-  //     const id = data.result?.id // Ensure there's an ID in the response
-
-  //     if (id) {
-  //       if (!customer.metadata) {
-  //         customer.metadata = {}
-  //       }
-  //       if (!customer.metadata.userImages) {
-  //         customer.metadata.userImages = {}
-  //       }
-  //       customer.metadata.userImages[id] = id
-
-  //      await medusaClient.customers
-  //         .update({
-  //           metadata: customer.metadata,
-  //         })
-  //         .then(({ customer }) => {
-  //           const newImageUrl = `https://imagedelivery.net/${process.env.NEXT_PUBLIC_CLOUDFLARE_ACCOUNT_HASH}/${id}/public`
-  //           setImages([...images, newImageUrl])
-  //           setFile(null)
-  //           toast.success(`${t("image-uploaded-successfully")}!`)
-  //         })
-  //         .catch((error) => {
-  //           if (error.response && error.response.status === 401) {
-  //             toast.error(
-  //               "No session found, please login again, redirected to login..."
-  //             ) // Customize the message as needed
-  //              signOut()
-  //           } else {
-  //             // Handle other errors
-  //             toast.error(t("failed-to-update-customer"))
-  //           }
-  //         })
-  //     }
-  //     setUploadFileLoading(false)
-  //   } catch (error) {
-  //     console.error("Failed to upload image:", error)
-  //     toast.error(t("failed-upload-image"))
-  //     setUploadFileLoading(false)
-  //   }
-  // }
-  // }
-
-
   const uploadImage = async (event: FormEvent) => {
     event.preventDefault()
-    if (!file) {
+    if (!base64String) {
       alert(`${t("please-select-a-file-first")}!`)
       return
     }
     setUploadFileLoading(true)
     const session = await getMedusaSession().catch(() => null)
     if(session){
-      console.log("file", file)
     try {
-      const formData = new FormData();
-      formData.append("image", file ?? "");
-      formData.append("metadata", JSON.stringify({ name: file?.name }));
-      formData.append("requireSignedURLs", "false");
+      const body = {
+        image: base64String,
+        metadata: JSON.stringify({ name: file?.name }),
+        requireSignedURLs: "false",
+      }
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/store/post-images`,
         {
           method: "POST",
-          body: formData,
+          body: JSON.stringify(body),
         }
       )
 
@@ -396,6 +323,79 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
     }
   }
   }
+
+
+  // const uploadImage = async (event: FormEvent) => {
+  //   event.preventDefault()
+  //   if (!file) {
+  //     alert(`${t("please-select-a-file-first")}!`)
+  //     return
+  //   }
+  //   setUploadFileLoading(true)
+  //   const session = await getMedusaSession().catch(() => null)
+  //   if(session){
+  //     console.log("file", file)
+  //   try {
+  //     const formData = new FormData();
+  //     formData.append("image", file ?? "");
+  //     formData.append("metadata", JSON.stringify({ name: file?.name }));
+  //     formData.append("requireSignedURLs", "false");
+  //     const response = await fetch(
+  //       `${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/store/post-images`,
+  //       {
+  //         method: "POST",
+  //         body: formData,
+  //       }
+  //     )
+
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP error! Status: ${response.status}`)
+  //     }
+  //     if (fileInputRef.current) {
+  //       ;(fileInputRef.current as HTMLInputElement).value = "" // Add type assertion to specify the type as HTMLInputElement
+  //     }
+  //     const data = await response.json()
+  //     const id = data.result?.id // Ensure there's an ID in the response
+
+  //     if (id) {
+  //       if (!customer.metadata) {
+  //         customer.metadata = {}
+  //       }
+  //       if (!customer.metadata.userImages) {
+  //         customer.metadata.userImages = {}
+  //       }
+  //       customer.metadata.userImages[id] = id
+
+  //      await medusaClient.customers
+  //         .update({
+  //           metadata: customer.metadata,
+  //         })
+  //         .then(({ customer }) => {
+  //           const newImageUrl = `https://imagedelivery.net/${process.env.NEXT_PUBLIC_CLOUDFLARE_ACCOUNT_HASH}/${id}/public`
+  //           setImages([...images, newImageUrl])
+  //           setFile(null)
+  //           toast.success(`${t("image-uploaded-successfully")}!`)
+  //         })
+  //         .catch((error) => {
+  //           if (error.response && error.response.status === 401) {
+  //             toast.error(
+  //               "No session found, please login again, redirected to login..."
+  //             ) // Customize the message as needed
+  //              signOut()
+  //           } else {
+  //             // Handle other errors
+  //             toast.error(t("failed-to-update-customer"))
+  //           }
+  //         })
+  //     }
+  //     setUploadFileLoading(false)
+  //   } catch (error) {
+  //     console.error("Failed to upload image:", error)
+  //     toast.error(t("failed-upload-image"))
+  //     setUploadFileLoading(false)
+  //   }
+  // }
+  // }
 
   return (
     <div>
