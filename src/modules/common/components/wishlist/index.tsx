@@ -55,7 +55,7 @@ const WishList: React.FC<WishListProps> = ({
   return (
     <div className="flex flex-col gap-3">
       <h2>Wish List</h2>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
+      <div style={{ display: "flex", gap: "1rem" }}>
         {wishlist.map((item, index) => (
           <div className="w-[180px]"  key={item.id}>
             {" "}
