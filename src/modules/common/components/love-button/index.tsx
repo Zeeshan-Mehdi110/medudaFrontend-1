@@ -57,7 +57,7 @@ const LoveButton: React.FC<LoveButtonProps> = ({ productPreview, locale }) => {
       if (customer) {
         session = true
 
-        let message
+        let message = "";
         // Initialize the wishlist if it does not exist
         if (!wishlist) {
           wishlist = []
