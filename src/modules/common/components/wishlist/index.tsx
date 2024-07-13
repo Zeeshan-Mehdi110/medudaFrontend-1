@@ -64,6 +64,7 @@ const WishList: React.FC<WishListProps> = ({
               productPreview={item}
               region={region as any}
               locale={locale as string}
+              key={index}
             />
           </div>
         ))}
