@@ -57,14 +57,14 @@ const WishList: React.FC<WishListProps> = ({
       <h2>Wish List</h2>
       <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
         {wishlist.map((item, index) => (
-          <div className="w-[180px]">
+          <div className="w-[180px]"  key={item.id}>
             {" "}
             <ProductPreview
               textColor=""
               productPreview={item}
               region={region as any}
               locale={locale as string}
-              key={index}
+              
             />
           </div>
         ))}
