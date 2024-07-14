@@ -28,7 +28,10 @@ function getCookieValue(name: any) {
 }
 
 const LoveButton: React.FC<LoveButtonProps> = ({ productPreview, locale }) => {
-  const customer = useContext(customerContext) as any
+  // const customer = useContext(customerContext) as any
+
+  const { customer, updateCustomer } = useContext(customerContext) as any
+
   let wishlist = customer?.metadata?.wishlist as any[] | undefined
   const [isInWishlist, setIsInWishlist] = useState(
     wishlist?.find((item) => item.id === productPreview.id)

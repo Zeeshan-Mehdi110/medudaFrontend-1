@@ -22,27 +22,46 @@ import { motion } from "framer-motion"
 import { createContext, useContext, useState, useEffect } from "react"
 import { getCustomer } from "@lib/data"
 
-export const customerContext = createContext(null)
+// export const customerContext = createContext(null)
+
+export const customerContext = createContext({
+  customer: null,
+  updateCustomer: async () => {},
+})
 
 export default function Template({ children }: { children: React.ReactNode }) {
+  // const [customer, setCustomer] = useState<any>(null)
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const customerRetrieved = await getCustomer().catch(() => null)
+  //     if (customerRetrieved) {
+  //       // console.log("customer", customerRetrieved)
+  //       setCustomer(customerRetrieved)
+  //       return;
+  //     }
+  //   }
+
+  //   fetchData()
+  //   return
+  // }, [customer?.metadata?.wishlist])
+
   const [customer, setCustomer] = useState<any>(null)
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const customerRetrieved = await getCustomer().catch(() => null)
-      if (customerRetrieved) {
-        // console.log("customer", customerRetrieved)
-        setCustomer(customerRetrieved)
-        return;
-      }
+  const fetchCustomer = async () => {
+    const customerRetrieved = await getCustomer().catch(() => null)
+    if (customerRetrieved) {
+      setCustomer(customerRetrieved)
     }
+  }
 
-    fetchData()
-    return
-  }, [customer?.metadata?.wishlist])
+  useEffect(() => {
+    fetchCustomer()
+  }, [])
+
 
   return (
-    <customerContext.Provider value={customer}>
+    <customerContext.Provider value={{ customer, updateCustomer: fetchCustomer }}>
       <motion.div
         initial={{ y: 15, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
