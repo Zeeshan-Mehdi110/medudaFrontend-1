@@ -32,6 +32,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
       if (customerRetrieved) {
         console.log("customer", customerRetrieved)
         setCustomer(customerRetrieved)
+        return;
       }
     }
 
@@ -41,11 +42,6 @@ export default function Template({ children }: { children: React.ReactNode }) {
 
   return (
     <customerContext.Provider value={customer}>
-      <input
-        hidden
-        id="customerWishlist"
-        value={JSON.stringify(customer?.metadata?.wishlist)}
-      ></input>
       <motion.div
         initial={{ y: 15, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
