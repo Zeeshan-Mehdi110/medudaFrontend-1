@@ -14,18 +14,59 @@
 //   );
 // }
 
-"use client"
+// "use client"
 
+
+// import { Medusa } from "@medusajs/icons"
+// import { motion } from "framer-motion"
+// import { createContext, useContext, useState, useEffect } from "react"
+// import { getCustomer } from "@lib/data"
+
+// export const customerContext = createContext(null)
+
+// export default function Template({ children }: { children: React.ReactNode }) {
+//   const [customer, setCustomer] = useState<any>(null)
+
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       const customerRetrieved = await getCustomer().catch(() => null)
+//       if (customerRetrieved) {
+//         // console.log("customer", customerRetrieved)
+//         setCustomer(customerRetrieved)
+//         return;
+//       }
+//     }
+
+//     fetchData()
+//     return
+//   }, [customer?.metadata?.wishlist])
+
+//   return (
+//     <customerContext.Provider value={customer}>
+//       <motion.div
+//         initial={{ y: 15, opacity: 0 }}
+//         animate={{ y: 0, opacity: 1 }}
+//         transition={{ ease: "easeInOut", duration: 0.8 }}
+//       >
+//         {children}
+//       </motion.div>
+//     </customerContext.Provider>
+//   )
+// }
+
+
+"use client"
 
 import { Medusa } from "@medusajs/icons"
 import { motion } from "framer-motion"
-import { createContext, useContext, useState, useEffect } from "react"
+import { createContext, useContext, useState, useEffect, useRef } from "react"
 import { getCustomer } from "@lib/data"
 
 export const customerContext = createContext(null)
 
 export default function Template({ children }: { children: React.ReactNode }) {
   const [customer, setCustomer] = useState<any>(null)
+  const prevCustomerRef = useRef<any>(null)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,12 +74,25 @@ export default function Template({ children }: { children: React.ReactNode }) {
       if (customerRetrieved) {
         console.log("customer", customerRetrieved)
         setCustomer(customerRetrieved)
-        return;
       }
     }
 
     fetchData()
-    return
+  }, []) // Empty dependency array to run only once on mount
+
+  useEffect(() => {
+    const fetchUpdatedCustomer = async () => {
+      const customerRetrieved = await getCustomer().catch(() => null)
+      if (customerRetrieved) {
+        console.log("customer", customerRetrieved)
+        setCustomer(customerRetrieved)
+      }
+    }
+
+    if (prevCustomerRef.current !== customer) {
+      prevCustomerRef.current = customer
+      fetchUpdatedCustomer()
+    }
   }, [customer?.metadata?.wishlist])
 
   return (
