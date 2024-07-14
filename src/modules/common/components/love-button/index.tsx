@@ -102,7 +102,7 @@ const LoveButton: React.FC<LoveButtonProps> = ({ productPreview, locale }) => {
           )
           .then(async ({ customer }) => {
             toast.success(message)
-            await updateCustomer()
+            await updateCustomer(customer)
           })
           .catch((error) => {
             if (error.response && error.response.status === 401) {

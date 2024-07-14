@@ -48,8 +48,25 @@ export default function Template({ children }: { children: React.ReactNode }) {
 
   const [customer, setCustomer] = useState<any>(null)
 
-  const fetchCustomer = async () => {
-    const customerRetrieved = await getCustomer().catch(() => null)
+  // const fetchCustomer = async () => {
+  //   const customerRetrieved = await getCustomer().catch(() => null)
+  //   if (customerRetrieved) {
+  //     setCustomer(customerRetrieved)
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   fetchCustomer()
+  // }, [])
+
+  const fetchCustomer = async (customer = null) => {
+    let customerRetrieved;
+    if (customer) {
+      customerRetrieved = customer;
+    } else {
+      customerRetrieved = await getCustomer().catch(() => null);
+    }
+
     if (customerRetrieved) {
       setCustomer(customerRetrieved)
     }
