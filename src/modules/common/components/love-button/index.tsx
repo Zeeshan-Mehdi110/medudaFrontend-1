@@ -103,8 +103,9 @@ const LoveButton: React.FC<LoveButtonProps> = ({ productPreview, locale }) => {
             },
             { Authorization: `Bearer ${getCookieValue("_medusa_jwt")}` }
           )
-          .then(({ customer }) => {
+          .then(async ({ customer }) => {
             toast.success(message)
+            await updateCustomer(customer)
           })
           .catch((error) => {
             if (error.response && error.response.status === 401) {
