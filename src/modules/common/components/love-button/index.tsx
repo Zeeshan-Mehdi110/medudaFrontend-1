@@ -82,14 +82,7 @@ const LoveButton: React.FC<LoveButtonProps> = ({ productPreview, locale }) => {
           newWishlist.push(productPreview)
         }
 
-        const event = new CustomEvent("wishlistChange", {
-          detail: {
-            product: productPreview,
-            action: isInWishlist ? "remove" : "add",
-          },
-          bubbles: true,
-        })
-        document.dispatchEvent(event)
+     
         // Update the customer's metadata with the new wishlist
         customer.metadata.wishlist = newWishlist
 
@@ -101,8 +94,19 @@ const LoveButton: React.FC<LoveButtonProps> = ({ productPreview, locale }) => {
             { Authorization: `Bearer ${getCookieValue("_medusa_jwt")}` }
           )
           .then(async ({ customer }) => {
-            toast.success(message)
-            await updateCustomer(customer)
+          
+            await updateCustomer(customer).then(() => {
+              const event = new CustomEvent("wishlistChange", {
+                detail: {
+                  product: productPreview,
+                  action: isInWishlist ? "remove" : "add",
+                },
+                bubbles: true,
+              })
+              document.dispatchEvent(event)
+              toast.success(message)
+            })
+            
           })
           .catch((error) => {
             if (error.response && error.response.status === 401) {

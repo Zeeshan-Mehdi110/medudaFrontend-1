@@ -1,10 +1,10 @@
 "use client"
 import ProductPreview from "@modules/products/components/product-preview"
-import React, { useEffect, useState } from "react"
+import { customerContext } from "app/[countryCode]/[locale]/template"
+import React, { useContext, useEffect, useState } from "react"
 
 interface WishListProps {
   items?: string[]
-  customer: any
   locale?: string
   countryCode?: string
   region?: any
@@ -12,12 +12,11 @@ interface WishListProps {
 
 const WishList: React.FC<WishListProps> = ({
   items,
-  customer,
   locale,
   region,
 }) => {
 
-
+    const {customer} = useContext(customerContext) as any;
     const [wishlist, setWishlist] = useState<any[]>(customer?.metadata?.wishlist || []);
 
     useEffect(() => {

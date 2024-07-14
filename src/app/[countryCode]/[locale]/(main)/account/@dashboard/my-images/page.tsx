@@ -127,7 +127,7 @@ export default async function MyImages({params}: {params: any}) {
       </div>
       <div className="flex flex-col gap-y-8 w-full">
       <MyImagesComponent countryCode={countryCode} locale={locale} customer={customer}></MyImagesComponent>
-      <WishList customer={customer} locale={locale} region={region} countryCode={countryCode}></WishList>
+      <WishList locale={locale} region={region} countryCode={countryCode}></WishList>
       </div>
     </div>
   )
