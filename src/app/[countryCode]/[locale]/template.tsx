@@ -51,6 +51,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
   const fetchCustomer = async () => {
     const customerRetrieved = await getCustomer().catch(() => null)
     if (customerRetrieved) {
+      console.log("customer", customerRetrieved)
       setCustomer(customerRetrieved)
     }
   }
