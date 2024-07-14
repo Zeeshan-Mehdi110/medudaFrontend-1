@@ -16,6 +16,7 @@
 
 "use client"
 
+
 import { Medusa } from "@medusajs/icons"
 import { motion } from "framer-motion"
 import { createContext, useContext, useState, useEffect } from "react"
