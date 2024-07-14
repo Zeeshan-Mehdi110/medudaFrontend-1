@@ -30,7 +30,6 @@ const WishList: React.FC<WishListProps> = ({
     useEffect(() => {
         const handleWishlistChange = (event: CustomEvent<{ product: any; action: string }>) => {
           const { product, action } = event.detail;
-          console.log("product", product, "action", action);
           setWishlist(prevWishlist => {
             if (action === 'add') {
               return [...prevWishlist, product];
