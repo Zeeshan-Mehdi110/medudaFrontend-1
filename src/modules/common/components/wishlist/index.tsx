@@ -55,7 +55,7 @@ const WishList: React.FC<WishListProps> = ({
   return (
     <div className="flex flex-col gap-3">
       <h2>Wish List</h2>
-      <div className="grid grid-cols-2 sm:grid-cols-4">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-4">
         {wishlist.map((item, index) => (
           <div className="w-[180px]"  key={item.id}>
             {" "}
