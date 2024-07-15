@@ -76,6 +76,11 @@
   font-weight: bold;
 }
 
+.customEllipsePurple rect{
+  display: none;
+}
+
+
 .marquee p {
   display: inline;
   font-size: 12px;

@@ -33,7 +33,7 @@ const isRtl = locale === 'ar' || locale === 'he'
               <div className="relative flex h-full">
                 <Popover.Button className="relative h-full flex items-center transition-all ease-out duration-200 focus:outline-none hover:text-ui-fg-base">
                 <div className="relative">
-                    <EllipsePurpleSolid className={`absolute w-[15px] h-[15px] top-[-6px] ${isRtl? "left-[6px]" : "right-[6px]"} `}/>
+                    <EllipsePurpleSolid className={`customEllipsePurple absolute w-[15px] h-[15px] top-[-6px] ${isRtl? "left-[6px]" : "right-[6px]"} `}/>
                     <BarsThree></BarsThree>
                     {t("menu")}
                   </div>
