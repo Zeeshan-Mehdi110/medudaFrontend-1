@@ -179,7 +179,7 @@ const LoveButton: React.FC<LoveButtonProps> = ({ productPreview, locale }) => {
       )}
       <button
         onClick={getMedusaSession}
-        className="relative top-[31px] right-[4px] z-10 p-[1px] text-red-600 bg-white rounded-md shadow-lg"
+        className={`relative top-[31px]  ${isRtl ? 'right-[4px]' : 'right-[-4px]'} z-10 p-[1px] text-red-600 bg-white rounded-md shadow-lg`}
       >
         {isLoading ? (
           <Spinner />
