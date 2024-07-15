@@ -29,7 +29,7 @@ export default async function Nav(params:any) {
       <nav className="content-container overflow-x-hidden overflow-y-hidden txt-xsmall-plus text-ui-fg-subtle flex items-center justify-between w-full  h-full text-small-regular gap-[20px] pr-2 pl-2">
         <div className="flex-1 basis-0 h-full flex items-center sm:justify-between gap-4">
             <div className="h-full">
-              <SideMenu regions={regions} />
+              <SideMenu locale={locale} regions={regions} />
             </div>
             <div className="sm:hidden"><Theme/></div>
           </div>

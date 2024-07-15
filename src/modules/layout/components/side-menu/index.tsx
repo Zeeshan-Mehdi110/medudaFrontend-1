@@ -1,7 +1,7 @@
 "use client"
 
 import { Popover, Transition } from "@headlessui/react"
-import { ArrowRightMini, BarsThree, XMark } from "@medusajs/icons"
+import { ArrowRightMini, BarsThree, EllipsePurpleSolid, XMark } from "@medusajs/icons"
 import { Region } from "@medusajs/medusa"
 import { Text, clx, useToggleState } from "@medusajs/ui"
 import { Fragment } from "react"
@@ -9,10 +9,10 @@ import { useTranslation } from "react-i18next"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CountrySelect from "../country-select"
 
-const SideMenu = ({ regions }: { regions: Region[] | null }) => {
+const SideMenu = ({ regions, locale }: { regions: Region[] | null, locale:string }) => {
   const toggleState = useToggleState()
   const { t } = useTranslation()
-
+const isRtl = locale === 'ar' || locale === 'he'
   const SideMenuItems = {
     Home: "/",
     Account: "/account",
@@ -32,7 +32,8 @@ const SideMenu = ({ regions }: { regions: Region[] | null }) => {
             <>
               <div className="relative flex h-full">
                 <Popover.Button className="relative h-full flex items-center transition-all ease-out duration-200 focus:outline-none hover:text-ui-fg-base">
-                  <div>
+                <div className="relative">
+                    <EllipsePurpleSolid className={`absolute w-[15px] h-[15px] top-[-6px] ${isRtl? "left-[6px]" : "right-[6px]"} `}/>
                     <BarsThree></BarsThree>
                     {t("menu")}
                   </div>
