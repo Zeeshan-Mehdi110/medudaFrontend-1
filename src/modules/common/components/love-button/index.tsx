@@ -73,11 +73,11 @@ const LoveButton: React.FC<LoveButtonProps> = ({ productPreview, locale }) => {
 
         if (productExists) {
           // Remove the product if it exists
-          message = "Product removed from wishlist"
+          message = t("product_removed_from_wishlist")
           setIsInWishlist(false)
           newWishlist = wishlist.filter((item) => item.id !== productPreview.id)
         } else {
-          message = "Product added to wishlist"
+          message = t("product_added_to_wishlist")
           setIsInWishlist(true)
           newWishlist.push(productPreview)
         }
@@ -111,7 +111,7 @@ const LoveButton: React.FC<LoveButtonProps> = ({ productPreview, locale }) => {
           .catch((error) => {
             if (error.response && error.response.status === 401) {
               toast.error(
-                "No session found, please login again, redirected to login..."
+               t("no_session_found")
               ) // Customize the message as needed
               // signOut();
             } else {
@@ -124,11 +124,8 @@ const LoveButton: React.FC<LoveButtonProps> = ({ productPreview, locale }) => {
       }
     } catch (error: any) {
       if (error.response && error.response.status === 401) {
-        // toast.error("No session found, please login again, redirected to login...",{duration:3000});
-        setTimeout(() => {
-          alert("No session found, please login again, please login again")
-          //   signOut()
-        }, 3000)
+        toast.error(t("no_session_found"),{duration:3000});
+    
       } else {
         console.error(error)
       }
@@ -156,12 +153,11 @@ const LoveButton: React.FC<LoveButtonProps> = ({ productPreview, locale }) => {
       {isOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 ">
           <dialog
-            className="bg-white-smoke rounded-lg p-6 shadow-lg flex flex-col text-center gap-3"
+            className="bg-white-smoke rounded-lg p-6 shadow-lg flex flex-col text-center gap-3 w-80"
             open
           >
-            <h5>Custom overlay</h5>
             <div>
-              Please login to your account in order to save images to wishlist
+             {t("login_to_save_to_wishlist")}
             </div>
             <nav className="flex justify-center gap-4">
               <Button
@@ -169,13 +165,13 @@ const LoveButton: React.FC<LoveButtonProps> = ({ productPreview, locale }) => {
                 className="transparent link"
                 variant={"danger"}
               >
-                Cancel
+                {t("cancel")}
               </Button>
               <Button
                 onClick={() => router.push("/account")}
                 variant={"primary"}
               >
-                Login
+                 {t("login")}
               </Button>
             </nav>
           </dialog>

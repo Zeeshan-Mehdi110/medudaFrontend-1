@@ -275,5 +275,11 @@
   "easy-returns": "החזרות קלות",
   "easy-returns-description": "פשוט תחזיר את המוצר שלך ונחזיר לך את הכסף. ללא שאלות - נעשה את כל המאמצים שההחזר יהיה נטול טרחה.",
    "giftcards":"כרטיסי מתנה",
-  "customerservice":"שירות לקוחות"
+  "customerservice":"שירות לקוחות",
+  "product_removed_from_wishlist":"המוצר הוסר מרשימת המשאלות",
+  "product_added_to_wishlist":"המוצר הוסף לרשימת המשאלות",
+  "no_session_found":"לא נמצאה פעילות, נא להתחבר שוב, מפנה לדף ההתחברות...",
+  "login_to_save_to_wishlist":"נא להתחבר לחשבונך כדי לשמור תמונות ברשימת המשאלות",
+  "wish-list":"רשימת משאלות",
+  "wishlist_empty":"רשימת המשאלות שלך ריקה"
 }

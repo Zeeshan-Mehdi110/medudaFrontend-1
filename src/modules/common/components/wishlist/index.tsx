@@ -2,6 +2,7 @@
 import ProductPreview from "@modules/products/components/product-preview"
 import { customerContext } from "app/[countryCode]/[locale]/template"
 import React, { useContext, useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
 
 interface WishListProps {
   items?: string[]
@@ -18,6 +19,7 @@ const WishList: React.FC<WishListProps> = ({
 
     const {customer} = useContext(customerContext) as any;
     const [wishlist, setWishlist] = useState<any[]>(customer?.metadata?.wishlist || []);
+    const {t} = useTranslation();
 
     useEffect(() => {
   
@@ -47,12 +49,12 @@ const WishList: React.FC<WishListProps> = ({
 
 
   if (!wishlist || wishlist.length === 0) {
-    return <div>Your wishlist is empty.</div>
+    return <div>{t("wishlist_empty")}</div>
   }
 
   return (
     <div className="flex flex-col gap-3">
-      <h2>Wish List</h2>
+      <h2 className="text-2xl">{t("wish-list")}</h2>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-4">
         {wishlist.map((item, index) => (
           <div className="w-[180px]"  key={item.id}>
@@ -62,7 +64,6 @@ const WishList: React.FC<WishListProps> = ({
               productPreview={item}
               region={region as any}
               locale={locale as string}
-              
             />
           </div>
         ))}
