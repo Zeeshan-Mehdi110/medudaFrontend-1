@@ -121,7 +121,7 @@ export default async function MyImages({params}: {params: any}) {
 
   return (
     <div className="w-full">
-      <div className="mb-8 flex flex-col gap-y-4">
+      <div className="mb-8 flex flex-col gap-y-8">
         <h1 className="text-2xl-semi"> {t("my-images")}</h1>
         <Text size="large">{t("upload-manage-images")}.</Text>
       </div>
