@@ -20,6 +20,7 @@ const isRtl = locale === 'ar' || locale === 'he'
     Store: "/store",
     Search: "/search",
     GiftCards: "/products/pixels-journey-gift-card",
+    WishList: "/account/my-images",
     Blog: "/blog",
     CustomerService: "/customer-service",
   }
