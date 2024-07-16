@@ -1,4 +1,3 @@
-
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { MagnifyingGlass } from "@medusajs/icons";
@@ -6,6 +5,7 @@ import { Poppins } from "next/font/google";
 import TypingText from "@modules/common/components/animata/typing-text";
 import LocalizedClientLink from "@modules/common/components/localized-client-link";
 import { useTranslation } from "react-i18next";
+import { usePathname } from 'next/navigation'
 
 interface CustomSearchProps {
   locale?: string;
@@ -21,7 +21,14 @@ const CustomSearch: React.FC<CustomSearchProps> = ({ locale }) => {
   const isRtl = locale === "ar" || locale === "he";
   const [isVisible, setIsVisible] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
-  const {t} = useTranslation();
+  const pathname = usePathname();
+
+  if (pathname !== "/") {
+    return null;
+  }
+
+  const { t } = useTranslation();
+
   useEffect(() => {
     const handleScroll = () => {
       setIsVisible(window.scrollY <= 300);
