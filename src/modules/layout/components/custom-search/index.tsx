@@ -5,7 +5,7 @@ import { Poppins } from "next/font/google";
 import TypingText from "@modules/common/components/animata/typing-text";
 import LocalizedClientLink from "@modules/common/components/localized-client-link";
 import { useTranslation } from "react-i18next";
-import { usePathname } from 'next/navigation'
+import { useParams, usePathname } from 'next/navigation'
 
 interface CustomSearchProps {
   locale?: string;
@@ -21,7 +21,10 @@ const CustomSearch: React.FC<CustomSearchProps> = ({ locale }) => {
   const isRtl = locale === "ar" || locale === "he";
   const [isVisible, setIsVisible] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
-  const pathname = usePathname();
+  const path = usePathname()
+  const params = useParams()
+  const {countryCode } = params || {} // Ensure params is not undefined
+  const isHomePage = path === `/${countryCode}/${locale}`
 
   const { t } = useTranslation();
 
@@ -48,14 +51,14 @@ const CustomSearch: React.FC<CustomSearchProps> = ({ locale }) => {
     }
   }, [isVisible]);
 
-  if (pathname !== "/") {
+  if (!isHomePage) {
     return null;
   }
 
   return (
     <div
       ref={containerRef}
-      className={`flex justify-center items-center w-full bg-gray p-1 transition-all duration-700 ease-in-out overflow-hidden`}
+      className={`flex justify-center items-center w-full bg-gray ${isVisible ? 'p-1' : ''} transition-all duration-700 ease-in-out overflow-hidden`}
       style={{
         maxHeight: isVisible ? '100px' : '0', // Adjust this value based on your content's height
         opacity: isVisible ? '1' : '0'
