@@ -23,10 +23,6 @@ const CustomSearch: React.FC<CustomSearchProps> = ({ locale }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
-  if (pathname !== "/") {
-    return null;
-  }
-
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -51,6 +47,10 @@ const CustomSearch: React.FC<CustomSearchProps> = ({ locale }) => {
       }
     }
   }, [isVisible]);
+
+  if (pathname !== "/") {
+    return null;
+  }
 
   return (
     <div
