@@ -284,5 +284,6 @@
   "giftcards": "Gift Cards",
   "customerservice": "Customer Service",
   "wishlist": "Wish List",
-  "wishlist_empty": "Your wishlist is empty"
+  "wishlist_empty": "Your wishlist is empty",
+  "search_placeholder": "Find your next masterpiece..."
 }

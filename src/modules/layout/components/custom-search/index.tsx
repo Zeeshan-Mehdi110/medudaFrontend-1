@@ -4,6 +4,7 @@ import { MagnifyingGlass } from "@medusajs/icons";
 import { Poppins } from "next/font/google";
 import TypingText from "@modules/common/components/animata/typing-text";
 import LocalizedClientLink from "@modules/common/components/localized-client-link";
+import { useTranslation } from "react-i18next";
 
 interface CustomSearchProps {
   locale?: string;
@@ -18,7 +19,7 @@ const merienda = Poppins({
 const CustomSearch: React.FC<CustomSearchProps> = ({ locale }) => {
   const isRtl = locale === "ar" || locale === "he";
   const [isVisible, setIsVisible] = useState(true);
-
+  const {t} = useTranslation();
   useEffect(() => {
     const handleScroll = () => {
       setIsVisible(window.scrollY <= 300);
@@ -54,7 +55,7 @@ const CustomSearch: React.FC<CustomSearchProps> = ({ locale }) => {
           grow={true}
           smooth={false}
           cursor={true}
-          text="Type to discover your favorite art!"
+          text={t("search_placeholder")}
           waitTime={2000}
           className={`absolute ${
             isRtl ? "right-[40px]" : "left-[40px]"
