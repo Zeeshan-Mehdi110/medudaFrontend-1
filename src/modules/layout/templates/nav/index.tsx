@@ -6,7 +6,7 @@ import SideMenu from "@modules/layout/components/side-menu"
 import Theme from "@modules/layout/components/theme-toggle"
 import LanguageToggle from "@modules/layout/components/language-toggle"
 import initTranslations from "app/i18n"
-import { Heart, ShoppingCart, User } from "@medusajs/icons"
+import { Heart, ShoppingCart, ShoppingCartSolid, User } from "@medusajs/icons"
 import { Poppins } from "next/font/google"
 import PromotionText from "@modules/home/components/promotion-text"
 import CustomSearch from "@modules/layout/components/custom-search"
@@ -88,7 +88,7 @@ export default async function Nav(params: any) {
                   className="hover:text-ui-fg-base flex flex-col gap-2 ml "
                   href="/cart"
                 >
-                  <ShoppingCart className="mr-1" />
+                  <ShoppingCartSolid className="mr-1" />
                   {t("cart")}
                 </a>
               }
