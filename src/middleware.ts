@@ -269,7 +269,8 @@ export async function middleware(request: NextRequest) {
   const isOnboarding = searchParams.get("onboarding") === "true"
   const onboardingCookie = request.cookies.get("_medusa_onboarding")
   const countryCodeCookie = request.cookies.get("countryCode")?.value
-
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set("x-pathname", request.nextUrl.pathname);
   const regionMap = await listCountries()
   let countryCode = regionMap && (await getCountryCode(request, regionMap))
   const isDiffCountryCode = request.nextUrl.pathname
@@ -292,7 +293,11 @@ export async function middleware(request: NextRequest) {
     urlHasLocale &&
     (!isOnboarding || onboardingCookie)
   ) {
-    let response = NextResponse.next()
+    let response = NextResponse.next({
+      request: {
+        headers: requestHeaders,
+      },
+    });
     !isCookieCountrieCodeSame && response.cookies.set("countryCode", countryCode, { maxAge: 60 * 60 * 24 })
     return response;
   }

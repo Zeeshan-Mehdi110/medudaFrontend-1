@@ -1,4 +1,3 @@
-
 import { Suspense } from "react"
 import { listRegions } from "@lib/data"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
@@ -11,6 +10,7 @@ import { Heart, ShoppingCart, User } from "@medusajs/icons"
 import { Poppins } from "next/font/google"
 import PromotionText from "@modules/home/components/promotion-text"
 import CustomSearch from "@modules/layout/components/custom-search"
+import { headers } from "next/headers"
 
 const merienda = Poppins({
   fallback: ["sans-serif"],
@@ -20,13 +20,19 @@ const merienda = Poppins({
 
 export default async function Nav(params: any) {
   const regions = await listRegions().then((regions) => regions)
-  const locale = params.children[1]
+  const locale = params.children[1].locale
+  const countryCode = params.children[1].countryCode
+
   const { t } = await initTranslations(locale, ["common"])
 
+  const heads = headers()
+
+  const pathname = heads.get("x-pathname")
+  const isHomePage = pathname === `/${countryCode}/${locale}`
 
   return (
     <div className="sticky top-0 inset-x-0 z-50 group ">
-      <PromotionText></PromotionText>
+      {isHomePage && <PromotionText />}
       <header className="relative  dark:bg-black bg-ui-bg-subtle h-16 mx-auto border-b duration-200  border-ui-border-base">
         <nav className="content-container overflow-x-hidden overflow-y-hidden txt-xsmall-plus text-ui-fg-subtle flex items-center justify-between w-full  h-full text-small-regular gap-[20px] pr-2 pl-2">
           <div className="flex-1 basis-0 h-full flex items-center sm:justify-between gap-4">
@@ -97,7 +103,7 @@ export default async function Nav(params: any) {
         </nav>
       </header>
       <div className="flex justify-center items-center w-full bg-gray p-1">
-        <CustomSearch locale={locale} />
+        {isHomePage && <CustomSearch locale={locale} />}
       </div>
     </div>
   )
