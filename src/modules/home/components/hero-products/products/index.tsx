@@ -218,7 +218,7 @@ const ProductSlider: React.FC<ProductSliderProps> = ({ products, locale }) => {
       </div>
       {isMobile ? (
         <div className="relative flex h-full max-h-96 min-h-72 w-full min-w-72 max-w-xl items-center justify-center overflow-hidden rounded-md border bg-background flex-col">
-          <Marquee isMobile={isMobile}>
+          <Marquee pauseOnHover={true} isMobile={isMobile}>
             {products.map((product, index) => (
               <LocalizedClientLink
                 className="mr-2 ml-2 w-[150px]"
