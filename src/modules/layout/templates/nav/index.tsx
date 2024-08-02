@@ -1,5 +1,5 @@
 import { Suspense } from "react"
-import { listRegions } from "@lib/data"
+import { getSession, listRegions } from "@lib/data"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CartButton from "@modules/layout/components/cart-button"
 import SideMenu from "@modules/layout/components/side-menu"
@@ -22,7 +22,7 @@ export default async function Nav(params: any) {
   const regions = await listRegions().then((regions) => regions)
   const locale = params.children[1].locale
   const countryCode = params.children[1].countryCode
-
+  const session = await getSession().catch(() => null)
   const { t } = await initTranslations(locale, ["common"])
 
   const heads = headers()
@@ -37,7 +37,7 @@ export default async function Nav(params: any) {
         <nav className="content-container overflow-x-hidden overflow-y-hidden txt-xsmall-plus text-ui-fg-subtle flex items-center justify-between w-full  h-full text-small-regular gap-[20px] pr-2 pl-2">
           <div className="flex-1 basis-0 h-full flex items-center sm:justify-between gap-4">
             <div className="h-full">
-              <SideMenu locale={locale} regions={regions} />
+              <SideMenu locale={locale} regions={regions} session={session} />
             </div>
             <div className="sm:hidden">
               <Theme />
@@ -67,7 +67,7 @@ export default async function Nav(params: any) {
               {process.env.FEATURE_SEARCH_ENABLED && (
                 <LocalizedClientLink
                   className="hover:text-ui-fg-base flex flex-col justify-center items-center"
-                  href="/account/my-images"
+                  href={session ? "/account/my-images" : "/account"}
                   scroll={false}
                 >
                   <Heart fill="red" />

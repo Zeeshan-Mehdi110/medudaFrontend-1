@@ -9,21 +9,21 @@ import { useTranslation } from "react-i18next"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CountrySelect from "../country-select"
 
-const SideMenu = ({ regions, locale }: { regions: Region[] | null, locale:string }) => {
+const SideMenu = ({ regions, locale, session }: { regions: Region[] | null, locale:string, session :any }) => {
   const toggleState = useToggleState()
   const { t } = useTranslation()
 const isRtl = locale === 'ar' || locale === 'he'
-  const SideMenuItems = {
-    Home: "/",
-    Account: "/account",
-    Cart: "/cart",
-    Store: "/store",
-    Search: "/search",
-    GiftCards: "/products/pixels-journey-gift-card",
-    WishList: "/account/my-images",
-    Blog: "/blog",
-    CustomerService: "/customer-service",
-  }
+const SideMenuItems = {
+  Home: "/",
+  Account: "/account",
+  Cart: "/cart",
+  Store: "/store",
+  Search: "/search",
+  GiftCards: "/products/pixels-journey-gift-card",
+  WishList: session ? "/account/my-images" : "/account",
+  Blog: "/blog",
+  CustomerService: "/customer-service",
+}
 
   return (
     <div className="h-full">
