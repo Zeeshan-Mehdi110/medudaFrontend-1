@@ -48,17 +48,17 @@ const LoveButton: React.FC<LoveButtonProps> = ({ productPreview, locale }) => {
 
   const isRtl = locale === "ar" || locale === "he"
   const getMedusaSession = async (event: React.MouseEvent) => {
-    event.stopPropagation() // Prevents the click event from bubbling up to the parent
+    event.stopPropagation() 
     let session = false
     setIsLoading(true)
     try {
       //   const response = await medusaClient.customers.retrieve()
       const customer = await getCustomer().catch(() => null)
       if (customer) {
-        session = true
+       
 
         let message = "";
-        // Initialize the wishlist if it does not exist
+
         if (!wishlist) {
           wishlist = []
         }
@@ -82,8 +82,7 @@ const LoveButton: React.FC<LoveButtonProps> = ({ productPreview, locale }) => {
           newWishlist.push(productPreview)
         }
 
-     
-        // Update the customer's metadata with the new wishlist
+
         customer.metadata.wishlist = newWishlist
 
         await medusaClient.customers
