@@ -69,7 +69,7 @@ const CustomSearch: React.FC<CustomSearchProps> = ({ locale }) => {
   return (
     <div
       ref={containerRef}
-      className={`flex justify-center items-center w-full bg-gray dark:bg-black ${isVisible ? 'p-1' : ''} transition-all duration-700 ease-in-out overflow-hidden`}
+      className={`flex justify-center items-center w-full bg-white-smoke dark:bg-black ${isVisible ? 'p-1' : ''} transition-all duration-700 ease-in-out overflow-hidden`}
       style={{
         maxHeight: isVisible ? '100px' : '0', // Adjust this value based on your content's height
         opacity: isVisible ? '1' : '0'
