@@ -102,7 +102,7 @@ export default async function Nav(params: any) {
           </div>
         </nav>
       </header>
-      <div className="flex justify-center items-center w-full bg-gray p-1 dark:bg-black">
+      <div className="flex justify-center items-center w-full bg-gray dark:bg-black">
         {isHomePage && <CustomSearch locale={locale} />}
       </div>
     </div>
