@@ -282,5 +282,7 @@
   "login_to_save_to_wishlist":"נא להתחבר לחשבונך כדי לשמור תמונות ברשימת המשאלות",
   "wishlist":"רשימת משאלות",
   "wishlist_empty":"רשימת המשאלות שלך ריקה",
-  "search_placeholder":"חפש את היצירת מופת הבאה שלך..."
+  "search_placeholder":"חפש את היצירת מופת הבאה שלך...",
+  "crop": "חתוך",
+  "crop-your-image": "חתוך את התמונה שלך"
 }

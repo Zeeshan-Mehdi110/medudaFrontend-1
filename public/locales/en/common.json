@@ -285,5 +285,7 @@
   "customerservice": "Customer Service",
   "wishlist": "Wish List",
   "wishlist_empty": "Your wishlist is empty",
-  "search_placeholder": "Find your next masterpiece..."
+  "search_placeholder": "Find your next masterpiece...",
+  "crop": "Crop",
+  "crop-your-image": "Crop your image"
 }

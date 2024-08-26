@@ -283,5 +283,7 @@
   "login_to_save_to_wishlist":"Пожалуйста, войдите в свой аккаунт, чтобы сохранить изображения в список желаний",
   "wishlist":"Список желаний",
   "wishlist_empty":"Ваш список желаний пуст",
-  "search_placeholder":"Find your next masterpiece..."
+  "search_placeholder":"Find your next masterpiece...",
+  "crop": "Обрезать",
+  "crop-your-image": "Обрежьте ваше изображение"
 }
