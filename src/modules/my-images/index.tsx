@@ -1098,9 +1098,9 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
                         `${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/store/delete-images`,
                         {
                           method: "DELETE",
-                          // headers: {
-                          //   "Content-Type": "application/json",
-                          // },
+                          headers: {
+                            "Content-Type": "application/json",
+                          },
                           body: JSON.stringify({ imageId }),
                         }
                       )
