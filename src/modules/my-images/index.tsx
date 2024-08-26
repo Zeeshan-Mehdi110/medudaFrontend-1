@@ -913,7 +913,7 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
               const newImageUrl = `https://imagedelivery.net/${process.env.NEXT_PUBLIC_CLOUDFLARE_ACCOUNT_HASH}/${id}/public`
               setImages([...images, newImageUrl])
               setFile(null)
-              toast.success("Image uploaded successfully!")
+              toast.success(`${t("image-uploaded-successfully")}!`)
             })
             .catch((error) => {
               if (error.response && error.response.status === 401) {
