@@ -620,7 +620,7 @@
 
 import { medusaClient } from "@lib/config"
 import { Dialog } from "@headlessui/react"
-import { ArrowUpMini, ShoppingBag, Trash } from "@medusajs/icons"
+import { ArrowPath, ArrowUpMini, ShoppingBag, Trash } from "@medusajs/icons"
 import { useTranslation } from "react-i18next"
 import React, {
   useState,
@@ -689,7 +689,8 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
   const [croppedArea, setCroppedArea] = useState<Area | null>(null)
   const [croppedImageBase64, setCroppedImageBase64] = useState<string | null>(null)
   const [isCropping, setIsCropping] = useState(false)
-
+  const [aspect, setAspect] = useState<number>(48 / 67.5);
+  
   function getCookieValue(name: any) {
     const value = `; ${document.cookie}`
     const parts = value.split(`; ${name}=`)
@@ -934,6 +935,10 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
       }
     }
   }
+
+  const toggleAspectRatio = () => {
+    setAspect((prevAspect) => (prevAspect === 48 / 67.5 ? 67.5 / 48 : 48 / 67.5));
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -1283,7 +1288,7 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
                   image={URL.createObjectURL(file!)}
                   crop={crop}
                   zoom={zoom}
-                  aspect={48 / 67.5} // Adjust the aspect ratio here
+                  aspect={aspect} // Adjust the aspect ratio here
                   onCropChange={setCrop}
                   onZoomChange={setZoom}
                   onCropComplete={onCropComplete}
@@ -1292,6 +1297,9 @@ const MyImagesComponent: React.FC<MyImagesComponentProps> = ({
                 />
               </div>
               <div className="mt-4 flex flex-col items-center gap-2">
+              <Button variant="secondary" onClick={toggleAspectRatio}>
+                  <ArrowPath/>
+                </Button>
                 <Slider
                   value={zoom}
                   min={0.3} // Allow zooming out to 30% of the original size
