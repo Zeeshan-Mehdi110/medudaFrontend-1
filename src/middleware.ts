@@ -183,7 +183,7 @@
 import { Region } from "@medusajs/medusa"
 import { NextRequest, NextResponse } from "next/server"
 import createMiddleware from "next-intl/middleware"
-
+import { locales } from "../config/config"
 const BACKEND_URL = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL
 const DEFAULT_REGION = process.env.NEXT_PUBLIC_DEFAULT_REGION || "us"
 
@@ -193,7 +193,7 @@ const DEFAULT_REGION = process.env.NEXT_PUBLIC_DEFAULT_REGION || "us"
  * @param response
  */
 
-const locales = ["en", "he", "ru"]
+// const locales = ["en", "he", "ru"]
 
 const nextIntl = createMiddleware({
   locales: locales,
@@ -263,27 +263,14 @@ async function listCountries() {
   }
 }
 
-/**
- * Middleware to handle region selection and onboarding status.
- */
-
-
-// const getCountryFromIP = async () => {
-//   try {
-//     const response = await axios.get('https://ipapi.co/json/');
-//     return response.data.country.toLowerCase(); // or response.data.country_code
-//   } catch (error) {
-//     console.error('Error fetching geolocation data:', error);
-//     return null;
-//   }
-// };
 export async function middleware(request: NextRequest) {
   let t = nextIntl(request)
   const searchParams = request.nextUrl.searchParams
   const isOnboarding = searchParams.get("onboarding") === "true"
   const onboardingCookie = request.cookies.get("_medusa_onboarding")
   const countryCodeCookie = request.cookies.get("countryCode")?.value
-
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set("x-pathname", request.nextUrl.pathname);
   const regionMap = await listCountries()
   let countryCode = regionMap && (await getCountryCode(request, regionMap))
   const isDiffCountryCode = request.nextUrl.pathname
@@ -306,7 +293,11 @@ export async function middleware(request: NextRequest) {
     urlHasLocale &&
     (!isOnboarding || onboardingCookie)
   ) {
-    let response = NextResponse.next()
+    let response = NextResponse.next({
+      request: {
+        headers: requestHeaders,
+      },
+    });
     !isCookieCountrieCodeSame && response.cookies.set("countryCode", countryCode, { maxAge: 60 * 60 * 24 })
     return response;
   }

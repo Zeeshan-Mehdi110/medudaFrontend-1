@@ -24,9 +24,11 @@ import { useTranslation } from "react-i18next"
 const Addresses = ({
   cart,
   customer,
+  locale
 }: {
   cart: Omit<Cart, "refundable_amount" | "refunded_total"> | null
-  customer: Omit<Customer, "password_hash"> | null
+  customer: Omit<Customer, "password_hash"> | null,
+  locale: string
 }) => {
   const searchParams = useSearchParams()
   const router = useRouter()
@@ -34,7 +36,6 @@ const Addresses = ({
   const params = useParams()
   const { t } = useTranslation()
   const countryCode = params.countryCode as string
-
   const isOpen = searchParams.get("step") === "address"
 
   const { state: sameAsSBilling, toggle: toggleSameAsBilling } = useToggleState(
@@ -59,7 +60,7 @@ const Addresses = ({
           {t("address")}
           {!isOpen && <CheckCircleSolid />}
         </Heading>
-        {!isOpen && cart?.shipping_address && (
+        {!isOpen && cart?.shipping_address && cart?.payment_session && (
           <Text>
             <button
               onClick={handleEdit}
@@ -79,6 +80,7 @@ const Addresses = ({
               checked={sameAsSBilling}
               onChange={toggleSameAsBilling}
               cart={cart}
+              locale={locale}
             />
 
             {!sameAsSBilling && (
@@ -124,7 +126,7 @@ const Addresses = ({
                     </Text>
                   </div>
 
-                  <div className="flex flex-col w-1/3 ">
+                  <div className="flex flex-col w-1/3 break-words break-all">
                     <Text className="txt-medium-plus text-ui-fg-base mb-1">
                     {t("contact")}
                     </Text>

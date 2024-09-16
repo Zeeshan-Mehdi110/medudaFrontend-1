@@ -17,7 +17,7 @@ export default async function EmptyCartMessage({locale} : {locale:string}): Prom
       {t("empty-cart")}
       </Text>
       <div>
-        <InteractiveLink href="/store">{t("explore-products")}</InteractiveLink>
+        <InteractiveLink locale={locale} href="/store">{t("explore-products")}</InteractiveLink>
       </div>
     </div>
   )

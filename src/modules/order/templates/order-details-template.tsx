@@ -21,6 +21,7 @@ const OrderDetailsTemplate: React.FC<OrderDetailsTemplateProps> = ({
   params,
 }) => {
   const {locale} = params;
+  const isGiftCardOnly= order.items.every((item) => item.is_giftcard) 
   return (
     <div className="flex flex-col justify-center gap-y-4">
       <div className="flex gap-2 justify-between items-center">
@@ -35,7 +36,7 @@ const OrderDetailsTemplate: React.FC<OrderDetailsTemplateProps> = ({
       <div className="flex flex-col gap-4 h-full bg-white w-full">
         <OrderDetails order={order} showStatus />
         <Items locale={locale} items={order.items} region={order.region} />
-        <ShippingDetails order={order} />
+        {!isGiftCardOnly &&  <ShippingDetails order={order} />}
         <OrderSummary locale={locale} order={order} />
         <Help />
       </div>

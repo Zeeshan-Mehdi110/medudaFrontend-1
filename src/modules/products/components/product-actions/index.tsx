@@ -194,13 +194,14 @@ import { useIntersection } from "@lib/hooks/use-in-view"
 import { addToCart } from "@modules/cart/actions"
 import Divider from "@modules/common/components/divider"
 import OptionSelect from "@modules/products/components/option-select"
-
+import { useTranslation } from "react-i18next"
 import MobileActions from "../mobile-actions"
 import ProductPrice from "../product-price"
 
 type ProductActionsProps = {
   product: PricedProduct
-  region: Region
+  region: Region,
+  locale: string
 }
 
 export type PriceType = {
@@ -213,10 +214,11 @@ export type PriceType = {
 export default function ProductActions({
   product,
   region,
+  locale,
 }: ProductActionsProps): JSX.Element {
   const [options, setOptions] = useState<Record<string, string>>({})
   const [isAdding, setIsAdding] = useState(false)
-
+  const { t } = useTranslation()
   const countryCode = useParams().countryCode as string
   const metadata = product.metadata;
   const variants = product.variants
@@ -229,7 +231,6 @@ export default function ProductActions({
     for (const option of product.options || []) {
       Object.assign(optionObj, { [option.id]: undefined })
     }
-
     setOptions(optionObj)
   }, [product])
 
@@ -362,6 +363,8 @@ export default function ProductActions({
                       current={options[option.id]}
                       updateOption={updateOptions}
                       title={option.title}
+                      locale={locale}
+                      productVariants={product.variants}
                     />
                   </div>
                 )
@@ -381,10 +384,10 @@ export default function ProductActions({
           isLoading={isAdding}
         >
           {!variant
-            ? "Select variant"
+            ? t("select-variant")
             : !inStock
-            ? "Out of stock"
-            : "Add to cart"}
+            ? t("out-of-stock")
+            : t("add-to-cart")}
         </Button>
         <MobileActions
           product={product}
@@ -396,6 +399,7 @@ export default function ProductActions({
           handleAddToCart={handleAddToCart}
           isAdding={isAdding}
           show={!inView}
+          locale={locale}
         />
       </div>
     </>

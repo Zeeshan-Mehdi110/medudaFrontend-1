@@ -26,6 +26,101 @@
     }
   }
   
+  .custom-button {
+    padding: 0.5rem 1rem !important; /* py-2 px-4 */
+    min-height: 1.5rem !important; /* min-h-6 */
+    background-color: #5b21b6 !important; /* bg-violet-800 */
+    color: white !important; /* text-white */
+    font-weight: 600 !important; /* font-semibold */
+    border-radius: 0.5rem !important; /* rounded-lg */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important; /* shadow-md */
+}
+
+.custom-button:hover {
+    background-color: #4c1d95 !important; /* hover:bg-violet-900 */
+}
+
+.custom-button:focus {
+    outline: none !important; /* focus:outline-none */
+    box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.75) !important; /* focus:ring-2 focus:violet-blue-500 focus:ring-opacity-75 */
+}
+
+
+.marquee-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.marquee {
+  display: inline-block;
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(222, 222, 222, 0.8); /* Adjust the color and opacity as needed */
+  backdrop-filter: blur(5px); /* Adjust the blur amount as needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  flex-direction: column;
+  gap:16px;
+  font-weight: bold;
+}
+
+.customEllipsePurple rect{
+  display: none;
+}
+
+
+.marquee p {
+  display: inline;
+  font-size: 12px;
+  font-weight: bold;
+  color: 'white'; /* Dark text color */
+  margin: 0;
+  
+}
+
+
+  .gift-card-banner-text {
+    position: absolute;
+    top: -5px;
+    text-align: center;
+    transform: scale(0.7);
+    width: 60%;
+    right:-15px;
+  }
+  
+  /* Small screens (min-width: 640px) */
+  @media (min-width: 640px) {
+    .gift-card-banner-text {
+      top: 58px;
+      transform: scale(1);
+      width: 50%;
+      max-width: 50%;
+      right:10px
+    }
+  }
+  
+  /* Large screens (min-width: 1024px) */
+  @media (min-width: 1024px) {
+    .gift-card-banner-text {
+      width: 60%;
+      top: 26%;
+      right:13px;
+    }
+  }
+
+
   .animate-flicker {
     animation: flicker 2.5s infinite;
   }

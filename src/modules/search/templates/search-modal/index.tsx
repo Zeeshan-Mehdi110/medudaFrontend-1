@@ -9,9 +9,10 @@ import Hit from "@modules/search/components/hit"
 import Hits from "@modules/search/components/hits"
 import SearchBox from "@modules/search/components/search-box"
 import { useEffect, useRef, useState } from "react"
+import { locales } from "../../../../../config/config"
 
 export default function SearchModal() {
-  const locales = ["en", "he", "ru"];
+  // const locales = ["en", "he", "ru"];
   const pathname = usePathname()
   const pathnameParts = pathname
   .split("/")

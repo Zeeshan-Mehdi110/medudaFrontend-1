@@ -55,6 +55,10 @@ import ProductPreview from "@modules/products/components/product-preview"
 import { ProductCollectionWithPreviews } from "types/global"
 import initTranslations from 'app/i18n';
 import TextConvertor from "@modules/products/components/text-convertor"
+import { Poppins } from "next/font/google"
+
+const poppins = Poppins({subsets:["latin"], weight: "600"})
+
 export default async function ProductRail({
   collection,
   region,
@@ -75,7 +79,7 @@ export default async function ProductRail({
   return (
     <div className="content-container py-12 small:py-24">
       <div className="flex justify-between mb-8">
-        <Text className="txt-xlarge dark:text-white"> <TextConvertor locale={locale ?? "en"} title={collection.title as string} metadata={collection?.metadata?.title ?? null as any}/></Text>
+        <Text className={`txt-xlarge ${poppins.className} dark:text-white`}> <TextConvertor locale={locale ?? "en"} title={collection.title as string} metadata={collection?.metadata?.title ?? null as any}/></Text>
         <InteractiveLink locale={locale} textColor={textColor}  href={`/collections/${collection.handle}`}>
         {t("view-all")}
         </InteractiveLink>
@@ -89,6 +93,7 @@ export default async function ProductRail({
                 region={region}
                 isFeatured
                 locale={locale ?? "en"}
+                textColor={textColor}
               />
             </li>
           ))}

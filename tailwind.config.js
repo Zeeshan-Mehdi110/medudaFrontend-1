@@ -36,11 +36,15 @@ module.exports = {
       },   
       colors: {
         'white-smoke': '#f5f5f5',
-        'dark-navy':'#3A3B48',
+        'dark-navy':'#030712',
         // 'gold':'#FFE7E0',
         'gold':'#F8E8D8',
         'gray' : '#F0F0F0',
+        'gray-300':"#1f2937",
         scale: {
+          '60': '0.6',
+          '70': '0.7',
+          '80': '0.8',
           '90': '0.9',
           '100': '1',
         },
@@ -163,6 +167,14 @@ module.exports = {
           "0%": { transform: "translateY(-100%)" },
           "100%": { transform: "translateY(0)" },
         },
+        "marquee-x": {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(calc(-100% - var(--gap)))" },
+        },
+        "marquee-y": {
+          from: { transform: "translateY(0)" },
+          to: { transform: "translateY(calc(-100% - var(--gap)))" },
+        },
       },
       animation: {
         ring: "ring 2.2s cubic-bezier(0.5, 0, 0.5, 1) infinite",
@@ -178,8 +190,10 @@ module.exports = {
         enter: "enter 200ms ease-out",
         "slide-in": "slide-in 1.2s cubic-bezier(.41,.73,.51,1.02)",
         leave: "leave 150ms ease-in forwards",
+        "marquee-horizontal": "marquee-x 20s linear infinite ",
+        "marquee-vertical": "marquee-y 20s linear infinite",
       },
     },
   },
-  plugins: [require("tailwindcss-radix")()],
+  plugins: [require("tailwindcss-radix")(), [require("tailwindcss-animate")]],
 }

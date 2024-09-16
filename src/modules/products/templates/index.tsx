@@ -44,9 +44,9 @@ const ProductTemplate: React.FC<ProductTemplateProps> = async({
         <div className="flex flex-col small:sticky small:top-48 small:py-0 small:max-w-[300px] w-full py-8 gap-y-12">
           <ProductOnboardingCta />
           <Suspense
-            fallback={<ProductActions product={product} region={region} />}
+            fallback={<ProductActions locale={locale} product={product} region={region} />}
           >
-            <ProductActionsWrapper id={product.id} region={region} />
+            <ProductActionsWrapper locale={locale} id={product.id} region={region} />
           </Suspense>
           <div className="">
             <h3 className={`text-lg dark:text-white font-semibold mb-4 ${rtl ? "text-right" : "text-left"}`}>{t("share-with-friends-on")}:</h3>

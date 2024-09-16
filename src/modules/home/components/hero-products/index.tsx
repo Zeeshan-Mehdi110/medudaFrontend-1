@@ -10,7 +10,7 @@ export default function HeroProducts({locale}:{locale:string}) {
     const getProducts = async () => {
       try {
         let {products} = await medusaClient.products.list();
-        products = products.filter((product:any) => product.handle !== "custom-print")
+        products = products.filter((product:any) => (product.handle !== "custom-print" && product.is_giftcard == false))
         setProducts(products)
       } catch (error) {
         console.log(error)

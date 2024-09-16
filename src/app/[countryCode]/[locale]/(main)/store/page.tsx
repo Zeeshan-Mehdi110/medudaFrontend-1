@@ -1,11 +1,26 @@
-import { Metadata } from "next"
+import { Metadata, ResolvingMetadata } from "next"
 
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 import StoreTemplate from "@modules/store/templates"
+import initTranslations from "app/i18n";
 
-export const metadata: Metadata = {
-  title: "Store",
-  description: "Explore all of our products.",
+
+export async function generateMetadata(
+  { params }: { params: { locale: string } },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+
+  const { t } = await initTranslations(params.locale, ['common']);
+  const translatedKeywords = t("pixels-journey-store-seo-keywords").split(', ');
+
+  return {
+    title: "Pixels Journey Store",
+    description: t("pixels-journey-store-page-seo-description"),
+    keywords: translatedKeywords,
+    openGraph: {
+      images: ['/opengraph-image.png']
+    }
+  };
 }
 
 type Params = {

@@ -11,9 +11,8 @@ import { cookies } from "next/headers"
 import { CartWithCheckoutStep } from "types/global"
 import { getCheckoutStep } from "@lib/util/get-checkout-step"
 
-export default async function CheckoutForm() {
+export default async function CheckoutForm({ locale }: { locale: string }) {
   const cartId = cookies().get("_medusa_cart_id")?.value
-
   if (!cartId) {
     return null
   }
@@ -28,7 +27,7 @@ export default async function CheckoutForm() {
   }
 
   cart.checkout_step = cart && getCheckoutStep(cart)
-
+  const isOnlyGiftCard = cart.items.every((item) => item.is_giftcard)
   // get available shipping methods
   const availableShippingMethods = await listShippingMethods(
     cart.region_id
@@ -43,20 +42,21 @@ export default async function CheckoutForm() {
 
   return (
     <div>
-      <div className="w-full grid grid-cols-1 gap-y-8  dark:text-white dark:bg-black">
+      <div className="w-full grid grid-cols-1 gap-y-8 bg-white  dark:text-white dark:bg-black">
         <div>
-          <Addresses cart={cart} customer={customer} />
+          <Addresses locale={locale} cart={cart} customer={customer} />
         </div>
+        {!isOnlyGiftCard && (
+          <div>
+            <Shipping
+              cart={cart}
+              availableShippingMethods={availableShippingMethods}
+            />
+          </div>
+        )}
 
         <div>
-          <Shipping
-            cart={cart}
-            availableShippingMethods={availableShippingMethods}
-          />
-        </div>
-
-        <div>
-          <Payment cart={cart} />
+          <Payment locale={locale} cart={cart} />
         </div>
 
         <div>

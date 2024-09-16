@@ -12,7 +12,7 @@ import LineItemOptions from "@modules/common/components/line-item-options"
 import LineItemPrice from "@modules/common/components/line-item-price"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import Thumbnail from "@modules/products/components/thumbnail"
-import { ShoppingCart } from "@medusajs/icons"
+import { ShoppingCart, ShoppingCartSolid } from "@medusajs/icons"
 
 const CartDropdown = ({
   cart: cartState,
@@ -79,13 +79,19 @@ const CartDropdown = ({
       onMouseLeave={close}
     >
       <Popover className="relative h-full ">
-      <Popover.Button className="h-full ">
+        <Popover.Button className="h-full ">
           <LocalizedClientLink
             className="hover:text-ui-fg-base flex "
             href="/cart"
           >
-             <ShoppingCart className="mr-1" /> 
-            {`(${totalItems})`}</LocalizedClientLink>
+            <div className="flex flex-col">
+              <div className="flex">
+                <ShoppingCartSolid className="mr-1" />
+                {`(${totalItems})`}
+              </div>
+              {t("cart")}
+            </div>
+          </LocalizedClientLink>
         </Popover.Button>
         <Transition
           show={cartDropdownOpen}
@@ -133,8 +139,13 @@ const CartDropdown = ({
                                     {item.title}
                                   </LocalizedClientLink>
                                 </h3>
-                                <LineItemOptions locale={locale} variant={item.variant} />
-                                <span>{t("quantity")}: {item.quantity}</span>
+                                <LineItemOptions
+                                  locale={locale}
+                                  variant={item.variant}
+                                />
+                                <span>
+                                  {t("quantity")}: {item.quantity}
+                                </span>
                               </div>
                               <div className="flex justify-end">
                                 <LineItemPrice
@@ -146,7 +157,7 @@ const CartDropdown = ({
                             </div>
                           </div>
                           <DeleteButton id={item.id} className="mt-1">
-                          {t("remove")}
+                            {t("remove")}
                           </DeleteButton>
                         </div>
                       </div>
@@ -168,7 +179,7 @@ const CartDropdown = ({
                   </div>
                   <LocalizedClientLink href="/cart" passHref>
                     <Button className="w-full" size="large">
-                    {t("go-to-cart")}
+                      {t("go-to-cart")}
                     </Button>
                   </LocalizedClientLink>
                 </div>
@@ -183,7 +194,9 @@ const CartDropdown = ({
                   <div>
                     <LocalizedClientLink href="store">
                       <>
-                        <span className="sr-only">{t("go-to-all-products-page")}</span>
+                        <span className="sr-only">
+                          {t("go-to-all-products-page")}
+                        </span>
                         <Button onClick={close}>{t("explore-products")}</Button>
                       </>
                     </LocalizedClientLink>

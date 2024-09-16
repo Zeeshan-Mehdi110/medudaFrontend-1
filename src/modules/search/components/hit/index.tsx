@@ -7,7 +7,8 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 export type ProductHit = {
   id: string
   title: string
-  handle: string
+  handle: string,
+  is_giftcard: boolean
   description: string | null
   thumbnail: string | null
   variants: ProductVariant[]

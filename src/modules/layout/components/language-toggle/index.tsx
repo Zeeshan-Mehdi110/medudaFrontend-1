@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation" // Correct import for useRouter
 import { useTranslation } from "react-i18next"
+import { locales } from "../../../../../config/config"
 
 const setCookie = (name: string, value: string, days: number) => {
   const expires = new Date(Date.now() + days * 864e5).toUTCString()
@@ -13,7 +14,7 @@ const setCookie = (name: string, value: string, days: number) => {
 
 export default function LanguageToggle({locale} : {locale: string}) {
   const searchParams = useSearchParams().toString()
-  const locales = ["en", "he", "ru"];
+  // const locales = ["en", "he", "ru"];
   const { t } = useTranslation()
   const pathname = usePathname()
   const pathnameParts = pathname

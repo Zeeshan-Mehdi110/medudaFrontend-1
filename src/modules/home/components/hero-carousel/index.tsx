@@ -1,68 +1,3 @@
-// "use client"
-// import { Swiper, SwiperSlide } from "swiper/react"
-// import {
-//   A11y,
-//   Autoplay,
-//   Navigation,
-//   Pagination,
-//   Scrollbar,
-// } from "swiper/modules"
-// import "swiper/css" // core Swiper
-// import "swiper/css/navigation" // Navigation module
-// import "swiper/css/pagination" // Pagination module
-// import heroBanner from "../../../../../public/PixelsJourney.png"
-// import heroBanner2 from "../../../../../public/PixelsJourneyCopy.png"
-// import heroBanner3 from "../../../../../public/PixelsJourneyCopy2.png"
-// import './custom-swiper-style.css';
-// const MySwiperComponent = ({locale} : {locale:string}) => {
-//   return (
-//     <Swiper
-//       style={{ height: "100%", width: "100%" }}
-//       modules={[Navigation,Autoplay, Pagination]}
-//       spaceBetween={50}
-//       slidesPerView={1}
-//       navigation
-//       pagination={{ clickable: true }}
-//       autoplay={{
-//         delay: 2500,
-//         disableOnInteraction: true,
-//         pauseOnMouseEnter: true,
-//         reverseDirection: true,
-//       }}
-//       loop={true}
-      
-//     >
-//       <SwiperSlide>
-//         {" "}
-//         <img
-//           src={heroBanner.src}
-//           alt="Background"
-//           className="absolute w-full h-full z-0 rounded-lg object-fit"
-//         />{" "}
-//       </SwiperSlide>
-//       <SwiperSlide>
-//         {" "}
-//         <img
-//           src={heroBanner2.src}
-//           alt="Background"
-//           className="absolute w-full h-full z-0 rounded-lg object-fit"
-//         />{" "}
-//       </SwiperSlide>
-//       <SwiperSlide>
-//         {" "}
-//         <img
-//           src={heroBanner3.src}
-//           alt="Background"
-//           className="absolute w-full h-full z-0 rounded-lg object-fit"
-//         />{" "}
-//       </SwiperSlide>
-//       {/* Add more <SwiperSlide> components as needed */}
-//     </Swiper>
-//   )
-// }
-
-// export default MySwiperComponent
-
 "use client"
 import { Swiper, SwiperSlide } from "swiper/react"
 import {
@@ -100,10 +35,12 @@ const MySwiperComponent = ({ locale }: { locale: string }) => {
   const router = useRouter()
   const [images, setImages] = useState<ImageItem[]>([])
   useEffect(() => {
-    fetch( `https://strapi-blog-m4go.onrender.com/api/hero-images?locale=${locale}&populate=*`)
+    fetch(
+      `https://strapi-blog-m4go.onrender.com/api/hero-images?locale=${locale}&populate=*`
+    )
       .then((response) => response.json())
       .then((data) => {
-        let items = extractData(data)
+        let items = extractData(data) || [];
         setImages(items)
       })
       .catch((error) => console.error("Error fetching images:", error))
@@ -127,29 +64,29 @@ const MySwiperComponent = ({ locale }: { locale: string }) => {
   }
 
   const extractData = (apiResponse: any) => {
-    return apiResponse.data.map((item: { attributes: any }) => {
-      const { image, elementsPositions, title, subtitle, link,linkText } =
+    return apiResponse?.data?.map((item: { attributes: any }) => {
+      const { image, elementsPositions, title, subtitle, link, linkText } =
         item.attributes
       const imageUrl =
-        image.data.length > 0 ? image.data[0].attributes.url : null
+        (image && image.data) && image.data.length > 0 ? image.data[0].attributes.url : null
       const imageName =
-        image.data.length > 0 ? image.data[0].attributes.name : null
+      (image && image.data) && image.data.length > 0 ? image.data[0].attributes.name : null
 
       return {
         title,
         subtitle,
         link: link.replace(/"/g, ""), // Remove double quotes around the link
         elementsPositions: {
-          linkPosition: elementsPositions["link-position"],
-          titlePosition: elementsPositions["title-position"],
-          subtitlePosition: elementsPositions["subtitle-position"],
-          wrapperDivPosition: elementsPositions["wrapper-div-position"],
+          linkPosition: elementsPositions["link-position"] ?? null,
+          titlePosition: elementsPositions["title-position"] ?? null,
+          subtitlePosition: elementsPositions["subtitle-position"] ?? null,
+          wrapperDivPosition: elementsPositions["wrapper-div-position"] ?? null,
           wrapperDivPositionTailwind:
-            elementsPositions["wrapper-div-position-tailwind"],
+            elementsPositions["wrapper-div-position-tailwind"] ?? null,
         },
         imageName,
         imageUrl,
-        linkText
+        linkText,
       }
     })
   }
@@ -170,44 +107,59 @@ const MySwiperComponent = ({ locale }: { locale: string }) => {
       }}
       loop={true}
     >
-      {images.map(
-        (img, index) => (
-          (
-            <SwiperSlide key={index}>
-              <div className="hero-banner-image font- relative z-0 w-full h-full">
-                <Image
+      {images.map((img, index) => (
+        <SwiperSlide key={index}>
+          <div className="hero-banner-image font- relative z-0 w-full h-full">
+            {/* <Image
                   src={img.imageUrl} // Make sure your API response matches the expected src attribute
                   alt={img.imageName || "Background"} // Optional alt text from API or default
                   className="rounded-lg object-fit w-full h-full"
                   width={1920}
                   height={1080}
-                />
-         
-                  <div
-                  className={img.elementsPositions.wrapperDivPositionTailwind}
-                    style={parseStyleString(
-                      img.elementsPositions.wrapperDivPosition
-                    )}
+                /> */}
+            <video
+              src="/heroVideo.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute top-0 left-0 w-full h-full object-fill"
+              style={{borderRadius: "10px"}}
+            ></video>
+            {/* <div
+              className={img.elementsPositions.wrapperDivPositionTailwind}
+              style={parseStyleString(img.elementsPositions.wrapperDivPosition)}
+            >
+              <h2 className={img.elementsPositions.titlePosition}>
+                {img.title}
+              </h2>
+              <span className={img.elementsPositions.subtitlePosition}>
+                {img.subtitle}
+              </span>
+              {img.link && (
+                <div className="button-wrapper w-full flex justify-center items-center">
+                  <Button
+                    onClick={() => router.push(img.link)}
+                    className="custom-button"
                   >
-                    <h2 className={img.elementsPositions.titlePosition}>{img.title}</h2>
-                    <span className={img.elementsPositions.subtitlePosition}>{img.subtitle}</span>
-                    {img.link && (
-                      <div className="button-wrapper w-full flex justify-center items-center">
-                        <Button
-                          onClick={() => router.push(img.link)}
-                          variant="primary"
-                        >
-                          {img.linkText}
-                        </Button>
-                      </div>
-                    )}
-                  </div>
+                    {img.linkText}
+                  </Button>
                 </div>
-             
-            </SwiperSlide>
-          )
-        )
-      )}
+              )}
+            </div> */}
+            <div className=" w-full flex justify-center absolute bottom-7">
+              <div className="button-wrapper w-full flex justify-center items-center">
+                <Button
+                  onClick={() => router.push("/store")}
+                  className="custom-button"
+                >
+                  {img.linkText}
+                </Button>
+              </div>
+            </div>
+          </div>
+        </SwiperSlide>
+      ))}
     </Swiper>
   )
 }
